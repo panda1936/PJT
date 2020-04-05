@@ -1,5 +1,15 @@
 <?php
 
+#require ('/Model/....');
 
-include ('Affichage/creation_classe.html');
+function creation()
+{
+	require ('/Affichage/creation_classe.html');
+}
+
+function classe ()
+{
+	
+	#require ('/Affichage/creation_classe.html');
+}
 

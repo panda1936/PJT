@@ -16,8 +16,12 @@ if (isset($_GET['action']))
 	{
 		
 	}
+	elseif ($_GET['action'] == 'deconnexion')
+	{
+	
+	}
 }
 else 
 {
-	require ('/Affichage/creation_classe.html');
+	creation (); 
 }
