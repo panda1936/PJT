@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Création de la classe</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<link rel="stylesheet" href="style/style.css" media="screen" type="text/css" />
+	</head>
+
+	<body>
+
+		<div class="formulaire">
+			<div class="boite_formulaire">
+				<form action="PageValidation.html" method="post"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+					<span class="titre">
+						Création de votre classe
+					</span>
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nom de la classe </span>
+						<input class="case_a_remplir" type="text" name="nom" placeholder=" Ex : 5A">
+					</div>
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nombres d'élèves </span>
+						<input type="number" min="0" max="35"class="case_a_remplir" type="text" name="nombre" placeholder="Ex : 24">
+					</div>
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nombres de rangs </span>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4">
+					</div>
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nombres de colonnes </span>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8">
+					</div>
+
+
+
+					<label for="placement">
+						Placement des élèves :  
+                        <select id="placement" name="placement">
+                            <option value="Alphabetique">Alphabetique</option>
+                            <option value="Aléatoire">Aléatoire</option>
+                        </select>
+                    </label>
+
+                 
+                    <br><br><label id="avatar" for="avatar">Choisir un fichier d'élèves:
+						<input type="file" id="avatar" name="fichier" accept=".csv">
+					</label>
+					
+						<div class="classe_bouton">
+							<div class="degrade"></div>
+							<button class="taille_bouton">
+								Valider
+							</button>
+						</div>				
+					
+				</form>
+			</div>
+
+
+		</div>
+	</body>
+</html>
