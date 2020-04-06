@@ -4,7 +4,7 @@
 
 function creation()
 {
-	require ('creation_classe.html');
+	require ('Affichage/creation_classe.html');
 }
 
 function classe ()
