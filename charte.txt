@@ -1,1 +1,3 @@
-test
+Profs (IdProf, pseudo,mdp)
+ProfClasse(IdProf, nomClasse)
+Classe(nomClasse, nom, prénom, IdEleve, x,y,commentaire)
