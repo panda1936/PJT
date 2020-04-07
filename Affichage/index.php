@@ -146,6 +146,6 @@
             
         </div>
         
-        <script src="js/accueil.js"></script>
+        <script src="accueil.js"></script>
     </body>
 </html>
