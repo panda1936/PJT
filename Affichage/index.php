@@ -41,7 +41,7 @@
                             $_SESSION['pseudo'] = $userinfo['pseudo'];
                             $_SESSION['mail'] = $userinfo['mail'];
                             $_SESSION['user_type'] == 'user';
-                            header("Location: accueil_client.php?id=".$_SESSION['id']);
+                            header("Location: creation_classe.html?id=".$_SESSION['id']);
                         }
                     }
                     else {
