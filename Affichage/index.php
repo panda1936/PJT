@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Hosptimal</title>
         <link rel="icon" href="icone.png" type="x-icon">
-        <link rel="stylesheet" href="css/accueil.css">
+        <link rel="stylesheet" href="style/accueil.css">
     </head>
     
     <body>

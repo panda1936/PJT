@@ -5,10 +5,17 @@ body {
     color: white;
     font-family: sans-serif;
     margin: 0;
+    
     background: url("../images/fond-dark.jpg") no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    background-size: cover;
+    
+    background-image: url(../images/fond-dark.jpg);
+    -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/fond-dark.jpg', sizingMethod='scale')";
+
+
 }
 
 
