@@ -1,4 +1,4 @@
 Nom bdd : Global
-Profs(idProf, pseudo,mdp)
+Profs(idProf, pseudo,mdp, mail)
 ProfClasse(idProf, nomClasse)
 nomClasse(nom, prenom, idEleve, x,y,commentaire,bavardage, participation )
