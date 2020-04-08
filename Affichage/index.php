@@ -18,13 +18,13 @@
             <?php
             session_start();
 
-            $bdd = new PDO('mysql:host=localhost;dbname=membres;charset=utf8', 'root', '');
+            $bdd = new PDO('mysql:host=localhost;dbname=Global;charset=utf8', 'root', '');
 
             if(isset($_POST['formconnexion'])) {
                 $mailconnect = htmlspecialchars($_POST['mailconnect']);
                 $mdpconnect = sha1($_POST['mdpconnect']);
                 if(!empty($mailconnect) AND !empty($mdpconnect)) {
-                    $requser = $bdd->prepare("SELECT * FROM test WHERE mail = ? AND motdepasse = ?");
+                    $requser = $bdd->prepare("SELECT * FROM prof WHERE mail = ? AND mdp = ?");
                     $requser->execute(array($mailconnect, $mdpconnect));
                     $userexist = $requser->rowCount();
                     if($userexist > 0) {
@@ -41,7 +41,7 @@
                             $_SESSION['pseudo'] = $userinfo['pseudo'];
                             $_SESSION['mail'] = $userinfo['mail'];
                             $_SESSION['user_type'] == 'user';
-                            header("Location: creation_classe.html?id=".$_SESSION['id']);
+                            header("Location: accueil_client.php?id=".$_SESSION['id']);
                         }
                     }
                     else {
@@ -57,8 +57,8 @@
                     <label for="email" class="label">EMAIL</label><br>
                     <input id="email" type="email" name="mailconnect" class="input" placeholder="Votre email"><br><br>
 
-                    <label for="motdepasse" class="label">MOT DE PASSE</label><br>
-                    <input id="motdepasse" type="password" name="mdpconnect" class="input" placeholder ="Votre mot de passe"><br><br><br>
+                    <label for="mdp" class="label">MOT DE PASSE</label><br>
+                    <input id="mdp" type="password" name="mdpconnect" class="input" placeholder ="Votre mot de passe"><br><br><br>
 
                     <input type="submit" name="formconnexion" value="CONNECTEZ-VOUS" class="bouton"><br><br>
                 </form><br><br><br><br><br><br><br><br>
@@ -76,7 +76,7 @@
             <!-- s'inscrire -->
             <?php
 
-            $bdd = new PDO('mysql:host=localhost;dbname=membres;charset=utf8', 'root', '');
+            $bdd = new PDO('mysql:host=localhost;dbname=Global;charset=utf8', 'root', '');
 
             if(isset($_POST['forminscription'])) {
                 $pseudo = htmlspecialchars($_POST['pseudo']); /*htmlspecialchars pr eviter la faille xss*/
@@ -89,12 +89,12 @@
                     if($pseudolength <= 255) {
                         if($mail == $mail2) {
                             if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                                $reqmail = $bdd->prepare("SELECT * FROM test WHERE mail = ?");
+                                $reqmail = $bdd->prepare("SELECT * FROM profs WHERE mail = ?");
                                 $reqmail->execute(array($mail));
                                 $mailexist = $reqmail->rowCount();
                                 if($mailexist == 0) {
                                     if($mdp == $mdp2) {
-                                        $insertmbr = $bdd->prepare("INSERT INTO test(pseudo, mail, motdepasse, user_type) VALUES(?, ?, ?,'user')");
+                                        $insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mdp, mail) VALUES(?, ?, ?)");
                                         $insertmbr->execute(array($pseudo, $mail, $mdp));
                                         $erreur = "Votre compte a bien été crée ! <a href=\"ecole.php\">Me connecter</a>";
                                     } else {
