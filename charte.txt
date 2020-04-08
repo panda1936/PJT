@@ -1,3 +1,4 @@
+Nom bdd : Global
 Profs(IdProf, pseudo,mdp)
 ProfClasse(IdProf, nomClasse)
 Classe(nomClasse, nom, prenom, IdEleve, x,y,commentaire)
