@@ -8,8 +8,11 @@ if (isset($_GET['action']))
 	{
 		
 	}
-	elseif ($_GET['action'] == 'modification') 
+	elseif ($_GET['action'] == 'validation') 
 	{
+		 
+		Validation ();
+		// vider la variable unset ($_POST);
 		
 	}
 	elseif ($_GET['action'] == 'classe')

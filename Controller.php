@@ -1,15 +1,20 @@
 <?php
 
-#require ('....');
+#require ('Model/global.php');
 
 function creation()
 {
 	require ('Affichage/creation_classe.html');
 }
+function validation()
+{
+	require ('Affichage/PageValidation.html');
+}
+
 
 function classe ()
 {
 	
-	#require ('creation_classe.html');
+	require ('Affichage/index.php');
 }
 
