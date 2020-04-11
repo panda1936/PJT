@@ -78,25 +78,25 @@ function ajouterClasse () {
 	}
 }
 
-function newClasse ()
+function newClasse($bdd, $nameTab)
 {
-	if (isset($_POST['prenom']))
-	{
-		$nom= $_POST['prenom'];
-		$sql = ("CREATE TABLE " .$nom."(
-	    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-	    `nom` TEXT NOT NULL
-	    )");
+	$sql = ("CREATE TABLE " .$nameTab."(
+		`nom` VARCHAR(25) NOT NULL,
+		`prenom` VARCHAR(25) NOT NULL, 
+		`idEleve` INT(25) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		`x` INT(40) DEFAULT NULL,
+		`y` INT(40) DEFAULT NULL,
+		`commentaire` VARCHAR(250))");
 		
-		$req = $bdd->query($sql);
+	$req = $bdd->query($sql);
 	
-		if ($req === false)
-			echo 'ERREUR : ', print_r($bdd->errorInfo());
-		else
-			echo 'table creer';
-			header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
-	}
+	if ($req === false)
+		echo 'ERREUR : ', print_r($bdd->errorInfo());
+	else
+		echo 'table creer';
+		header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
 }
+
 
 try{
     	$bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
@@ -118,14 +118,19 @@ if(!empty($_POST['remColumn'])){
 }
 
 if(!empty($_POST['addStudent'])){
-	$nameTab = 'classe2';
+	$nameTab = 'test';
     $func = 'addStudent';
     $func($bdd, $nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
 }
 
-if(!empty($_POST['test'])){
+if(!empty($_POST['Importer'])){
     $func = 'ajouterClasse';
     $func();
+}
+
+if(!empty($_POST['newClasse'])){
+    $func = 'newClasse';
+    $func($bdd, $_POST['nameTable']);
 }
 
 ?>
@@ -143,11 +148,17 @@ if(!empty($_POST['test'])){
 
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	Ajouter eleve : 
-	NOM : <input type="text" name="firstNameStud" placeholder="saisir...">
-	PRENOM : <input type="text" name="secondNameStud" placeholder="saisir...">
+	NOM <input type="text" name="firstNameStud" placeholder="saisir...">
+	PRENOM <input type="text" name="secondNameStud" placeholder="saisir...">
  	<input type="submit" name="addStudent">
 </form>
 
+<form action="newfile" enctype = "multipart/form-data" method="post">
+	<input name = "userfile" type = "file" value = "table" />
+	<input name = "submit" type = "submit" value = "Importer"/>
+</form>
+
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-	<input type="button" value="Creer classe", name="test">
+	Nouvelle classe : <input type="text" name="nameTable" placeholder="saisir...">
+ 	<input type="submit" name="newClasse">
 </form>
