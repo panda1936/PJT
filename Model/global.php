@@ -1,8 +1,8 @@
 <?php
 
 function addColumn($bdd, $nameTab, $nameColumn){
-    $sql = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
-    $bdd->exec($sql);
+    $add_column = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
+    $bdd->exec($add_column);
     echo 'Colonne ajoutee';
 }
 
@@ -18,8 +18,8 @@ function remColumn($bdd, $nameTab, $nameColumn){
 }
 
 function addStudent($bdd, $nameTab, $nom, $prenom){
-    $requete = $bdd->prepare("INSERT INTO $nameTab(nom, prenom, idEleve, x, y, commentaire) VALUES (?,?,?,?,?,?)");
-    $requete-> execute(array($nom, $prenom, 0, 0, 0, 'test'));
+    $add_stud = $bdd->prepare("INSERT INTO $nameTab(nom, prenom, idEleve, x, y, commentaire) VALUES (?,?,?,?,?,?)");
+    $add_stud-> execute(array($nom, $prenom, 0, 0, 0, 'test'));
     echo "Inserer eleve";
 }
 
@@ -34,6 +34,33 @@ function modifClasse($bdd, $nameTab, $nameColumn, $id, $value){
     $bdd->exec($modif);
     echo 'Valeur ajoutee';
 }
+
+function relation($bdd, $idProf, $nameClasse){
+    $add_relation = $bdd->prepare("INSERT INTO $profClasse(idProf, nomClasse) VALUES (?,?)");
+    $add_relation-> execute(array($idProf, $nameClasse));
+    echo "Relation prof/classe";
+}
+
+function allClasse($bdd, $idProf){
+	$query = "SELECT nomclasse FROM profclasse WHERE idProf = $idProf";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	if ($NbreData != 0) 
+	{
+		foreach ( $rowAll as $row ) 
+		{
+			echo $row['nomclasse'];
+			echo '<br/>';
+		}
+	} 
+	else {
+		echo 'pas de donnée à afficher <br/>';
+	}
+}
+
 
 function ajouterClasse () {
 	extract(filter_input_array(INPUT_POST));
@@ -68,17 +95,15 @@ function ajouterClasse () {
 				        die('Erreur : ' . $e->getMessage());
 				}
 				
-				$sql = ("INSERT INTO student (id,nom, prenom, classe, retard ) VALUES (0, '$champs1' , '$champs2', '$champs3', 0) ");
+				$sql = ("INSERT INTO student (nom, prenom, idEleve, classe, retard ) VALUES (0, '$champs1' , '$champs2', '$champs3', 0) ");
 				$result = $bdd->query($sql); 
-	
 			}
-			
 		}
 		fclose($fp);
 	}
 }
 
-function newClasse($bdd, $nameTab)
+function newClasse($bdd, $nameTab, $idProf)
 {
 	$sql = ("CREATE TABLE " .$nameTab."(
 		`nom` VARCHAR(25) NOT NULL,
@@ -95,11 +120,12 @@ function newClasse($bdd, $nameTab)
 	else
 		echo 'table creer';
 		header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
+		relation($bdd, $idProf, $nameTab);
 }
 
 
 try{
-    	$bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
+    $bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
 }catch(PDOException $e){
 	die('Erreur : '.$e->getMessage());
 }
@@ -130,7 +156,12 @@ if(!empty($_POST['Importer'])){
 
 if(!empty($_POST['newClasse'])){
     $func = 'newClasse';
-    $func($bdd, $_POST['nameTable']);
+    $func($bdd, $_POST['nameTable'], $_POST['idProf']);
+}
+
+if(!empty($_POST['retrieve'])){
+    $func = 'allClasse';
+    $func($bdd, $_POST['idProf']);
 }
 
 ?>
@@ -160,5 +191,11 @@ if(!empty($_POST['newClasse'])){
 
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	Nouvelle classe : <input type="text" name="nameTable" placeholder="saisir...">
+	ID prof : <input type="text" name="idProf" placeholder="saisir...">
  	<input type="submit" name="newClasse">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Id prof : <input type="text" name="idProf" placeholder="saisir...">
+ 	<input type="submit" name="retrieve">
 </form>
