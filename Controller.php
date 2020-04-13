@@ -104,23 +104,54 @@ function verification ()
 	//ajout de classe
 	else 
 	{
-		try{
-    			$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
-		}catch(PDOException $e){
-			die('Erreur : '.$e->getMessage());
-		}
-
+		session_start();
+		
+		$nom_classe = htmlspecialchars($_POST['nom_classe']);
+		$rang = htmlspecialchars($_POST['rang']);
+		$colonne = htmlspecialchars($_POST['colonne']);
+		$nb_eleve = htmlspecialchars($_POST['nombre_eleve']);
+		
+		#conservation des élement en cas d'erreur 
+		$_SESSION['connexion']['nom_classe'] = $nom_classe;
+		$_SESSION['connexion']['rang'] = $rang;
+		$_SESSION['connexion']['colonne'] = $colonne;
+		$_SESSION['connexion']['nombre_eleve'] = $nb_eleve;
+		
 		$fichier = $_FILES["test"]["name"];
-		if($fichier)
+		
+		if($fichier and $nom_classe and $rang and $colonne and $nb_eleve)
 		{
-			$eleve = count(file($_FILES["test"]["tmp_name"]));
-			newClasse($bdd, $_POST['nom_classe'], 1);
-			ajouterClasse ($bdd, $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
-			unlink ($_FILES["test"]["tmp_name"]);
+			# verification $nom_classe
+			
+			if ($nom_classe)
+			{
+				try{
+					$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
+				}catch(PDOException $e){
+					die('Erreur : '.$e->getMessage());
+				}
+					
+				$eleve = count(file($_FILES["test"]["tmp_name"]));
+				newClasse($bdd, $_POST['nom_classe'], 1);
+				ajouterClasse ($bdd, $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
+				unlink ($_FILES["test"]["tmp_name"]);
+				
+				unset($_SESSION['connexion']);
+							
+			}
+			else 
+			{
+				$erreur = "nom de classe déja utiliser";
+				$_SESSION['connexion']['erreur'] = $erreur;
+				header("location:".  $_SERVER['HTTP_REFERER']);
+			}
+			
 		}
 		else
 		{
-			echo ($_POST['rang']);
+			$erreur = "Il manque un element";
+			$_SESSION['connexion']['erreur'] = $erreur;
+			header("location:".  $_SERVER['HTTP_REFERER']);
 		}
 		
 	
