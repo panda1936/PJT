@@ -62,12 +62,10 @@ function allClasse($bdd, $idProf){
 }
 
 
-function ajouterClasse ($bdd, $nameClasse) {
-	extract(filter_input_array(INPUT_POST));
-	$fichier = $_FILES["userfile"]["name"];
-	if ($fichier)
+function ajouterClasse ($bdd, $nameClasse ,$file) {
+	if ($file)
 	{
-		$fp = fopen($_FILES["userfile"]["tmp_name"], "r");
+		$fp = fopen($file, "r");
 		
 		while (!feof($fp))
 		{
@@ -118,7 +116,7 @@ try{
 	die('Erreur : '.$e->getMessage());
 }
 
-
+/*
 if(!empty($_POST['addColumn'])){
 	$nameTab = 'classe2';
     $func = 'addColumn';
@@ -187,3 +185,5 @@ if(!empty($_POST['retrieve'])){
 	Id prof : <input type="text" name="idProf" placeholder="saisir...">
  	<input type="submit" name="retrieve">
 </form>
+*/
+?>

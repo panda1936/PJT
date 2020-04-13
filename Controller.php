@@ -1,6 +1,6 @@
 <?php
 
-#require ('Model/global.php');
+require ('Model/global.php');
 
 function creation()
 {
@@ -104,12 +104,13 @@ function verification ()
 	//ajout de classe
 	else 
 	{
-	
+		$bdd = new PDO('mysql:host = localhost; dbname = global; charset = utf8','root', '');
 		$fichier = $_FILES["test"]["name"];
 		if($fichier)
 		{
 			$eleve = count(file($_FILES["test"]["tmp_name"]));
-			echo ($eleve);
+			newClasse($bdd, $_POST['nom_classe'], 0);
+			ajouterClasse ($bdd, $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
 			unlink ($_FILES["test"]["tmp_name"]);
 		}
 		else
