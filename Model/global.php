@@ -67,7 +67,7 @@ function ajouterClasse () {
 	$fichier = $_FILES["userfile"]["name"];
 	if ($fichier)
 	{
-		$fp = fopen($_FILES["userfile"]["name"], "r");
+		$fp = fopen($_FILES["userfile"]["tmp_name"], "r");
 		
 		while (!feof($fp))
 		{
@@ -77,17 +77,14 @@ function ajouterClasse () {
 			
 			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
 			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
-			$liste [2] = ( isset ($liste [2]) ) ? $liste [2] : NULL;
 			
 			$champs1= $liste[0];
 			$champs2 = $liste[1];
-			$champs3 = $liste[2];
 			
 			if ($champs1 != '')
 			{
 				try
 				{
-					echo 'test'; 
 					$bdd = new PDO('mysql:host=localhost;dbname=eleve;charset=utf8', 'root', '');
 				}
 				catch (Exception $e)
@@ -95,7 +92,7 @@ function ajouterClasse () {
 				        die('Erreur : ' . $e->getMessage());
 				}
 				
-				$sql = ("INSERT INTO student (nom, prenom, idEleve, classe, retard ) VALUES (0, '$champs1' , '$champs2', '$champs3', 0) ");
+				$sql = ("INSERT INTO student (nom, prenom) VALUES ( '$champs1' , '$champs2') ");
 				$result = $bdd->query($sql); 
 			}
 		}
