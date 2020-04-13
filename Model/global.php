@@ -62,7 +62,7 @@ function allClasse($bdd, $idProf){
 }
 
 
-function ajouterClasse () {
+function ajouterClasse ($bdd, $nameClasse) {
 	extract(filter_input_array(INPUT_POST));
 	$fichier = $_FILES["userfile"]["name"];
 	if ($fichier)
@@ -83,16 +83,7 @@ function ajouterClasse () {
 			
 			if ($champs1 != '')
 			{
-				try
-				{
-					$bdd = new PDO('mysql:host=localhost;dbname=eleve;charset=utf8', 'root', '');
-				}
-				catch (Exception $e)
-				{
-				        die('Erreur : ' . $e->getMessage());
-				}
-				
-				$sql = ("INSERT INTO student (nom, prenom) VALUES ( '$champs1' , '$champs2') ");
+				$sql = ("INSERT INTO $nameClasse(nom, prenom) VALUES ( '$champs1' , '$champs2') ");
 				$result = $bdd->query($sql); 
 			}
 		}
@@ -122,7 +113,7 @@ function newClasse($bdd, $nameTab, $idProf)
 
 
 try{
-    $bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
+    $bdd = new PDO('mysql:host = localhost; dbname = global; charset = utf8','root', '');
 }catch(PDOException $e){
 	die('Erreur : '.$e->getMessage());
 }
@@ -146,9 +137,9 @@ if(!empty($_POST['addStudent'])){
     $func($bdd, $nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
 }
 
-if(!empty($_POST['Importer'])){
+if(!empty($_POST['submit'])){
     $func = 'ajouterClasse';
-    $func();
+    $func($bdd, 'classe1');
 }
 
 if(!empty($_POST['newClasse'])){
@@ -183,7 +174,7 @@ if(!empty($_POST['retrieve'])){
 
 <form action="newfile" enctype = "multipart/form-data" method="post">
 	<input name = "userfile" type = "file" value = "table" />
-	<input name = "submit" type = "submit" value = "Importer"/>
+	<input name = "submit" type = "submit" />
 </form>
 
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
