@@ -36,7 +36,7 @@ function modifClasse($bdd, $nameTab, $nameColumn, $id, $value){
 }
 
 function relation($bdd, $idProf, $nameClasse){
-    $add_relation = $bdd->prepare("INSERT INTO $profClasse(idProf, nomClasse) VALUES (?,?)");
+    $add_relation = $bdd->prepare("INSERT INTO $profclasse(idProf, nomClasse) VALUES (?,?)");
     $add_relation-> execute(array($idProf, $nameClasse));
     echo "Relation prof/classe";
 }
@@ -95,8 +95,8 @@ function newClasse($bdd, $nameTab, $idProf)
 		`nom` VARCHAR(25) NOT NULL,
 		`prenom` VARCHAR(25) NOT NULL, 
 		`idEleve` INT(25) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		`x` INT(40) DEFAULT NULL,
-		`y` INT(40) DEFAULT NULL,
+		`x` INT(40) DEFAULT 0,
+		`y` INT(40) DEFAULT 0,
 		`commentaire` VARCHAR(250))");
 		
 	$req = $bdd->query($sql);
@@ -106,17 +106,18 @@ function newClasse($bdd, $nameTab, $idProf)
 	else
 		echo 'table creer';
 		header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
-		relation($bdd, $idProf, $nameTab);
+		//relation($bdd, $idProf, $nameTab);
 }
 
+/*
 
 try{
-    $bdd = new PDO('mysql:host = localhost; dbname = global; charset = utf8','root', '');
+    $bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
 }catch(PDOException $e){
 	die('Erreur : '.$e->getMessage());
 }
 
-/*
+
 if(!empty($_POST['addColumn'])){
 	$nameTab = 'classe2';
     $func = 'addColumn';
@@ -130,7 +131,7 @@ if(!empty($_POST['remColumn'])){
 }
 
 if(!empty($_POST['addStudent'])){
-	$nameTab = 'test';
+	$nameTab = 'classe1';
     $func = 'addStudent';
     $func($bdd, $nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
 }
@@ -152,7 +153,7 @@ if(!empty($_POST['retrieve'])){
 
 ?>
 
-
+/*
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	Colonne a ajouter : <input type="text" name="nameColumn" placeholder="saisir...">
  	<input type="submit" name="addColumn">

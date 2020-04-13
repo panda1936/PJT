@@ -104,12 +104,17 @@ function verification ()
 	//ajout de classe
 	else 
 	{
-		$bdd = new PDO('mysql:host = localhost; dbname = global; charset = utf8','root', '');
+		try{
+    			$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
+		}catch(PDOException $e){
+			die('Erreur : '.$e->getMessage());
+		}
+
 		$fichier = $_FILES["test"]["name"];
 		if($fichier)
 		{
 			$eleve = count(file($_FILES["test"]["tmp_name"]));
-			newClasse($bdd, $_POST['nom_classe'], 0);
+			newClasse($bdd, $_POST['nom_classe'], 1);
 			ajouterClasse ($bdd, $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
 			unlink ($_FILES["test"]["tmp_name"]);
 		}
