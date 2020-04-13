@@ -12,19 +12,19 @@
 
 		<div class="formulaire">
 			<div class="boite_formulaire">
-				<form action="Index2.php?action=validation" method="post"  > <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+				<form action="Index2.php?action=verification" method="post" enctype="multipart/form-data"  > <!-- On envoie les reponses du formulaire dans PageValidation.html-->
 					<span class="titre">
 						Création de votre classe
 					</span>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nom de la classe </span>
-						<input class="case_a_remplir" type="text" name="nom" placeholder=" Ex : 5A">
+						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A">
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres d'élèves </span>
-						<input type="number" min="0" max="35"class="case_a_remplir" type="text" name="nombre" placeholder="Ex : 24">
+						<input type="number" min="0" max="35"class="case_a_remplir" type="text" name="nombre_eleve" placeholder="Ex : 24">
 					</div>
 
 					<div class="placement_case">
@@ -49,7 +49,7 @@
 
                  
                     <br><br><label id="avatar" for="avatar">Choisir un fichier d'élèves:
-						<input type="file" id="avatar" name="fichier" accept=".csv">
+						<input type='file' id="avatar" name="test" accept=".csv" value= "table">
 					</label>
 					
 						<div class="classe_bouton">
@@ -57,6 +57,7 @@
 							<button class="taille_bouton">
 								Valider
 							</button>
+						
 						</div>				
 					
 				</form>

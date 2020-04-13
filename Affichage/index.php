@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Hosptimal</title>
         <link rel="icon" href="icone.png" type="x-icon">
-        <link rel="stylesheet" href="style/accueil.css">
+        <link rel="stylesheet" href="Affichage/style/accueil.css">
     </head>
     
     <body>
@@ -18,7 +18,7 @@
             <?php
             session_start();
 
-            $bdd = new PDO('mysql:host=localhost;dbname=membres;charset=utf8', 'root', '');
+            $bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8', 'root', '');
 
             if(isset($_POST['formconnexion'])) {
                 $mailconnect = htmlspecialchars($_POST['mailconnect']);
@@ -76,7 +76,7 @@
             <!-- s'inscrire -->
             <?php
 
-            $bdd = new PDO('mysql:host=localhost;dbname=membres;charset=utf8', 'root', '');
+            
 
             if(isset($_POST['forminscription'])) {
                 $pseudo = htmlspecialchars($_POST['pseudo']); /*htmlspecialchars pr eviter la faille xss*/
@@ -89,12 +89,12 @@
                     if($pseudolength <= 255) {
                         if($mail == $mail2) {
                             if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                                $reqmail = $bdd->prepare("SELECT * FROM test WHERE mail = ?");
+                                 $reqmail = $bdd->prepare("SELECT * FROM profs WHERE mail = ?");
                                 $reqmail->execute(array($mail));
                                 $mailexist = $reqmail->rowCount();
                                 if($mailexist == 0) {
                                     if($mdp == $mdp2) {
-                                        $insertmbr = $bdd->prepare("INSERT INTO test(pseudo, mail, motdepasse, user_type) VALUES(?, ?, ?,'user')");
+                                        $insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
                                         $insertmbr->execute(array($pseudo, $mail, $mdp));
                                         $erreur = "Votre compte a bien été crée ! <a href=\"ecole.php\">Me connecter</a>";
                                     } else {
@@ -146,6 +146,6 @@
             
         </div>
         
-        <script src="accueil.js"></script>
+        <script src="Affichage/accueil.js"></script>
     </body>
 </html>

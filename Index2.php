@@ -6,14 +6,18 @@ if (isset($_GET['action']))
 {
 	if ($_GET['action'] == 'creation') 
 	{
-		
+		creation ();
 	}
 	elseif ($_GET['action'] == 'validation') 
 	{
-		 
-		Validation ();
-		// vider la variable unset ($_POST);
 		
+		Validation ();
+		
+	}
+	elseif ($_GET['action'] == 'verification')
+	{
+		
+		verification ();
 	}
 	elseif ($_GET['action'] == 'classe')
 	{
@@ -26,5 +30,6 @@ if (isset($_GET['action']))
 }
 else 
 {
-	creation (); 
+	creation ();
+	
 }
