@@ -32,22 +32,22 @@
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nom de la classe </span>
-						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A" value = "<?php if (isset ($_SESSION['connexion']['nom_classe'])){echo ($_SESSION['connexion']['nom_classe']);} ?>">
+						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A" required>
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres d'élèves </span>
-						<input type="number" min="0" max="35"class="case_a_remplir" type="text" name="nombre_eleve" placeholder="Ex : 24" value = "<?php if (isset ($_SESSION['connexion']['nombre_eleve'])){echo ($_SESSION['connexion']['nombre_eleve']);} ?>">
+						<input type="number" min="0" max="35"class="case_a_remplir" type="text" name="nombre_eleve" placeholder="Ex : 24" required>
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de rangs </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" value = "<?php if (isset ($_SESSION['connexion']['rang'])){echo ($_SESSION['connexion']['rang']);} ?>">
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" required >
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de colonnes </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" value = "<?php if (isset ($_SESSION['connexion']['colonne'])){echo ($_SESSION['connexion']['colonne']);} ?>">
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" required>
 					</div>
 
 
@@ -62,7 +62,7 @@
 
                  
                     <br><br><label id="avatar" for="avatar">Choisir un fichier d'élèves:
-						<input type='file' id="avatar" name="test" accept=".csv" value= "table">
+						<input type='file' id="avatar" name="test" accept=".csv" value= "table" required>
 					</label>
 					
 						<div class="classe_bouton">
@@ -78,21 +78,6 @@
 
 
 		</div>
-		<?php
-		if (isset($_SESSION['connexion']['erreur']))
-		{
-			echo '<script type="text/javascript">alert("' . $_SESSION['connexion']['erreur'] . '", "Information !");</script>';
-			unset($_SESSION['connexion']);
-
-		}
-			
-			/*
-			unset($_SESSION['connexion']['nom_classe']);
-			unset($_SESSION['connexion']['rang']);
-			unset($_SESSION['connexion']['colonne']);
-			unset($_SESSION['connexion']['nombre_eleve']);
-			unset($_SESSION['connexion']['erreur']);
-			*/
-		?>
+		
 	</body>
 </html>
