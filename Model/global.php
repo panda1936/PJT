@@ -85,7 +85,7 @@ function triAlea($nomClasse, $nbColonne, $nbLigne){
 				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
-				if($x <= $nbColonne){
+				if($x < $nbColonne){
 					$x++;
 				} else {
 					$x = 0;
@@ -130,7 +130,7 @@ function triAlpha($nomClasse, $nbColonne, $nbLigne){
 function securNom($nameTab){
 	$bdd = connect();
 	
-	$query = "SELECT * FROM $profclasse";
+	$query = "SELECT * FROM profclasse";
 	$bdd_select = $bdd->prepare($query);
 	$bdd_select->execute();
 	$NbreData = $bdd_select->rowCount();
@@ -157,7 +157,6 @@ function ajouterClasse ($nameClasse, $file){
 		{
 			$ligne = fgets ($fp,4096);
 			$liste = explode(";", $ligne);
-			$table = filter_input(INPUT_POST, 'userfile');
 			
 			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
 			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
@@ -190,9 +189,7 @@ function newClasse($nameTab, $idProf){
 	if ($req === false)
 		echo 'ERREUR : ', print_r($bdd->errorInfo());
 	else
-		echo 'table creer';
-		header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
-		relation($bdd, $idProf, $nameTab);
+		relation($idProf, $nameTab);
 }
 
 

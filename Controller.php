@@ -109,39 +109,49 @@ function verification ()
 		$nom_classe = htmlspecialchars($_POST['nom_classe']);
 		$rang = htmlspecialchars($_POST['rang']);
 		$colonne = htmlspecialchars($_POST['colonne']);
-		$nb_eleve = htmlspecialchars($_POST['nombre_eleve']);
+
 		
 		#conservation des élement en cas d'erreur 
 		$_SESSION['connexion']['nom_classe'] = $nom_classe;
 		$_SESSION['connexion']['rang'] = $rang;
 		$_SESSION['connexion']['colonne'] = $colonne;
-		$_SESSION['connexion']['nombre_eleve'] = $nb_eleve;
 		
 		$fichier = $_FILES["test"]["name"];
 		
-		if($fichier and $nom_classe and $rang and $colonne and $nb_eleve)
+		if($fichier and $nom_classe and $rang and $colonne )
 		{
 			# verification $nom_classe
 			
-			if ($nom_classe)
+			if (securNom($nom_classe))
 			{
 				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
-				if ($nb_place >count(file($_FILES["test"]["tmp_name"])) )
+				if ($nb_place > count(file($_FILES["test"]["tmp_name"])) )
 				{
-					ajouterClasse ( $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
+					newClasse($nom_classe, 1);
+					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
+					if ($_POST['placement'] == "Aléatoire")
+					{
+						triAlea($nom_classe, $colonne, $rang);
+						
+					}
+					else 
+					{
+						triAlpha($nom_classe, $colonne, $rang);
+					}
 					unlink ($_FILES["test"]["tmp_name"]);
 					unset($_SESSION['connexion']);
 				}
 				else 
 				{
-					$erreur = "il y a plus d'élèves que de places";
+					
+					$erreur = "il y a plus d'eleves que de places";
 					$_SESSION['connexion']['erreur'] = $erreur;
 					header("location:".  $_SERVER['HTTP_REFERER']);
 				}
 			}
 			else 
 			{
-				$erreur = "nom de classe déja utiliser";
+				$erreur = "nom de classe deja utiliser";
 				$_SESSION['connexion']['erreur'] = $erreur;
 				header("location:".  $_SERVER['HTTP_REFERER']);
 			}
