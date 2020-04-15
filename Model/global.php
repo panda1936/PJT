@@ -36,7 +36,7 @@ function modifClasse($bdd, $nameTab, $nameColumn, $id, $value){
 }
 
 function relation($bdd, $idProf, $nameClasse){
-    $add_relation = $bdd->prepare("INSERT INTO $profclasse(idProf, nomClasse) VALUES (?,?)");
+    $add_relation = $bdd->prepare("INSERT INTO profclasse(idProf, nomClasse) VALUES (?,?)");
     $add_relation-> execute(array($idProf, $nameClasse));
     echo "Relation prof/classe";
 }
@@ -55,12 +55,69 @@ function allClasse($bdd, $idProf){
 			echo $row['nomclasse'];
 			echo '<br/>';
 		}
-	} 
+	}
 	else {
 		echo 'pas de donnée à afficher <br/>';
 	}
 }
 
+function triAlea($bdd, $nomClasse, $nbColonne, $nbLigne){
+	$x = 0;
+	$y = 0;
+	$query = "SELECT * FROM $nomClasse ORDER BY RAND()";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	if ($NbreData != 0) {
+		foreach ( $rowAll as $row ) {
+				$id = $row['idEleve'];
+				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
+				$bdd->exec($modif);
+
+				if($x <= $nbColonne){
+					$x++;
+				} else {
+					$x = 0;
+					$y++;
+				}
+		}
+		echo "Ajouter coordonnées";
+	}
+	else {
+		echo 'pas de donnée à afficher <br/>';
+	}
+}
+
+function triAlpha($bdd, $nomClasse, $nbColonne, $nbLigne){
+	$x = 0;
+	$y = 0;
+	$query = "SELECT * FROM $nomClasse ORDER BY nom";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	if ($NbreData != 0) {
+		foreach ( $rowAll as $row ) {
+				$id = $row['idEleve'];
+				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
+				$bdd->exec($modif);
+
+				if($x <= $nbColonne){
+					$x++;
+				} else {
+					$x = 0;
+					$y++;
+				}
+		}
+		echo "Ajouter coordonnées";
+	}
+	else {
+		echo 'pas de donnée à afficher <br/>';
+	}
+}
 
 function ajouterClasse ($bdd, $nameClasse ,$file) {
 	if ($file)
@@ -106,10 +163,10 @@ function newClasse($bdd, $nameTab, $idProf)
 	else
 		echo 'table creer';
 		header('Refresh: 0;URL=' . $_SERVER['HTTP_REFERER']);
-		//relation($bdd, $idProf, $nameTab);
+		relation($bdd, $idProf, $nameTab);
 }
 
-/*
+
 
 try{
     $bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
@@ -117,7 +174,7 @@ try{
 	die('Erreur : '.$e->getMessage());
 }
 
-
+/*
 if(!empty($_POST['addColumn'])){
 	$nameTab = 'classe2';
     $func = 'addColumn';
@@ -131,7 +188,7 @@ if(!empty($_POST['remColumn'])){
 }
 
 if(!empty($_POST['addStudent'])){
-	$nameTab = 'classe1';
+	$nameTab = 'classe3';
     $func = 'addStudent';
     $func($bdd, $nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
 }
@@ -151,9 +208,19 @@ if(!empty($_POST['retrieve'])){
     $func($bdd, $_POST['idProf']);
 }
 
+if(!empty($_POST['triAlea'])){
+    $func = 'triAlea';
+    $func($bdd, $_POST['nameTable'], '2', '3');
+}
+
+if(!empty($_POST['triAlpha'])){
+    $func = 'triAlpha';
+    $func($bdd, $_POST['nameTable'], '2', '3');
+}
+
 ?>
 
-/*
+
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	Colonne a ajouter : <input type="text" name="nameColumn" placeholder="saisir...">
  	<input type="submit" name="addColumn">
@@ -185,6 +252,16 @@ if(!empty($_POST['retrieve'])){
 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 	Id prof : <input type="text" name="idProf" placeholder="saisir...">
  	<input type="submit" name="retrieve">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Tri eleve aleatoire: <input type="text" name="nameTable" placeholder="saisir...">
+ 	<input type="submit" name="triAlea">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Tri eleve alphabétique: <input type="text" name="nameTable" placeholder="saisir...">
+ 	<input type="submit" name="triAlpha">
 </form>
 */
 ?>
