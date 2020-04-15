@@ -125,10 +125,13 @@ function verification ()
 			if (securNom($nom_classe))
 			{
 				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
-				if ($nb_place > count(file($_FILES["test"]["tmp_name"])) )
+				if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 				{
+					test ($nom_classe, $_FILES["test"]["tmp_name"]);
+					/*
 					newClasse($nom_classe, 1);
 					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
+					
 					if ($_POST['placement'] == "Aléatoire")
 					{
 						triAlea($nom_classe, $colonne, $rang);
@@ -138,6 +141,7 @@ function verification ()
 					{
 						triAlpha($nom_classe, $colonne, $rang);
 					}
+					*/
 					unlink ($_FILES["test"]["tmp_name"]);
 					unset($_SESSION['connexion']);
 				}

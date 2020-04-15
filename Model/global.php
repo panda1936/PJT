@@ -174,6 +174,34 @@ function ajouterClasse ($nameClasse, $file){
 	}
 }
 
+function test ($nameClasse, $file){
+
+	if ($file)
+	{
+		$fp = fopen($file, "r");
+		
+		while (!feof($fp))
+		{
+			$ligne = fgets ($fp,4096);
+			$liste = explode(";", $ligne);
+			
+			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
+			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
+			
+			$champs1= $liste[0];
+			$champs2 = $liste[1];
+			
+			if ($champs1 != '')
+			{
+				echo ($champs1 ); 
+				echo ($champs2 ); 
+			}
+		}
+		fclose($fp);
+	}
+}
+
+
 function newClasse($nameTab, $idProf){
 	$bdd = connect();
 	$sql = ("CREATE TABLE " .$nameTab."(
