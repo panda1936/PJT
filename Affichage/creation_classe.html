@@ -32,19 +32,19 @@
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nom de la classe </span>
-						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A" required>
+						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A" value = "<?php if (isset ($_SESSION['connexion']['nom_classe'])){echo ($_SESSION['connexion']['nom_classe']);} ?>" required>
 					</div>
 
 					
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de rangs </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" required >
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" value = "<?php if (isset ($_SESSION['connexion']['rang'])){echo ($_SESSION['connexion']['rang']);} ?>" required >
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de colonnes </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" required>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" value = "<?php if (isset ($_SESSION['connexion']['colonne'])){echo ($_SESSION['connexion']['colonne']);} ?>" required>
 					</div>
 
 
@@ -72,7 +72,22 @@
 					
 				</form>
 			</div>
+			<?php
+			if (isset($_SESSION['connexion']['erreur']))
+			{
+				echo '<script type="text/javascript">alert("' . $_SESSION['connexion']['erreur'] . '", "Information !");</script>';
+				unset($_SESSION['connexion']);
 
+			}
+				
+				/*
+				unset($_SESSION['connexion']['nom_classe']);
+				unset($_SESSION['connexion']['rang']);
+				unset($_SESSION['connexion']['colonne']);
+				unset($_SESSION['connexion']['nombre_eleve']);
+				unset($_SESSION['connexion']['erreur']);
+				*/
+		?>
 
 		</div>
 		

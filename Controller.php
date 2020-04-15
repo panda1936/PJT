@@ -125,19 +125,19 @@ function verification ()
 			
 			if ($nom_classe)
 			{
-				try{
-					$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
-				}catch(PDOException $e){
-					die('Erreur : '.$e->getMessage());
+				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
+				if ($nb_place >count(file($_FILES["test"]["tmp_name"])) )
+				{
+					ajouterClasse ( $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
+					unlink ($_FILES["test"]["tmp_name"]);
+					unset($_SESSION['connexion']);
 				}
-					
-				$eleve = count(file($_FILES["test"]["tmp_name"]));
-				newClasse($bdd, $_POST['nom_classe'], 1);
-				ajouterClasse ($bdd, $_POST['nom_classe'], $_FILES["test"]["tmp_name"]);
-				unlink ($_FILES["test"]["tmp_name"]);
-				
-				unset($_SESSION['connexion']);
-							
+				else 
+				{
+					$erreur = "il y a plus d'élèves que de places";
+					$_SESSION['connexion']['erreur'] = $erreur;
+					header("location:".  $_SERVER['HTTP_REFERER']);
+				}
 			}
 			else 
 			{
