@@ -1,47 +1,55 @@
 <?php
 
-function addColumn($bdd, $nameTab, $nameColumn){
-    $add_column = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
-    $bdd->exec($add_column);
-    echo 'Colonne ajoutee';
+function connect(){
+	try{
+		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
+	}
+	catch(PDOException $e){
+		die('Erreur : '.$e->getMessage());
+	}
+	return $bdd;
 }
 
-function remColumn($bdd, $nameTab, $nameColumn){
+function addColumn($nameTab, $nameColumn){
+	$bdd = connect();
+    $add_column = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
+    $bdd->exec($add_column);
+}
+
+function remColumn($nameTab, $nameColumn){
+	$bdd = connect();
 	if (($nameColumn != 'nom')&&($nameColumn != 'prenom')&&($nameColumn != 'idEleve')&&($nameColumn != 'x')&&($nameColumn != 'y')&&($nameColumn != 'commentaire')){
 		$rem_col = "ALTER TABLE $nameTab DROP COLUMN $nameColumn";
 		$bdd->exec($rem_col);
-		echo 'Colonne supprimee';
-	}
-	else{
-		echo 'Tu ne peux pas supprimer cette colonne';
 	}
 }
 
-function addStudent($bdd, $nameTab, $nom, $prenom){
+function addStudent($nameTab, $nom, $prenom){
+	$bdd = connect();
     $add_stud = $bdd->prepare("INSERT INTO $nameTab(nom, prenom, idEleve, x, y, commentaire) VALUES (?,?,?,?,?,?)");
     $add_stud-> execute(array($nom, $prenom, 0, 0, 0, 'test'));
-    echo "Inserer eleve";
 }
 
-function remStudent($bdd, $nameTab, $id){
+function remStudent($nameTab, $id){
+	$bdd = connect();
     $rem_stud = "DELETE FROM $nameTab WHERE IdEleve = $id";
     $bdd->exec($rem_stud);
-    echo 'Colonne ajoutee';
 }
 
-function modifClasse($bdd, $nameTab, $nameColumn, $id, $value){
+function modifClasse($nameTab, $nameColumn, $id, $value){
+	$bdd = connect();
     $modif = "UPDATE $nameTab SET $nameColumn = $value WHERE IdEleve = $id";
     $bdd->exec($modif);
-    echo 'Valeur ajoutee';
 }
 
-function relation($bdd, $idProf, $nameClasse){
+function relation($idProf, $nameClasse){
+	$bdd = connect();
     $add_relation = $bdd->prepare("INSERT INTO profclasse(idProf, nomClasse) VALUES (?,?)");
     $add_relation-> execute(array($idProf, $nameClasse));
-    echo "Relation prof/classe";
 }
 
-function allClasse($bdd, $idProf){
+function allClasse($idProf){
+	$bdd = connect();
 	$query = "SELECT nomclasse FROM profclasse WHERE idProf = $idProf";
 	$bdd_select = $bdd->prepare($query);
 	$bdd_select->execute();
@@ -61,7 +69,8 @@ function allClasse($bdd, $idProf){
 	}
 }
 
-function triAlea($bdd, $nomClasse, $nbColonne, $nbLigne){
+function triAlea($nomClasse, $nbColonne, $nbLigne){
+	$bdd = connect();
 	$x = 0;
 	$y = 0;
 	$query = "SELECT * FROM $nomClasse ORDER BY RAND()";
@@ -83,14 +92,14 @@ function triAlea($bdd, $nomClasse, $nbColonne, $nbLigne){
 					$y++;
 				}
 		}
-		echo "Ajouter coordonnées";
 	}
 	else {
 		echo 'pas de donnée à afficher <br/>';
 	}
 }
 
-function triAlpha($bdd, $nomClasse, $nbColonne, $nbLigne){
+function triAlpha($nomClasse, $nbColonne, $nbLigne){
+	$bdd = connect();
 	$x = 0;
 	$y = 0;
 	$query = "SELECT * FROM $nomClasse ORDER BY nom";
@@ -112,14 +121,34 @@ function triAlpha($bdd, $nomClasse, $nbColonne, $nbLigne){
 					$y++;
 				}
 		}
-		echo "Ajouter coordonnées";
 	}
 	else {
 		echo 'pas de donnée à afficher <br/>';
 	}
 }
 
-function ajouterClasse ($bdd, $nameClasse ,$file) {
+function securNom($nameTab){
+	$bdd = connect();
+	
+	$query = "SELECT * FROM $profclasse";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		$nom = $row['nomClasse'];
+		if ($nameTab == $nom){
+			return false;
+		}
+	}
+	return true;
+}
+	
+
+
+function ajouterClasse ($nameClasse, $file){
+	$bdd = connect();
 	if ($file)
 	{
 		$fp = fopen($file, "r");
@@ -146,8 +175,8 @@ function ajouterClasse ($bdd, $nameClasse ,$file) {
 	}
 }
 
-function newClasse($bdd, $nameTab, $idProf)
-{
+function newClasse($nameTab, $idProf){
+	$bdd = connect();
 	$sql = ("CREATE TABLE " .$nameTab."(
 		`nom` VARCHAR(25) NOT NULL,
 		`prenom` VARCHAR(25) NOT NULL, 
@@ -167,55 +196,48 @@ function newClasse($bdd, $nameTab, $idProf)
 }
 
 
-
-try{
-    $bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
-}catch(PDOException $e){
-	die('Erreur : '.$e->getMessage());
-}
-
 /*
 if(!empty($_POST['addColumn'])){
 	$nameTab = 'classe2';
     $func = 'addColumn';
-    $func($bdd, $nameTab, $_POST['nameColumn']);
+    $func($nameTab, $_POST['nameColumn']);
 }
 
 if(!empty($_POST['remColumn'])){
 	$nameTab = 'classe2';
     $func = 'remColumn';
-    $func($bdd, $nameTab, $_POST['nameColumn']);
+    $func($nameTab, $_POST['nameColumn']);
 }
 
 if(!empty($_POST['addStudent'])){
 	$nameTab = 'classe3';
     $func = 'addStudent';
-    $func($bdd, $nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
+    $func($nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
 }
 
 if(!empty($_POST['submit'])){
     $func = 'ajouterClasse';
-    $func($bdd, 'classe1');
+    $func('classe1');
 }
 
 if(!empty($_POST['newClasse'])){
     $func = 'newClasse';
-    $func($bdd, $_POST['nameTable'], $_POST['idProf']);
+    $func($_POST['nameTable'], $_POST['idProf']);
 }
 
 if(!empty($_POST['retrieve'])){
     $func = 'allClasse';
-    $func($bdd, $_POST['idProf']);
+    $func($_POST['idProf']);
 }
 
 if(!empty($_POST['triAlea'])){
     $func = 'triAlea';
-    $func($bdd, $_POST['nameTable'], '2', '3');
+    $func($_POST['nameTable'], '2', '3');
 }
 
 if(!empty($_POST['triAlpha'])){
     $func = 'triAlpha';
-    $func($bdd, $_POST['nameTable'], '2', '3');
+    $func($_POST['nameTable'], '2', '3');
 }
 
 ?>
@@ -264,4 +286,5 @@ if(!empty($_POST['triAlpha'])){
  	<input type="submit" name="triAlpha">
 </form>
 */
+
 ?>
