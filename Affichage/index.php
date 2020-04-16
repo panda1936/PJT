@@ -20,11 +20,11 @@
 
             $bdd = new PDO('mysql:host=localhost;dbname=Global;charset=utf8', 'root', '');
 
-            if(isset($_POST['formconnexion'])) {
+             if(isset($_POST['formconnexion'])) {
                 $mailconnect = htmlspecialchars($_POST['mailconnect']);
                 $mdpconnect = sha1($_POST['mdpconnect']);
                 if(!empty($mailconnect) AND !empty($mdpconnect)) {
-                    $requser = $bdd->prepare("SELECT * FROM prof WHERE mail = ? AND mdp = ?");
+                    $requser = $bdd->prepare("SELECT * FROM test WHERE mail = ? AND motdepasse = ?");
                     $requser->execute(array($mailconnect, $mdpconnect));
                     $userexist = $requser->rowCount();
                     if($userexist > 0) {
@@ -94,7 +94,7 @@
                                 $mailexist = $reqmail->rowCount();
                                 if($mailexist == 0) {
                                     if($mdp == $mdp2) {
-                                        $insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mdp, mail) VALUES(?, ?, ?)");
+                                        $insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mail, mdp) VALUES(?, ?, ?)");
                                         $insertmbr->execute(array($pseudo, $mail, $mdp));
                                         $erreur = "Votre compte a bien été crée ! <a href=\"ecole.php\">Me connecter</a>";
                                     } else {
