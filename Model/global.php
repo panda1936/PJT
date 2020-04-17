@@ -1,5 +1,6 @@
-<?php
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+<?php
 function connect(){
 	try{
 		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
@@ -114,7 +115,7 @@ function triAlpha($nomClasse, $nbColonne, $nbLigne){
 				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
-				if($x <= $nbColonne){
+				if($x < $nbColonne){
 					$x++;
 				} else {
 					$x = 0;
@@ -175,7 +176,7 @@ function ajouterClasse ($nameClasse, $file){
 }
 
 function test ($nameClasse, $file){
-
+	mb_internal_encoding('UTF-8');
 	if ($file)
 	{
 		$fp = fopen($file, "r");
@@ -191,10 +192,13 @@ function test ($nameClasse, $file){
 			$champs1= $liste[0];
 			$champs2 = $liste[1];
 			
+			echo mb_strlen('testé');
+			
 			if ($champs1 != '')
 			{
-				echo ($champs1 ); 
+				echo ($champs1 );
 				echo ($champs2 ); 
+				echo "</br>";
 			}
 		}
 		fclose($fp);
@@ -220,10 +224,10 @@ function newClasse($nameTab, $idProf){
 		relation($idProf, $nameTab);
 }
 
-
 /*
+
 if(!empty($_POST['addColumn'])){
-	$nameTab = 'classe2';
+	$nameTab = 'classe';
     $func = 'addColumn';
     $func($nameTab, $_POST['nameColumn']);
 }
