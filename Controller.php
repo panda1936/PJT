@@ -1,7 +1,7 @@
 <?php
 
 require ('Model/global.php');
-
+header('Content-type: text/html; charset=iso-8859-1');
 function creation()
 {
 	require ('Affichage/creation_classe.html');
@@ -27,49 +27,56 @@ function verification ()
 	//connexion
 	if(isset($_POST['formconnexion']))
 	{
-		$bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
 		session_start();
 		$mailconnect = htmlspecialchars($_POST['mailconnect']);
 		$mdpconnect = sha1($_POST['mdpconnect']);
-		if(!empty($mailconnect) AND !empty($mdpconnect)) {
+		
+		if(!empty($mailconnect) AND !empty($mdpconnect)) 
+		{
+			/*vérif
 			$requser = $bdd->prepare("SELECT * FROM profs WHERE mail = ? AND motdepasse = ?");
 			$requser->execute(array($mailconnect, $mdpconnect));
-			$userexist = $requser->rowCount();
-			if($userexist > 0) {
-				$userinfo = $requser->fetch();
-				if($userinfo['user_type'] == 'admin') {
-					$_SESSION['id'] = $userinfo['id'];
-					$_SESSION['pseudo'] = $userinfo['pseudo'];
-					$_SESSION['mail'] = $userinfo['mail'];
-					$_SESSION['user_type'] == 'admin';
-					header("Location: accueil_admin.php?id=".$_SESSION['id']);
-				}
-				else{
-					$_SESSION['id'] = $userinfo['id'];
-					$_SESSION['pseudo'] = $userinfo['pseudo'];
-					$_SESSION['mail'] = $userinfo['mail'];
-					$_SESSION['user_type'] == 'user';
-					header("Location: creation_classe.html?id=".$_SESSION['id']);
+			$userexist = $requser->rowCount()
+			*/
+			if($userexist > 0) 
+			{
+				/* recuperation nom et id $userinfo = $requser->fetch();*/
+				
+				$_SESSION['profs']['id'] = $userinfo['id'];
+				$_SESSION['profs']['nom'] = $userinfo['nom'];
+				if (true)
+				{
+					header("Location: Index2.php?action = creation");
 				}
 			}
 			else {
+				
 				$erreur = "Adresse mail ou mot de passe incorrect  !";
+				$_SESSION['profs']['erreur'] = $erreur;
+				header("location: Index2.php?co=connexion" );
 			}
 		} else {
 			$erreur = "Veuillez compléter tous les champs ! !";
+			$_SESSION['profs']['erreur'] = $erreur;
+			header("location: Index2.php?co=connexion" );
 		}
 	}
 	//inscription
 	else if (isset($_POST['forminscription']))
 	{
+		session_start();
 	
-		$bdd = new PDO('mysql:host=localhost; dbname=global; charset=utf8','root', '');
 		$pseudo = htmlspecialchars($_POST['pseudo']);
 		$mail = htmlspecialchars($_POST['mail']);
 		$mail2 = htmlspecialchars($_POST['mail2']);
 		$mdp = sha1($_POST['mdp']);
 		$mdp2 = sha1($_POST['mdp2']);
-		if(!empty($_POST['pseudo']) AND !empty($_POST['mail']) AND !empty($_POST['mail2']) AND !empty($_POST['mdp']) AND !empty($_POST['mdp2'])) {
+		
+		$_SESSION['inscription']['pseudo']=$pseudo;
+		$_SESSION['inscription']['mail']=$mail;
+		
+		if(!empty($_POST['pseudo']) AND !empty($_POST['mail']) AND !empty($_POST['mail2']) AND !empty($_POST['mdp']) AND !empty($_POST['mdp2'])) 
+		{
 			$pseudolength = strlen($pseudo);
 			if($pseudolength <= 255) {
 				if($mail == $mail2) {
@@ -79,28 +86,48 @@ function verification ()
 						$mailexist = $reqmail->rowCount();
 						if($mailexist == 0) {
 							if($mdp == $mdp2) {
-								$insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
-								$insertmbr->execute(array($pseudo, $mail, $mdp));
-								$erreur = "Votre compte a bien été crée ! <a href=\"ecole.php\">Me connecter</a>";
+								//$insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
+								
+	
+							
+								echo '<script type="text/javascript">alert("Inscription reussi ", "Information !");</script>';
+								unset($_SESSION['inscription']);
+								header("location: Index2.php?co=connexion" );
 							} else {
 								$erreur = "Vos mots de passe ne correspondent pas !";
+								$_SESSION['inscription']['erreur']=$erreur;
+								header("location: Index2.php?co=inscription" );
 							}
 						} else {
 							$erreur = "Cette adresse mail est déjà utilisée !";
+							$_SESSION['inscription']['erreur']=$erreur;
+							header("location: Index2.php?co=inscription" );
 						}
 					} else {
 						$erreur = "Cette adresse mail n'est pas valide !";
+						$_SESSION['inscription']['erreur']=$erreur;
+						header("location: Index2.php?co=inscription" );
 					}
 				} else {
 					$erreur = "Ces adresses mail ne correspondent pas !";
+					$_SESSION['inscription']['erreur']=$erreur;
+					header("location: Index2.php?co=inscription" );
 				}
 			} else {
 				$erreur = "Votre pseudo ne doit pas dépasser 255 charactères !";
+				$_SESSION['inscription']['erreur']=$erreur;
+				header("location: Index2.php?co=inscription" );
 			}
 		} else {
+			
 			$erreur = "Veuillez compléter tous les champs !";
+			$_SESSION['inscription']['erreur']=$erreur;
+			header("location: Index2.php?co=inscription" );
 		}
 	}
+	
+	
+
 	//ajout de classe
 	else 
 	{

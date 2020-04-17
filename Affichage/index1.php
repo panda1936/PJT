@@ -12,21 +12,19 @@
         
         <!-- formulaire -->
         <div class="formulaire">
-            <a class="choix" id="choix-connecter" onclick="connecter()"> SE CONNECTER </a><a class="choix" id="choix-inscrire" onclick="inscrire()"> S'INSCRIRE </a><br><br>
-            
+            <a class="choix" id="choix-connecter" onclick="connecter()"> SE CONNECTER </a><a class="choix" id="choix-inscrire" onclick="inscrire()"> S'INSCRIRE </a><br><br><br><br>
             
             <!-- se connecter -->
             <?php
             session_start();
-
             ?>
             <div id="connecter">
                 <form method="POST" action="Index2.php?action=verification">
                     <label for="email" class="label">EMAIL</label><br>
                     <input id="email" type="email" name="mailconnect" class="input" placeholder="Votre email"><br><br>
 
-                    <label for="mdp" class="label">MOT DE PASSE</label><br>
-                    <input id="mdp" type="password" name="mdpconnect" class="input" placeholder ="Votre mot de passe"><br><br><br>
+                    <label for="motdepasse" class="label">MOT DE PASSE</label><br>
+                    <input id="motdepasse" type="password" name="mdpconnect" class="input" placeholder ="Votre mot de passe"><br><br><br>
 
                     <input type="submit" name="formconnexion" value="CONNECTEZ-VOUS" class="bouton"><br><br>
                 </form><br><br><br><br><br><br><br><br>
@@ -42,7 +40,6 @@
             </div>
             
             <!-- s'inscrire -->
-  
             <div id="inscrire">
                 <form method="POST" action="Index2.php?action=verification">
                     <label for="utilisateur" class="label">NOM UTILISATEUR</label><br>
@@ -70,48 +67,16 @@
             </div>
             
         </div>
-        
         <?php
-		      
-	
-				
-        if (isset($_GET['co'])) {
-            if ($_GET['co'] == "inscription") {
-                echo '<script>
-                document.getElementById("connecter").style.left = "-500px";
-                document.getElementById("inscrire").style.left = "60px";
-                document.getElementById("choix-inscrire").style.borderBottom = "3px solid #1161ee";
-                document.getElementById("choix-inscrire").style.opacity = "1";
-                document.getElementById("choix-connecter").style.borderBottom = "none";
-                document.getElementById("choix-connecter").style.opacity = "0.7";
-                </script>';
-            }
-        }
-        if (isset($_GET['co'])) {
-            if ($_GET['co'] == "connexion") {
-                echo '<script>
-                document.getElementById("connecter").style.left = "60px";
-                document.getElementById("inscrire").style.left = "600px";
-                document.getElementById("choix-connecter").style.borderBottom = "3px solid #1161ee";
-                document.getElementById("choix-connecter").style.opacity = "1";
-                document.getElementById("choix-inscrire").style.borderBottom = "none";
-                document.getElementById("choix-inscrire").style.opacity = "0.7";
-                </script>';
-            }
-        }
-		if (isset($_SESSION['inscription']['erreur']))
-		{
-			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
-			unset($_SESSION['inscription']);
+			if (isset($_SESSION['inscription']['erreur']))
+			{
+				echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
+				unset($_SESSION['inscription']);
 
-		}
-		if (isset($_SESSION['profs']['erreur']))
-		{
-			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
-			unset($_SESSION['profs']);
-		}
-        ?>
-        
+			}
+				
+		?>
         <script src="Affichage/accueil.js"></script>
+		
     </body>
 </html>
