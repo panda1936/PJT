@@ -51,10 +51,7 @@
             
         </header>
                   
-              
-            <li>
-              <a href="">+</a>
-            </li>
+            
         <!--Tableau--> 
         
         <table>
@@ -103,7 +100,9 @@
                             'idEleve' => $idEleve,
                             'bavardage' => $bavardage + 1
                         ));
-                        header('Location: Principale1.php');
+                        echo '<script language="Javascript"> 
+                        document.location.href="Principale1.php"
+                        </script>';
                     }
                     
                     $namemoins = 'moins' . $nb;
@@ -113,7 +112,10 @@
                             'idEleve' => $idEleve,
                             'bavardage' => $bavardage - 1
                         ));
-                        header('Location: Principale1.php');
+                        echo '<script language="Javascript"> 
+                        document.location.href="Principale1.php"
+                        </script>';
+                        //header('Location: Principale1.php');
                     }
                     
                     echo '
@@ -126,7 +128,7 @@
                     echo '" value="+">
                     </form>';
                     
-                    echo '
+                    echo '</div>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +163,8 @@
                 </td>
             </tr>   
         </table>
-        
+
+    <!--Bouton-->
     <button onclick="maFonction()">Bavardage</button>    
         
     <script>
