@@ -1,6 +1,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php
+header('Content-type: text/html; charset=UTF-8');
+
 function connect(){
 	try{
 		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
