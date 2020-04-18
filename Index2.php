@@ -11,13 +11,13 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'validation')
 		{
-		
+			
 			Validation ();
 		
 		}
 		elseif ($_GET['action'] == 'verification')
 		{
-		
+			
 			verification ();
 		}
 		elseif ($_GET['action'] == 'classe')
@@ -32,11 +32,16 @@ if (isset($_GET['action']))
 	
 }
 else 
-{	
+{
+	/*
+	header('Content-type: text/html; charset=iso-8859-1');
 	if ((isset($_SESSION['inscription']['erreur']) && isset($_SESSION['profs']['erreur'])) )
 	{
 		session_destroy();
 	}
 	classe ();
+	*/
+	creation () ; 
+
 	
 }

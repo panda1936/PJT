@@ -149,6 +149,7 @@ function securNom($nameTab){
 
 
 function ajouterClasse ($nameClasse, $file){
+	header('Content-type: text/html; charset=iso-8859-1');
 	$bdd = connect();
 	if ($file)
 	{

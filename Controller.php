@@ -1,7 +1,7 @@
 <?php
 
 require ('Model/global.php');
-header('Content-type: text/html; charset=iso-8859-1');
+
 function creation()
 {
 	require ('Affichage/creation_classe.html');
@@ -154,8 +154,7 @@ function verification ()
 				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
 				if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 				{
-					test ($nom_classe, $_FILES["test"]["tmp_name"]);
-					/*
+					
 					newClasse($nom_classe, 1);
 					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
@@ -168,7 +167,7 @@ function verification ()
 					{
 						triAlpha($nom_classe, $colonne, $rang);
 					}
-					*/
+					
 					unlink ($_FILES["test"]["tmp_name"]);
 					unset($_SESSION['connexion']);
 				}
