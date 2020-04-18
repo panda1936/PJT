@@ -59,17 +59,7 @@ function allClasse($idProf){
 	$NbreData = $bdd_select->rowCount();
 	$rowAll = $bdd_select->fetchAll();
 
-	if ($NbreData != 0) 
-	{
-		foreach ( $rowAll as $row ) 
-		{
-			echo $row['nomclasse'];
-			echo '<br/>';
-		}
-	}
-	else {
-		echo 'pas de donnée à afficher <br/>';
-	}
+	return $rowAll 
 }
 
 function triAlea($nomClasse, $nbColonne, $nbLigne){
@@ -147,7 +137,59 @@ function securNom($nameTab){
 	}
 	return true;
 }
-	
+
+function securIdent($mail, $motDePasse){
+	$bdd = connect();
+	$query = "SELECT * FROM profs";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		$mailTab = $row['mail'];
+		$mdpTab = $row['mdp'];
+		if (($mail == $mailTab) && ($motDePasse == $mdpTab)){
+			return $row['idProf'];
+		}
+	}
+	return -1;
+}
+
+function recupPseudo ($idProf){
+	$bdd = connect();
+	$query = "SELECT * FROM profs";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		$idProfTab = $row['idProf'];
+		if ($idProf == $idProfTab){
+			return $row['pseudo'];
+		}
+	}
+	return "";
+}
+
+
+function securMail($mail){
+	$bdd = connect();
+	$query = "SELECT * FROM profs";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$NbreData = $bdd_select->rowCount();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		$mailTab = $row['mail'];
+		if ($mail == $mailTab){
+			return false;
+		}
+	}
+	return true;
+}
 
 
 function ajouterClasse ($nameClasse, $file){
@@ -177,6 +219,8 @@ function ajouterClasse ($nameClasse, $file){
 		fclose($fp);
 	}
 }
+
+
 
 function test ($nameClasse, $file){
 	mb_internal_encoding('UTF-8');
