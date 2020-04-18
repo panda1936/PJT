@@ -33,20 +33,20 @@ function verification ()
 		
 		if(!empty($mailconnect) AND !empty($mdpconnect)) 
 		{
-			/*vérif
-			$requser = $bdd->prepare("SELECT * FROM profs WHERE mail = ? AND motdepasse = ?");
-			$requser->execute(array($mailconnect, $mdpconnect));
-			$userexist = $requser->rowCount()
-			*/
-			if($userexist > 0) 
+			$id = securIdent($mail, $motDePasse);
+			if( $id >= 0) 
 			{
 				/* recuperation nom et id $userinfo = $requser->fetch();*/
 				
-				$_SESSION['profs']['id'] = $userinfo['id'];
-				$_SESSION['profs']['nom'] = $userinfo['nom'];
-				if (true)
+				$_SESSION['profs']['id'] = $id;
+				$_SESSION['profs']['pseudo'] =recupPseudo ($id) ;
+				if (recupPseudo ($id))
 				{
 					header("Location: Index2.php?action = creation");
+				}
+				else 
+				{
+					echo ("test");
 				}
 			}
 			else {
@@ -81,18 +81,15 @@ function verification ()
 			if($pseudolength <= 255) {
 				if($mail == $mail2) {
 					if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-						$reqmail = $bdd->prepare("SELECT * FROM prof WHERE mail = ?");
-						$reqmail->execute(array($mail));
-						$mailexist = $reqmail->rowCount();
-						if($mailexist == 0) {
+						if(securMail($mail)) {
 							if($mdp == $mdp2) {
-								//$insertmbr = $bdd->prepare("INSERT INTO profs(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
+						
+								addProf($pseudo, $_POST['mdp'], $mail);
 								
-	
-							
-								echo '<script type="text/javascript">alert("Inscription reussi ", "Information !");</script>';
+								
 								unset($_SESSION['inscription']);
-								header("location: Index2.php?co=connexion" );
+								//header("location: Index2.php?co=connexion" );
+								//echo '<script type="text/javascript">alert("Inscription reussie ", "Information !");</script>';
 							} else {
 								$erreur = "Vos mots de passe ne correspondent pas !";
 								$_SESSION['inscription']['erreur']=$erreur;
