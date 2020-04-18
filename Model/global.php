@@ -35,8 +35,13 @@ function addStudent($nameTab, $nom, $prenom){
 
 function addProf($pseudo, $mdp, $mail){
 	$bdd = connect();
+<<<<<<< HEAD
     $add_prof = $bdd->prepare("INSERT INTO profs(idProf, pseudo, mdp, mail) VALUES (?,?,?,?)");
     $add_prof-> execute(array(0, $pseudo, $mdp, $mail));
+=======
+    $add_stud = $bdd->prepare("INSERT INTO profs (idProf, pseudo, mdp, mail) VALUES (?,?,?,?)");
+    $add_stud-> execute(array(0, $pseudo, $mdp, $mail));
+>>>>>>> a9bcca001ebf1b1af415f620331e8cc8f68b74f0
 }
 
 function remStudent($nameTab, $id){
@@ -65,7 +70,11 @@ function allClasse($idProf){
 	$NbreData = $bdd_select->rowCount();
 	$rowAll = $bdd_select->fetchAll();
 
+<<<<<<< HEAD
 	return $rowAll;
+=======
+	return $rowAll ;
+>>>>>>> a9bcca001ebf1b1af415f620331e8cc8f68b74f0
 }
 
 function triAlea($nomClasse, $nbColonne, $nbLigne){
