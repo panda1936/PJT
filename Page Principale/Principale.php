@@ -65,8 +65,8 @@
             $bavardage = 0;
             $nb = 0;
             $y = 0;
-            $NbCol = 3;
-            $NbLig =3;
+            $NbCol = 7;
+            $NbLig =6;
             $NbPlace = $NbCol * $NbLig;
             while ($y < $NbCol) {
                 $x = 0;
@@ -86,10 +86,8 @@
                     
                     $nb = $nb + 1;
                     
-                    $result = $pdo->prepare('SELECT * FROM classe WHERE (idEleve) = (:idEleve)');
-                    $result->execute(array(
-                        'idEleve' => $nb // ICI NUMERO ID ELEVE
-                    ));
+                    $result = $pdo->prepare("SELECT * FROM classe WHERE ((x = $x) AND (y = $y))");
+                    $result->execute(array('idEleve' => $nb));
                     while($users = $result->fetch(PDO::FETCH_ASSOC)){
                         echo $users["nom"] . '<br><span class="masquer">Bavardage : ' . $users["bavardage"] . '</span>';
                         $bavardage = $users["bavardage"];

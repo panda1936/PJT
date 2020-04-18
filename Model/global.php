@@ -35,8 +35,8 @@ function addStudent($nameTab, $nom, $prenom){
 
 function addProf($pseudo, $mdp, $mail){
 	$bdd = connect();
-    $add_stud = $bdd->prepare("INSERT INTO profs(idEleve, pseudo, mdp, mail,) VALUES (?,?,?,?)");
-    $add_stud-> execute(array(0, $pseudo, $mdp, $mail);
+    $add_prof = $bdd->prepare("INSERT INTO profs(idProf, pseudo, mdp, mail) VALUES (?,?,?,?)");
+    $add_prof-> execute(array(0, $pseudo, $mdp, $mail));
 }
 
 function remStudent($nameTab, $id){
@@ -65,7 +65,7 @@ function allClasse($idProf){
 	$NbreData = $bdd_select->rowCount();
 	$rowAll = $bdd_select->fetchAll();
 
-	return $rowAll 
+	return $rowAll;
 }
 
 function triAlea($nomClasse, $nbColonne, $nbLigne){
@@ -278,7 +278,6 @@ function newClasse($nameTab, $idProf){
 }
 
 /*
-
 if(!empty($_POST['addColumn'])){
 	$nameTab = 'classe';
     $func = 'addColumn';
@@ -320,6 +319,11 @@ if(!empty($_POST['triAlea'])){
 if(!empty($_POST['triAlpha'])){
     $func = 'triAlpha';
     $func($_POST['nameTable'], '2', '3');
+}
+
+if(!empty($_POST['addProf'])){
+    $func = 'addProf';
+    $func($_POST['pseudo'], $_POST['mdp'], $_POST['mail']);
 }
 
 ?>
@@ -367,6 +371,13 @@ if(!empty($_POST['triAlpha'])){
 	Tri eleve alphabétique: <input type="text" name="nameTable" placeholder="saisir...">
  	<input type="submit" name="triAlpha">
 </form>
-*/
 
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Ajouter prof : 
+	Pseudo <input type="text" name="pseudo" placeholder="saisir...">
+	mdp <input type="text" name="mdp" placeholder="saisir...">
+	mail <input type="text" name="mail" placeholder="saisir...">
+ 	<input type="submit" name="addProf">
+</form>
+*/
 ?>
