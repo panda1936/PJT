@@ -33,6 +33,12 @@ function addStudent($nameTab, $nom, $prenom){
     $add_stud-> execute(array($nom, $prenom, 0, 0, 0, 'test'));
 }
 
+function addProf($pseudo, $mdp, $mail){
+	$bdd = connect();
+    $add_stud = $bdd->prepare("INSERT INTO profs(idEleve, pseudo, mdp, mail,) VALUES (?,?,?,?)");
+    $add_stud-> execute(array(0, $pseudo, $mdp, $mail);
+}
+
 function remStudent($nameTab, $id){
 	$bdd = connect();
     $rem_stud = "DELETE FROM $nameTab WHERE IdEleve = $id";
