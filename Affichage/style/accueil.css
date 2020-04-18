@@ -46,14 +46,14 @@ a {
     position: absolute;
     left: 60px;
     width: 75%;
-    transition: all 0.7s;
+    /*transition: all 0.7s;*/
 }
 #inscrire {
     margin-top: 30px;
     position: absolute;
     left: 600px;
     width: 75%;
-    transition: all 0.7s;
+    /*transition: all 0.7s;*/
 }
 .choix {
     margin-left: 10px;
@@ -67,12 +67,8 @@ a {
     font-weight: 700;
     margin-right: 10px;
 }
-.choix {
-    opacity: 0.7;
-    padding: 0px 0px 5px 0px;
-    cursor: pointer;
-}
 #choix-connecter {
+    background: #333333;
     border-bottom: 3px solid #1161ee;
     opacity: 1;
 }
@@ -114,4 +110,15 @@ a {
 }
 .oublier:hover {
     opacity: 1;
+}
+.choix {
+    opacity: 0.7;
+    padding: 0px 0px 5px 0px;
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    color: white;
+}
+.choix2 {
+    display: inline-block;
 }

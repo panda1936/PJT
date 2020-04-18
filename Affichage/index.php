@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Hosptimal</title>
         <link rel="icon" href="icone.png" type="x-icon">
-        <link rel="stylesheet" href="style/accueil.css">
+        <link rel="stylesheet" href="Affichage/style/accueil.css">
     </head>
     
     <body>
@@ -12,12 +12,14 @@
         
         <!-- formulaire -->
         <div class="formulaire">
-            <a class="choix" id="choix-connecter" onclick="connecter()"> SE CONNECTER </a><a class="choix" id="choix-inscrire" onclick="inscrire()"> S'INSCRIRE </a><br><br><br><br>
+            <a class="choix" id="choix-connecter" onclick="connecter()"> SE CONNECTER </a><a class="choix" id="choix-inscrire" onclick="inscrire()"> S'INSCRIRE </a><br><br>
+            
             
             <!-- se connecter -->
             <?php
             session_start();
 
+<<<<<<< HEAD
             $bdd = new PDO('mysql:host=localhost;dbname=Global;charset=utf8', 'root', '');
 
              if(isset($_POST['formconnexion'])) {
@@ -51,9 +53,11 @@
                     $erreur = "Veuillez compléter tous les champs ! !";
                 }
             }
+=======
+>>>>>>> d940df063aa14ddcdc9fcba5fe6b0f5451cdbb78
             ?>
             <div id="connecter">
-                <form method="POST" action=''>
+                <form method="POST" action="Index2.php?action=verification">
                     <label for="email" class="label">EMAIL</label><br>
                     <input id="email" type="email" name="mailconnect" class="input" placeholder="Votre email"><br><br>
 
@@ -74,6 +78,7 @@
             </div>
             
             <!-- s'inscrire -->
+<<<<<<< HEAD
             <?php
 
             $bdd = new PDO('mysql:host=localhost;dbname=Global;charset=utf8', 'root', '');
@@ -118,16 +123,19 @@
             }
 
             ?>
+=======
+  
+>>>>>>> d940df063aa14ddcdc9fcba5fe6b0f5451cdbb78
             <div id="inscrire">
-                <form method="POST" action=''>
+                <form method="POST" action="Index2.php?action=verification">
                     <label for="utilisateur" class="label">NOM UTILISATEUR</label><br>
-                    <input id="utilisateur" type="texte" placeholder="Votre nom d'utilisateur" name="pseudo" class="input" value="<?php if(isset($pseudo)) { echo $pseudo; } ?>"><br><br>
+                    <input id="utilisateur" type="texte" placeholder="Votre nom d'utilisateur" name="pseudo" class="input" value="<?php if(isset($_SESSION['inscription']['pseudo'])) { echo $_SESSION['inscription']['pseudo']; } ?>"><br><br>
 
                     <label for="mail" class="label">ADRESSE MAIL</label><br>
-                    <input id="mail" type="email" placeholder="Votre adresse mail" name="mail" class="input" value="<?php if(isset($mail)) { echo $mail; } ?>"><br><br>
+                    <input id="mail" type="email" placeholder="Votre adresse mail" name="mail" class="input" value="<?php if(isset($_SESSION['inscription']['mail'])) { echo $_SESSION['inscription']['mail']; } ?>"><br><br>
 
                     <label for="mail2" class="label">CONFIRMATION DE L'ADRESSE MAIL</label><br>
-                    <input id="mail2" type="email" placeholder="Confirmer votre adresse mail"name="mail2" class="input" value="<?php if(isset($mail2)) { echo $mail2; } ?>"><br><br>
+                    <input id="mail2" type="email" placeholder="Confirmer votre adresse mail"name="mail2" class="input" ><br><br>
 
                     <label for="mdp" class="label">MOT DE PASSE</label><br>
                     <input id="mdp" type="password" placeholder="Votre mot de passe" name="mdp" class="input"><br><br>
@@ -146,6 +154,47 @@
             
         </div>
         
-        <script src="accueil.js"></script>
+        <?php
+		      
+	
+				
+        if (isset($_GET['co'])) {
+            if ($_GET['co'] == "inscription") {
+                echo '<script>
+                document.getElementById("connecter").style.left = "-500px";
+                document.getElementById("inscrire").style.left = "60px";
+                document.getElementById("choix-inscrire").style.borderBottom = "3px solid #1161ee";
+                document.getElementById("choix-inscrire").style.opacity = "1";
+                document.getElementById("choix-connecter").style.borderBottom = "none";
+                document.getElementById("choix-connecter").style.opacity = "0.7";
+                </script>';
+            }
+        }
+        if (isset($_GET['co'])) {
+            if ($_GET['co'] == "connexion") {
+                echo '<script>
+                document.getElementById("connecter").style.left = "60px";
+                document.getElementById("inscrire").style.left = "600px";
+                document.getElementById("choix-connecter").style.borderBottom = "3px solid #1161ee";
+                document.getElementById("choix-connecter").style.opacity = "1";
+                document.getElementById("choix-inscrire").style.borderBottom = "none";
+                document.getElementById("choix-inscrire").style.opacity = "0.7";
+                </script>';
+            }
+        }
+		if (isset($_SESSION['inscription']['erreur']))
+		{
+			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
+			unset($_SESSION['inscription']);
+
+		}
+		if (isset($_SESSION['profs']['erreur']))
+		{
+			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
+			unset($_SESSION['profs']);
+		}
+        ?>
+        
+        <script src="Affichage/accueil.js"></script>
     </body>
 </html>
