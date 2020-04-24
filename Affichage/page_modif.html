@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Modification de la classe</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<link rel="stylesheet" href="style/style.css" media="screen" type="text/css" />
+	</head>
+
+	<body>
+
+		<div class="formulaire">
+			<div class="boite_formulaire">
+				<form action="" method="post"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+					<span class="titre">
+						Modification de votre classe
+					</span>
+
+					
+					
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nombres de rangs </span>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" required>
+					</div>
+
+					<div class="placement_case">
+						<span class="police_formulaire">Nombres de colonnes </span>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" required>
+					</div>
+
+
+
+					<label for="placement">
+						Placement des élèves :  
+                        <select id="placement" name="placement">
+                            <option value="Alphabetique">Alphabetique</option>
+                            <option value="Aléatoire">Aléatoire</option>
+                        </select>
+                    </label>
+
+                 
+                  
+					
+						<div class="classe_bouton">
+							<div class="degrade"></div>
+							<button class="taille_bouton">
+								Valider
+							</button>
+						</div>	
+
+						<div class="classe_bouton_supp">
+							<div class="degrade"></div>
+							<button class="taille_bouton">
+								Supprimer
+							</button>
+						</div>				
+					
+				</form>
+			</div>
+
+
+		</div>
+	</body>
+</html>

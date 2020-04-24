@@ -56,7 +56,7 @@
         
         <table>
         <?php
-            $pdo = new PDO('mysql:host=localhost;dbname=global', 'root', '', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+            $pdo = new PDO('mysql:host=localhost;dbname=global', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
             
             $idEleve = 0;
             $bavardage = 0;
