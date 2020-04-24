@@ -5,7 +5,7 @@ header('Content-type: text/html; charset=UTF-8');
 
 function connect(){
 	try{
-		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','');
+		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
 	}
 	catch(PDOException $e){
 		die('Erreur : '.$e->getMessage());
@@ -163,6 +163,7 @@ function securIdent($mail, $motDePasse){
 	return -1;
 }
 
+
 function recupPseudo ($idProf){
 	$bdd = connect();
 	$query = "SELECT * FROM profs";
@@ -208,12 +209,13 @@ function ajouterClasse ($nameClasse, $file){
 		
 		while (!feof($fp))
 		{
-			$ligne = fgets ($fp,4096);
+			$ligne = utf8_encode (fgets ($fp,4096));
 			$liste = explode(";", $ligne);
 			
-			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
-			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
-			
+			$liste [0] = (isset ($liste [0])) ? $liste [0] : NULL;
+			$liste [1] = (isset ($liste [1])) ? $liste [1] : NULL;
+
+
 			$champs1= $liste[0];
 			$champs2 = $liste[1];
 			
@@ -221,38 +223,6 @@ function ajouterClasse ($nameClasse, $file){
 			{
 				$sql = ("INSERT INTO $nameClasse(nom, prenom) VALUES ( '$champs1' , '$champs2') ");
 				$result = $bdd->query($sql); 
-			}
-		}
-		fclose($fp);
-	}
-}
-
-
-
-function test ($nameClasse, $file){
-	mb_internal_encoding('UTF-8');
-	if ($file)
-	{
-		$fp = fopen($file, "r");
-		
-		while (!feof($fp))
-		{
-			$ligne = fgets ($fp,4096);
-			$liste = explode(";", $ligne);
-			
-			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
-			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
-			
-			$champs1= $liste[0];
-			$champs2 = $liste[1];
-			
-			echo mb_strlen('testé');
-			
-			if ($champs1 != '')
-			{
-				echo ($champs1 );
-				echo ($champs2 ); 
-				echo "</br>";
 			}
 		}
 		fclose($fp);
@@ -277,6 +247,7 @@ function newClasse($nameTab, $idProf){
 	else
 		relation($idProf, $nameTab);
 }
+
 
 /*
 if(!empty($_POST['addColumn'])){
@@ -320,6 +291,12 @@ if(!empty($_POST['triAlea'])){
 if(!empty($_POST['triAlpha'])){
     $func = 'triAlpha';
     $func($_POST['nameTable'], '2', '3');
+}
+
+if(!empty($_POST['remAccent'])){
+    $func = 'fctRetirerAccents';
+	$test = $func($_POST['accents']);
+	echo $test;
 }
 
 if(!empty($_POST['addProf'])){
@@ -380,5 +357,11 @@ if(!empty($_POST['addProf'])){
 	mail <input type="text" name="mail" placeholder="saisir...">
  	<input type="submit" name="addProf">
 </form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Texte avec accents : <input type="text" name="accents" placeholder="saisir...">
+ 	<input type="submit" name="remAccent">
+</form>
 */
+
 ?>
