@@ -11,8 +11,7 @@ body, html {
   background-image: url(scolaire.png);
   background-attachment:fixed;
   background-repeat: no-repeat;
-  background-size: cover;
-  
+  background-size: cover; 
   
 }
 
@@ -106,6 +105,9 @@ button:hover {
 
 }
 
+
+
+
 #avatar{
   font-family: Gill Sans;
   font-size: 17px;  
@@ -169,7 +171,23 @@ textarea.case_a_remplir {
   border-radius: 2px;
   overflow: hidden;
   width: 150px;
+}
 
+
+.classe_bouton_supp
+{
+  display: block;
+  position: relative;
+  top : -20px;
+  left : 20px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+.classe_bouton_supp:hover .degrade {
+  left: 0;
 }
 
 .classe_bouton:hover .degrade {
@@ -210,9 +228,11 @@ textarea.case_a_remplir {
   color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
-
-
 }
+
+
+
+
 
 
 
