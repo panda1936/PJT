@@ -1,14 +1,8 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 <?php
 
 function connect(){
 	try{
-<<<<<<< HEAD
 		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
-=======
-		$bdd = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','root');
->>>>>>> e964e6471dc3a595cc5af85c48a132928c96d3dd
 	}
 	catch(PDOException $e){
 		die('Erreur : '.$e->getMessage());
@@ -217,8 +211,6 @@ function ajouterClasse ($nameClasse, $file){
 			$liste [0] = (isset ($liste [0])) ? $liste [0] : NULL;
 			$liste [1] = (isset ($liste [1])) ? $liste [1] : NULL;
 
-
-<<<<<<< HEAD
 			$champs1= $liste[0];
 			$champs2 = $liste[1];
 			
@@ -231,9 +223,6 @@ function ajouterClasse ($nameClasse, $file){
 		fclose($fp);
 	}
 }
-
-=======
->>>>>>> e964e6471dc3a595cc5af85c48a132928c96d3dd
 
 function newClasse($nameTab, $idProf){
 	$bdd = connect();
