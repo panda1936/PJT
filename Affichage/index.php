@@ -106,7 +106,7 @@
 		}
 		if (isset($_SESSION['profs']['erreur']))
 		{
-			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
+			echo '<script type="text/javascript">alert("' . $_SESSION['profs']['erreur'] . '", "Information !");</script>';
 			unset($_SESSION['profs']);
 		}
         ?>

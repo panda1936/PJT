@@ -33,7 +33,7 @@ function verification ()
 		
 		if(!empty($mailconnect) AND !empty($mdpconnect)) 
 		{
-			$id = securIdent($mail, $motDePasse);
+			$id = securIdent($mailconnect, $mdpconnect);
 			if( $id >= 0) 
 			{
 				/* recuperation nom et id $userinfo = $requser->fetch();*/
@@ -42,7 +42,7 @@ function verification ()
 				$_SESSION['profs']['pseudo'] =recupPseudo ($id) ;
 				if (recupPseudo ($id))
 				{
-					header("Location: Index2.php?action = creation");
+					header("Location: Index2.php?action=creation");
 				}
 				else 
 				{
@@ -84,12 +84,11 @@ function verification ()
 						if(securMail($mail)) {
 							if($mdp == $mdp2) {
 						
-								addProf($pseudo, $_POST['mdp'], $mail);
-								
-								
+								addProf($pseudo, $mdp, $mail);
 								unset($_SESSION['inscription']);
-								//header("location: Index2.php?co=connexion" );
-								//echo '<script type="text/javascript">alert("Inscription reussie ", "Information !");</script>';
+								$_SESSION['profs']['erreur'] = "Inscription reussie ";
+								header("location: Index2.php?co=connexion" );
+								
 							} else {
 								$erreur = "Vos mots de passe ne correspondent pas !";
 								$_SESSION['inscription']['erreur']=$erreur;
@@ -152,7 +151,7 @@ function verification ()
 				if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 				{
 					
-					newClasse($nom_classe, 1);
+					newClasse($nom_classe, $_SESSION['profs']['id']);
 					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
 					if ($_POST['placement'] == "Aléatoire")

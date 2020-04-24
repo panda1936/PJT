@@ -35,7 +35,7 @@ else
 {
 	
 	header('Content-type: text/html; charset=iso-8859-1');
-	if ((isset($_SESSION['inscription']['erreur']) && isset($_SESSION['profs']['erreur'])) )
+	if (((isset($_SESSION['inscription']['erreur']) || isset($_SESSION['profs']['erreur']))) )
 	{
 		session_destroy();
 	}

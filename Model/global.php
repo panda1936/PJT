@@ -37,8 +37,6 @@ function addProf($pseudo, $mdp, $mail){
 	$bdd = connect();
     $add_prof = $bdd->prepare("INSERT INTO profs(idProf, pseudo, mdp, mail) VALUES (?,?,?,?)");
     $add_prof-> execute(array(0, $pseudo, $mdp, $mail));
-    $add_stud = $bdd->prepare("INSERT INTO profs (idProf, pseudo, mdp, mail) VALUES (?,?,?,?)");
-    $add_stud-> execute(array(0, $pseudo, $mdp, $mail));
 }
 
 function remStudent($nameTab, $id){
