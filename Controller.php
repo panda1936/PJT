@@ -95,7 +95,7 @@ function verification ()
 								header("location: Index2.php?co=inscription" );
 							}
 						} else {
-							$erreur = "Cette adresse mail est déjà utilisée !";
+							$erreur = "Cette adresse mail est déjà utilisee !";
 							$_SESSION['inscription']['erreur']=$erreur;
 							header("location: Index2.php?co=inscription" );
 						}
@@ -116,7 +116,7 @@ function verification ()
 			}
 		} else {
 			
-			$erreur = "Veuillez compléter tous les champs !";
+			$erreur = "Veuillez completer tous les champs !";
 			$_SESSION['inscription']['erreur']=$erreur;
 			header("location: Index2.php?co=inscription" );
 		}
@@ -150,7 +150,6 @@ function verification ()
 				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
 				if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 				{
-					
 					newClasse($nom_classe, $_SESSION['profs']['id']);
 					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					

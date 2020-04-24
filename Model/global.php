@@ -1,7 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <?php
-header('Content-type: text/html; charset=UTF-8');
 
 function connect(){
 	try{
@@ -200,7 +199,6 @@ function securMail($mail){
 
 
 function ajouterClasse ($nameClasse, $file){
-	header('Content-type: text/html; charset=iso-8859-1');
 	$bdd = connect();
 	if ($file)
 	{
@@ -228,36 +226,6 @@ function ajouterClasse ($nameClasse, $file){
 }
 
 
-
-function test ($nameClasse, $file){
-	mb_internal_encoding('UTF-8');
-	if ($file)
-	{
-		$fp = fopen($file, "r");
-		
-		while (!feof($fp))
-		{
-			$ligne = fgets ($fp,4096);
-			$liste = explode(";", $ligne);
-			
-			$liste [0] = ( isset ($liste [0]) ) ? $liste [0] : NULL;
-			$liste [1] = ( isset ($liste [1]) ) ? $liste [1] : NULL;
-			
-			$champs1= $liste[0];
-			$champs2 = $liste[1];
-			
-			echo mb_strlen('testé');
-			
-			if ($champs1 != '')
-			{
-				echo ($champs1 );
-				echo ($champs2 ); 
-				echo "</br>";
-			}
-		}
-		fclose($fp);
-	}
-}
 
 
 function newClasse($nameTab, $idProf){
