@@ -11,8 +11,7 @@ body, html {
   background-image: url(scolaire.png);
   background-attachment:fixed;
   background-repeat: no-repeat;
-  background-size: cover;
-  
+  background-size: cover; 
   
 }
 
@@ -41,6 +40,7 @@ button:hover {
 .formulaire {
   width: 100%;  
   min-height: 100vh;
+
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -106,6 +106,9 @@ button:hover {
 
 }
 
+
+
+
 #avatar{
   font-family: Gill Sans;
   font-size: 17px;  
@@ -158,18 +161,68 @@ textarea.case_a_remplir {
 
 
 
-
-.classe_bouton {
+.classe_bouton_1 {
 
   display: block;
   position: relative;
-  top : 40px;
+  top : 10px;
   left : 400px;
   z-index: 1;
   border-radius: 2px;
   overflow: hidden;
   width: 150px;
+}
 
+
+.classe_bouton {
+
+  display: block;
+  position: relative;
+  top : 100px;
+  left : 400px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+
+.classe_bouton_supp
+{
+  display: block;
+  position: relative;
+  top : 40px;
+  left : 20px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+
+.fofo{
+  
+  position: relative;
+  top : 10px;
+}
+
+.classe_bouton_retour
+{
+  display: block;
+  position: relative;
+  top : -450px;
+  left : -100px;
+  z-index: 1;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100px;
+
+}
+
+
+
+.classe_bouton_supp:hover .degrade {
+  left: 0;
 }
 
 .classe_bouton:hover .degrade {
@@ -195,6 +248,24 @@ textarea.case_a_remplir {
   transition: all 0.4s;
 }
 
+.taille_bouton_retour{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 15px;
+  height: 62px;
+
+
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+
 .taille_bouton{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
   
   display: flex;
@@ -210,9 +281,11 @@ textarea.case_a_remplir {
   color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
-
-
 }
+
+
+
+
 
 
 

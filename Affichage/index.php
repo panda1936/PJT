@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <meta charset="utf-8">
+		<meta charset="UTF-8">
         <title>Hosptimal</title>
         <link rel="icon" href="icone.png" type="x-icon">
         <link rel="stylesheet" href="Affichage/style/accueil.css">
@@ -17,7 +17,9 @@
             
             <!-- se connecter -->
             <?php
+			
             session_start();
+			
             ?>
             <div id="connecter">
                 <form method="POST" action="Index2.php?action=verification">
@@ -102,13 +104,16 @@
 		{
 			echo '<script type="text/javascript">alert("' . $_SESSION['inscription']['erreur'] . '", "Information !");</script>';
 			unset($_SESSION['inscription']);
+			
 
 		}
 		if (isset($_SESSION['profs']['erreur']))
 		{
 			echo '<script type="text/javascript">alert("' . $_SESSION['profs']['erreur'] . '", "Information !");</script>';
 			unset($_SESSION['profs']);
+			header('Content-type: text/html; charset=UTF-8');
 		}
+	
         ?>
         
         <script src="Affichage/accueil.js"></script>
