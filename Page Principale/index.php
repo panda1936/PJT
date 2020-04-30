@@ -9,13 +9,24 @@ if(!empty($_GET['type'])) {
     $nameColumn = $_GET['type'];
 }
 
-function createTableau($pdo, $nameTab, $nameColumn, $NbCol, $NbLig) {
+function connect(){
+	try{
+		$pdo = new PDO('mysql:host=localhost;dbname=global;charset=utf8','root','', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+	}
+	catch(PDOException $e){
+		die('Erreur : '.$e->getMessage());
+	}
+	return $pdo;
+}
+
+function createTableau($nameTab, $nameColumn, $NbCol, $NbLig) {
+	$pdo = connect();
     echo '<table>';
-    $y = 1;
-    while ($y <= $NbCol) {
-        $x = 1;
+    $y = 0;
+    while ($y < $NbCol) {
+        $x = 0;
         echo'<tr>';
-        while ($x <= $NbLig) {
+        while ($x < $NbLig) {
             $nom = "";
             echo'
             <td>
@@ -30,18 +41,14 @@ function createTableau($pdo, $nameTab, $nameColumn, $NbCol, $NbLig) {
             
             $prepare = 'SELECT * FROM ' . $nameTab . ' WHERE x = :x AND y = :y';
             $result = $pdo->prepare($prepare);
-            $result->execute(array(
-                'x' => $x,
-                'y' => $y
-            ));
+            $result->execute(array('x' => $x, 'y' => $y));
             $idEleve = "";
             while($users = $result->fetch(PDO::FETCH_ASSOC)){
                 echo '<span>' . $users["nom"] . ' ' . $users["prenom"] . '</span><br>';
                 $idEleve = $users["idEleve"];
             }
-            
-            createCompteur($pdo, $nameTab, $nameColumn, $x, $y);
-            createCompteur($pdo, $nameTab, 'bavardage', $x, $y);
+			
+            createCompteur($nameTab, $nameColumn, $x, $y);
             
             echo '
                             </div>
@@ -57,14 +64,14 @@ function createTableau($pdo, $nameTab, $nameColumn, $NbCol, $NbLig) {
     echo '</table>';
 }
 
-function createCompteur($pdo, $nameTab, $nameColumn, $x, $y) {
+function createCompteur($nameTab, $nameColumn, $x, $y) {
+	$pdo = connect();
+	
     $prepare = 'SELECT * FROM ' . $nameTab . ' WHERE x = :x AND y = :y';
     $result = $pdo->prepare($prepare);
-    $result->execute(array(
-        'x' => $x,
-        'y' => $y
-    ));
+    $result->execute(array('x' => $x,'y' => $y));
     $idEleve = "";
+	
     while($users = $result->fetch(PDO::FETCH_ASSOC)){
         echo '<span class="masquer">' . $nameColumn . ' : ' . $users[$nameColumn] . '</span><br>';
         $idEleve = $users["idEleve"];
@@ -72,7 +79,7 @@ function createCompteur($pdo, $nameTab, $nameColumn, $x, $y) {
     
     $nameplus = 'plus' . $x . '_' . $y;
     if (isset($_POST[$nameplus])) {
-        compteur($pdo, $nameTab, $nameColumn, $idEleve, 1);
+        compteur($nameTab, $nameColumn, $idEleve, 1);
         echo '<script language="Javascript">
             document.location.href="index.php?type=' . $nameColumn . '"
         </script>';
@@ -80,7 +87,7 @@ function createCompteur($pdo, $nameTab, $nameColumn, $x, $y) {
 
     $namemoins = 'moins' . $x . '_' . $y;
     if (isset($_POST[$namemoins])) {
-        compteur($pdo, $nameTab, $nameColumn, $idEleve, -1);
+        compteur($nameTab, $nameColumn, $idEleve, -1);
         echo '<script language="Javascript"> 
             document.location.href="index.php?type=' . $nameColumn . '"
         </script>';
@@ -97,24 +104,19 @@ function createCompteur($pdo, $nameTab, $nameColumn, $x, $y) {
     </form><br>';
 }
 
-function compteur($pdo, $nameTab, $nameColumn, $idEleve, $point) {
+function compteur($nameTab, $nameColumn, $idEleve, $point) {
     // $point = 1 ou -1
-    
+    $pdo = connect();
     $prepare = 'SELECT * FROM ' . $nameTab . ' WHERE idEleve = :idEleve';
     $result = $pdo->prepare($prepare);
-    $result->execute(array(
-        'idEleve' => $idEleve
-    ));
+    $result->execute(array('idEleve' => $idEleve));
     while($users = $result->fetch(PDO::FETCH_ASSOC)){
         $elevePoint = $users[$nameColumn];
     }
     
     $prepare2 = 'UPDATE ' . $nameTab . ' SET ' . $nameColumn . ' = :' . $nameColumn . ' WHERE idEleve = :idEleve';
     $result2 = $pdo->prepare($prepare2);
-    $result2->execute(array(
-        'idEleve' => $idEleve,
-        $nameColumn => $elevePoint + $point
-    ));
+    $result2->execute(array('idEleve' => $idEleve, $nameColumn => $elevePoint + $point));
 }
 
 ?>
