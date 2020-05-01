@@ -5,29 +5,36 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-		<link rel="stylesheet" href="style/style.css" media="screen" type="text/css" />
+		<link rel="stylesheet" href="Affichage/style/style.css" media="screen" type="text/css" />
 	</head>
+
+<?php
+	
+	session_start();
+	$taille = infoClasse($nameClasse, $_SESSION['profs']['id']);
+	
+	
+ ?>
 
 	<body>
 
 		<div class="formulaire">
 			<div class="boite_formulaire">
-				<form action="" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+				<form action="Index2.php?action=validermodif" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
 					<span class="titre">
 						Modification de votre classe
 					</span>
 
 					
-					
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de rangs </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4" required>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
 					</div>
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de colonnes </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8" required>
+						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8", value = "<?php echo ($taille [1]); ?>"  required>
 					</div>
 
 
@@ -42,7 +49,6 @@
 
                  
                   
-					
 						<div class="classe_bouton">
 							<div class="degrade"></div>
 							<button class="taille_bouton">

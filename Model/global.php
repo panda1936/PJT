@@ -42,16 +42,16 @@ function remStudent($nameTab, $id){
     $bdd->exec($rem_stud);
 }
 
-function modifClasse($nameTab, $nameColumn, $id, $value){
+function modifColonne($nameTab, $nameColumn, $id, $value){
 	$bdd = connect();
     $modif = "UPDATE $nameTab SET $nameColumn = $value WHERE IdEleve = $id";
     $bdd->exec($modif);
 }
 
-function relation($idProf, $nameClasse){
+function relation($idProf, $nameClasse, $x, $y, $nbrEleve){
 	$bdd = connect();
-    $add_relation = $bdd->prepare("INSERT INTO profclasse(idProf, nomClasse) VALUES (?,?)");
-    $add_relation-> execute(array($idProf, $nameClasse));
+    $add_relation = $bdd->prepare("INSERT INTO profclasse(idProf, nomClasse, nbrLigne, nbrColonne, nbrEleve) VALUES (?,?,?,?,?)");
+    $add_relation-> execute(array($idProf, $nameClasse, $x, $y, $nbrEleve));
 }
 
 function allClasse($idProf){
@@ -63,7 +63,6 @@ function allClasse($idProf){
 	$rowAll = $bdd_select->fetchAll();
 
 	return $rowAll;
-	return $rowAll ;
 }
 
 function triAlea($nomClasse, $nbColonne, $nbLigne){
@@ -224,7 +223,7 @@ function ajouterClasse ($nameClasse, $file){
 	}
 }
 
-function newClasse($nameTab, $idProf){
+function newClasse($nameTab, $idProf, $x, $y, $nbrEleve){
 	$bdd = connect();
 	$sql = ("CREATE TABLE " .$nameTab."(
 		`nom` VARCHAR(25) NOT NULL,
@@ -239,9 +238,39 @@ function newClasse($nameTab, $idProf){
 	if ($req === false)
 		echo 'ERREUR : ', print_r($bdd->errorInfo());
 	else
-		relation($idProf, $nameTab);
+		relation($idProf, $nameTab, $x, $y, $nbrEleve);
 }
 
+function infoClasse($nameClasse, $idProf)
+{
+	$bdd = connect();
+	$query = "SELECT nbrLigne, nbrColonne FROM profclasse WHERE IdProf = $idProf AND nomClasse = '".$nameClasse."'";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		return $row;
+	}
+}
+
+function deleteClasse($nameClasse, $idProf){
+	$bdd = connect();
+	$query = "DROP TABLE $nameClasse";
+	$bdd->exec($query);
+	
+	$bdd = connect();
+	$query2 = "DELETE FROM profclasse WHERE idProf = $idProf AND nameClasse = $nameClasse";
+	$bdd->exec($query2);
+}
+
+function modifClasse($nameClasse, $idProf, $x, $y){
+	$bdd = connect();
+    $modif = "UPDATE profclasse SET nbrLigne = $x, nbrColonne = $y  WHERE IdProf = $idProf AND nomClasse = '".$nameClasse."'";
+    $bdd->exec($modif);
+}
+	
+	
 
 /*
 if(!empty($_POST['addColumn'])){

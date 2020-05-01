@@ -14,6 +14,47 @@ function classe ()
 	
 }
 
+
+function modification ()
+{
+	// recuperer le nom de la classe 
+	$nameClasse = "toto" ;
+	require ('Affichage/page_modif.html');
+}
+
+function validemodif ()
+{
+	session_start (); 
+	$nom_classe = 'toto';
+	$rang = $_POST['rang'];
+	$colonne = $_POST['colonne'];
+	$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
+		if ($nb_place )
+		{
+			modifClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne)	;			
+			if ($_POST['placement'] == "Aléatoire")
+			{
+				triAlea($nom_classe, $colonne, $rang);
+					
+			}
+			else 
+			{
+				triAlpha($nom_classe, $colonne, $rang);
+			}
+					
+				
+
+			}
+		else 
+		{
+					
+				
+			header("location:".  $_SERVER['HTTP_REFERER']);
+		}
+	
+}
+
+
 function validation()
 {
 	
@@ -150,7 +191,7 @@ function verification ()
 				$nb_place = $_POST['rang'] * $_POST['colonne'] ; 
 				if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 				{
-					newClasse($nom_classe, $_SESSION['profs']['id']);
+					newClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne, (int)count(file($_FILES["test"]["tmp_name"])));
 					ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
 					if ($_POST['placement'] == "Aléatoire")
@@ -165,6 +206,7 @@ function verification ()
 					
 					unlink ($_FILES["test"]["tmp_name"]);
 					unset($_SESSION['connexion']);
+					header("location: Index2.php?action=modification" );
 				}
 				else 
 				{

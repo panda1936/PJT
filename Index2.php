@@ -20,6 +20,14 @@ if (isset($_GET['action']))
 			
 			verification ();
 		}
+		elseif ($_GET['action'] == 'modification')
+		{
+			modification ();
+		}
+		elseif ($_GET['action'] == 'validermodif')
+		{
+			validemodif (); 
+		}
 		elseif ($_GET['action'] == 'classe')
 		{
 		
