@@ -140,6 +140,13 @@ function createTableau($nameTab) {
     ?> </table> <?php
 }
 
+function compteur($nameTab, $nameColumn, $idEleve, $point) {
+	//$point = 1 ou -1
+	$pdo = connect();
+	$prepare2 = "UPDATE $nameTab SET $nameColumn = $point WHERE idEleve = $idEleve";
+	$pdo->exec($prepare2);
+}
+
 function createCompteur($nameTab, $nameColumn, $x, $y) {
 	$pdo = connect();
 	
@@ -147,32 +154,37 @@ function createCompteur($nameTab, $nameColumn, $x, $y) {
     $result = $pdo->prepare($prepare);
     $result->execute();
 	$rowAll = $result->fetchAll();
+	$idEleve = "";
 	
-    foreach ($rowAll as $row) {
+	foreach ($rowAll as $row) {
+        echo '<span class="masquer">'.$nameColumn.' : '.$row[$nameColumn].'</span><br>';
         $idEleve = $row['idEleve'];
-		$point = $row[$nameColumn];
-		echo '<span class="masquer">'.$nameColumn.' : '.$point.'</span><br>';
+		$poid = $row[$nameColumn];
     }
-    ?>
-	<form class ="masquer">
-		<input type="button" value="-" onclick = "compteur($nameTab, $nameColumn, $idEleve, $point - 1);"></input>
-		<input type="button" value="+" onclick = "compteur($nameTab, $nameColumn, $idEleve, $point + 1);"></input>
-    </form>
-	</br>
-	<?php
-}
+    
+    $nameplus = 'plus'.$x.'_'.$y;
+    if (isset($_POST[$nameplus])) {
+        compteur($nameTab, $nameColumn, $idEleve, $poid+1);
+        echo '<script language="Javascript">
+            document.location.href="index.php?type='.$nameColumn.'"
+        </script>';
+    }
 
-function compteur($nameTab, $nameColumn, $idEleve, $point) {
-    //$point = 1 ou -1
-    $pdo = connect();
-	echo $point;
-	$prepare2 = "UPDATE $nameTab SET $nameColumn = $point WHERE idEleve = $idEleve";
-	$pdo->exec($prepare2);
-	
-	echo '
-	<script language="Javascript"> 
-		document.location.href="./index.php?classe=<?php echo $row["nomClasse"] &amp; index.php?classe = type='.$nameColumn.'"
-	</script>';
+    $namemoins = 'moins'.$x.'_'.$y;
+    if (isset($_POST[$namemoins])) {
+        compteur($nameTab, $nameColumn, $idEleve, $poid-1);
+        echo '<script language="Javascript"> 
+            document.location.href="index.php?type='.$nameColumn.'"
+        </script>';
+    }
+
+    ?>
+    <form class ="masquer" method="POST" action="">
+        <input type="submit" name= <?php echo 'moins'.$x.'_'.$y; ?> value = "-">
+        <input type="submit" name= <?php echo 'plus'.$x.'_'.$y;?> value = "+">
+    </form><br>
+	</br>
+<?php 
 }
 
 function afficheBureau(){
