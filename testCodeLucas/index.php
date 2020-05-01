@@ -95,7 +95,8 @@ function createTableau($nameTab) {
     while ($y < $NbCol) {
         $x = 0;
         echo'<tr>';
-        while ($x < $NbLig) {
+        while ($x < $NbLig) 
+		{
             $nom = "";
             ?>
             <td>
@@ -107,18 +108,16 @@ function createTableau($nameTab) {
                                 <div class="box-title">
 			
 			<?php
-            $prepare = 'SELECT * FROM '.$nameTab.' WHERE x = :x AND y = :y';
+            $prepare = "SELECT * FROM $nameTab WHERE x = $x AND y = $y";
             $result = $pdo->prepare($prepare);
-            $result->execute(array('x' => $x, 'y' => $y));
+            $result->execute();
             $idEleve = "";
-            while($users = $result->fetch(PDO::FETCH_ASSOC)){
-                echo "<span>" . $users['nom'] ." ". $users['prenom'] . "</span><br>";
-                $idEleve = $users['idEleve'];
+            $rowAll = $result->fetchAll();
+			
+			foreach($rowAll as $row){
+                echo "<span>" . $row['nom'] ." ". $row['prenom'] . "</span><br>";
+                $idEleve = $row['idEleve'];
             }
-			
-			
-			$nameColumn = "bavardage";
-			createCompteur($nameTab, $nameColumn, $x, $y);			
 			
 			
 			if(!empty($_GET['type'])) {
@@ -166,7 +165,7 @@ function createCompteur($nameTab, $nameColumn, $x, $y) {
     if (isset($_POST[$nameplus])) {
         compteur($nameTab, $nameColumn, $idEleve, $poid+1);
         echo '<script language="Javascript">
-            document.location.href="index.php?type='.$nameColumn.'"
+            document.location.href="index.php?type='.$nameColumn.' $"
         </script>';
     }
 
