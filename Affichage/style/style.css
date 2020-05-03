@@ -178,7 +178,7 @@ textarea.case_a_remplir {
 
   display: block;
   position: relative;
-  top : 100px;
+  top : 10px;
   left : 400px;
   z-index: 1;
   border-radius: 2px;
