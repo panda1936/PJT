@@ -9,10 +9,9 @@ function box(element) {
       // Ensuite on applique la nouvelle classe qui modifie l'aspect de l'élément
       element.className='box target';
     }
-    else
+    //else
       // Si la classe de l'élément n'est pas égale à "box", c'est soit qu'elle est égale à "box target", soit qu'elle est corrompue (DOM modifié par l'utilisateur).
       // Dans tout les cas, on remet l'élément à zéro
-      element.className='box';
+      //element.className='box';
   }
 }
-
