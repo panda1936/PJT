@@ -93,13 +93,11 @@ button:hover {
 
 
 
-/*.placement_case { /* Permet de mettre les champs 2 par 2, c'est plus joli, enfaite non
-  width: 100%;
-  position: relative;
-  background-color: transparent;
-  margin-bottom: 35px;
-  width: calc((100% - 30px) / 2);
-}*/
+.placement_case { 
+  display: block;
+  position:relative;
+  top:20px;
+}
 
 #placement{
   margin-top: 20px;
@@ -110,7 +108,13 @@ button:hover {
 #static
 {
   font-size: 20px;
+  
+  display: block;
+  margin-left: 170px;
+  text-align: justify;
 }
+
+
 
 
 
