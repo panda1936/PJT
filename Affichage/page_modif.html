@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-		<link rel="stylesheet" href="Affichage/style/style.css" media="screen" type="text/css" />
+		<link rel="stylesheet" href="Affichage/style/style_modif.css" media="screen" type="text/css" />
 	</head>
 
 <?php
@@ -21,40 +21,42 @@
 		<div class="formulaire">
 			<div class="boite_formulaire">
 				<form action="Index2.php?action=validermodif" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
-					<span class="titre">
-						Modification de votre classe
-					</span>
+					<div class = "form">
+						<span class="titre">
+							Modification de votre classe
+						</span>
 
-					<div class="placement_case">
-						<span class="police_formulaire">Nom de la classe : <?php echo ($nameClasse); ?> </span>
-					</div>
+						<div class="placement_case" >
+							<span class="police_formulaire" id="static">Nom de la classe : <?php echo ($nameClasse); ?> </span>
+						</div>
 
-					<div class="placement_case">
-						<span class="police_formulaire">Nombre d'eleves : <?php echo ($taille[0]); ?> </span>
-					</div>
+						<div class="placement_case">
+							<span class="police_formulaire" id="static">Nombre d'eleves : <?php echo ($taille[0]); ?> </span>
+						</div>
 
-					<div class="placement_case">
-						<span class="police_formulaire">Nombres de rangs </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
-					</div>
+						<div class="placement_case">
+							<span class="police_formulaire">Nombres de rangs </span>
+							<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
+						</div>
 
-					<div class="placement_case">
-						<span class="police_formulaire">Nombres de colonnes </span>
-						<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8", value = "<?php echo ($taille [1]); ?>"  required>
-					</div>
+						<div class="placement_case">
+							<span class="police_formulaire">Nombres de colonnes </span>
+							<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 8", value = "<?php echo ($taille [1]); ?>"  required>
+						</div>
 
 
 
-					<label for="placement">
-						Placement des élèves :  
-                        <select id="placement" name="placement">
-                            <option value="Alphabetique">Alphabetique</option>
-                            <option value="Aléatoire">Aléatoire</option>
-                        </select>
-                    </label>
+						<label for="placement">
+							Placement des élèves :  
+	                        <select id="placement" name="placement">
+	                            <option value="Alphabetique">Alphabetique</option>
+	                            <option value="Aléatoire">Aléatoire</option>
+	                        </select>
+	                    </label>
+	                </div>
 
-                 
-                  
+	                 
+	                  
 						<div class="classe_bouton">
 							<div class="degrade"></div>
 							<button class="taille_bouton">
