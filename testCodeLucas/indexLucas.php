@@ -56,6 +56,7 @@ function navClasse($idProf){
         <nav>
 			<ul class="primary">
 	<?php
+	
 	foreach ($NbreData as $row) {
 	?>
 				<li>

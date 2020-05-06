@@ -14,7 +14,7 @@ $NbCol = 0;
 $NbLig = 0;
 
 
-$NbPlace = $NbCol * $NbLig;
+$NbPlace = 0;
 $nameTab = "classe";
 $nameColumn = "bavardage";
 if(!empty($_GET['type'])) {
@@ -25,11 +25,14 @@ initialisation(3, $nameTab);
 function initialisation($idProf, $Classe){
 	global $NbCol;
 	global $NbLig;
+	global $NbPlace;
+	
 	$bdd = connect();
 	
 	$tab = infoClasse($Classe, $idProf);
 	$NbLig = $tab[0];	
 	$NbCol = $tab[1];
+	$NbPlace = $NbLig * $NbCol;
 }
 
 
@@ -39,12 +42,12 @@ function createTableau($nameTab, $nameColumn) {
 	global $NbLig;
 	
 	echo '<table id="main">';
-    $y = 0;
-    while ($y < $NbLig) {
+    $y = $NbLig - 1;
+    while ($y >= 0) {
         $x = 0;
         echo'<tr class="col">';
         while ($x < $NbCol) {
-			
+			$idEleve = null;
 			$tab = infoStud($x, $y, $nameTab);
 			
 			foreach ($tab as $row) {
@@ -53,32 +56,34 @@ function createTableau($nameTab, $nameColumn) {
 				$nom = $row[0];
 				$prenom = $row[1];
 			}
-			
 			?>
+			
 			<td class="box" onclick="box(this);">
 				<div class="box-content">
 					<div class="box-text pt-4">
-						<?php createCommentaire($nameTab, $x, $y, $tab);?>
+						<?php if ($idEleve != null){
+							createCommentaire($nameTab, $x, $y, $tab);
+						}
+						?>
 					</div>
 				</div>
 				<div class="box-icon"></div>
 				<div class="box-title">
-		<?php
-            echo '<span>' . $nom . ' ' . $prenom . '</span><br>';
-         
-            echo'<div style="font-size:10px;">';
 			
-            createCompteur($nameTab, $nameColumn, $x, $y, $tab);
-            echo'</div>';
-            
-            echo '</div>
-                </td>';
-            
+			<?php
+			if ($idEleve != null){
+				echo '<span>' . $nom . ' ' . $prenom . '</span><br>';
+				echo'<div style="font-size:10px;">';
+				createCompteur($nameTab, $nameColumn, $x, $y, $tab);
+				echo'</div>';
+				echo '</div>';
+			}
+            echo '</td>';
             $x += 1;
         }
         echo'
             </tr>';
-        $y += 1;
+        $y -= 1;
     }
     echo '</table>';
 }
@@ -130,7 +135,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
         </script>';
     }
 	
-    echo '<div class="text-center">';
+    echo '<div class="text-center, commentaire">';
     echo '<form method="POST" action="">';
     echo '<textarea name="modifier" rows="5" cols="33">';
     echo $commentaire;
@@ -146,7 +151,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Hosptimal</title>
+        <title>Study School</title>
         <link rel="icon" href="icone.png" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -155,7 +160,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
     </head>
         
     <body>
-        <h1 class="text-center">HOSPTIMAL</h1>
+        <h1 class="text-center">STUDY SCHOOL</h1>
         
         <header>
 			<div class="text-center my-5">
@@ -216,7 +221,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
 				$tab = nomColonne($nameClasse);
 				for ($i = 0; $i < sizeof($tab); $i++){
 				?>
-					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionBavardage()"><?php echo $tab[$i] ?></button>
+					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur()"><?php echo $tab[$i]; ?></button>
 				<?php
 				}
 				?>
@@ -241,7 +246,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
 		
         <script>
         function FonctionBavardage() {
-            var NbElement = <?php echo $NbPlace ?> * 2;
+            var NbElement = <?php echo $NbPlace; ?> * 2;
             var compteur = document.getElementsByClassName("masquer");
             for (i=0; i<NbElement ; i++) {  
             if (compteur[i].style.display === "none") {
@@ -251,6 +256,7 @@ function createCommentaire($nameTab, $x, $y, $tab) {
               }
             }
         }
+		
         function FonctionAjouter() {
             var ajouter = document.getElementsByClassName("ajouterPopup");
             if (ajouter[0].style.display === "none") {
