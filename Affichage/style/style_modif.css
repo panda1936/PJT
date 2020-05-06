@@ -1,0 +1,310 @@
+
+* {
+  margin: 0px; 
+  padding: 0px; 
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%
+  font-family: Raleway-SemiBold, sans-serif;
+  background-image: url(scolaire.png);
+  background-attachment:fixed;
+  background-repeat: no-repeat;
+  background-size: cover; 
+  
+}
+
+
+input {
+  outline: none;
+  border: none;
+}
+
+
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+
+
+/*//////////////////////////////////////////////////////////////////*/
+/*Vrai CSS*/
+
+.formulaire {
+  width: 100%;  
+  min-height: 100vh;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+}
+
+.boite_formulaire {
+  max-width: 960px;
+  width: 800px;
+  background: #fafafa;
+
+  border-radius: 2px;
+  padding: 66px 115px 59px 115px;
+  position: relative;
+  border-radius: 30px;
+
+}
+
+
+
+/*.ligne { /*Mettre en ligne et pas en colonne
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}*/
+
+.titre {
+  display: block;
+  /*width: 100%;*/
+  font-family: Raleway-Black;
+  font-size: 30px;
+  color: #333333;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: left;
+  padding-bottom: 32px;
+
+}
+
+
+
+.placement_case { 
+  display: block;
+  position:relative;
+  top:20px;
+}
+
+#placement{
+  margin-top: 20px;
+
+}
+
+
+#static
+{
+  font-size: 20px;
+  
+  display: block;
+  margin-left: 170px;
+  text-align: justify;
+}
+
+
+
+
+
+
+#avatar{
+  font-family: Gill Sans;
+  font-size: 17px;  
+  line-height: 1.5;
+}
+
+
+.police_formulaire {
+  font-family: Gill Sans;
+  font-size: 17px;
+  
+  line-height: 1.5;
+}
+
+.case_a_remplir {
+  
+  width: 60%;
+  background: #f2f2f2;
+  border-radius: 2px;
+
+  font-family: Raleway-SemiBold;
+  font-size: 20px;
+  color: #686868;
+
+  line-height: 1.2;
+  padding: 0 28px;
+
+  margin-top: 10px;
+  margin-bottom: 6px;
+  margin-left: 50px;
+  
+}
+
+
+/*---------------------------------------------*/
+input.case_a_remplir {
+  height: 62px;
+}
+
+
+textarea.case_a_remplir {
+  min-height: 162px;
+  padding-top: 19px;
+  padding-bottom: 13px;
+}
+
+.case_a_remplir:focus {
+  background: #e6e6e6;
+}
+
+
+
+.classe_bouton_1 {
+
+  display: block;
+  position: relative;
+  top : 10px;
+  left : 400px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+
+.classe_bouton {
+
+  display: block;
+  position: relative;
+  top : 100px;
+  left : 400px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+
+.classe_bouton_supp
+{
+  display: block;
+  position: relative;
+  top : 40px;
+  left : 20px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+
+.fofo{
+  
+  position: relative;
+  top : 10px;
+}
+
+.classe_bouton_retour
+{
+  display: block;
+  position: relative;
+  top : -490px;
+  left : -100px;
+  z-index: 1;
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100px;
+
+}
+
+.form{
+  position: relative;
+  top : 35px;
+}
+
+
+
+.classe_bouton_supp:hover .degrade {
+  left: 0;
+}
+
+.classe_bouton:hover .degrade {
+  left: 0;
+}
+
+.degrade {
+  position: absolute;
+  z-index: -1;
+  width: 300%;
+  height: 100%;
+  background: #df2351;
+  background: -webkit-linear-gradient(right, #2f91ff, #00c513, #2f91ff, #00c513);
+  background: -o-linear-gradient(right, #2f91ff, #00c513, #2f91ff, #00c513);
+  background: -moz-linear-gradient(right, #2f91ff, #00c513, #2f91ff, #00c513);
+  background: linear-gradient(right, #2f91ff, #00c513, #2f91ff, #00c513);
+  top: 0;
+  left: -100%;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.taille_bouton_retour{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 15px;
+  height: 62px;
+
+
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+
+.taille_bouton{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 150px;
+  height: 62px;
+
+
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
