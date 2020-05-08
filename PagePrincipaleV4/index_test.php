@@ -58,7 +58,12 @@ function createTableau($nameTab, $nameColumn) {
 			}
 			?>
 			
-			<td class="box" onclick="box(this);">
+			<?php if ($idEleve != null){
+				?> <td class="box" onclick="box(this);">
+			<?php }
+			else{ ?>
+				<td class="box">
+			<?php } ?>
 				<div class="box-content">
 					<div class="box-text pt-4">
 						<?php if ($idEleve != null){
@@ -67,8 +72,10 @@ function createTableau($nameTab, $nameColumn) {
 						?>
 					</div>
 				</div>
-				<div class="box-icon"></div>
-				<div class="box-title">
+				<?php if ($idEleve != null){
+					?><div class="box-icon"></div><?php
+				}
+				?><div class="box-title">
 			
 			<?php
 			if ($idEleve != null){
@@ -144,6 +151,12 @@ function createCommentaire($nameTab, $x, $y, $tab) {
     echo 'modifier'.$x.'_'.$y;
     echo '" value="Modifier">
     </form></div><br>';
+}
+
+if(!empty($_POST['addColumn'])){
+	$nameTab = 'classe';
+    $func = 'addColumn';
+    $func($nameTab, $_POST['nameColumn']);
 }
 
 ?>
@@ -228,51 +241,39 @@ function createCommentaire($nameTab, $x, $y, $tab) {
                 <button type="button" class="btn btn-secondary bg-dark" onclick="FonctionAjouter()">Ajouter</button>
             </div>
         </div>
+		
         <div class="ajouterPopup">
             <form class ="masquer ajouterType text-center" method="POST" action="">
                 <label for="ajouterType">Nouveau type</label><br>
-                <input class="input" id="ajouterType" type="text" name="ajouterType"><br>
-                <input class="input"  type="submit" name="ajouter" value="Ajouter"><br>
+                <input class="input" id="ajouterType" type="text" name="nameColumn"><br>
+                <input class="input"  type="submit" name="addColumn" value="Ajouter"><br>
             </form>
         </div>
-		
-        <!--div class="modifierPopup">
-            <form class ="masquer modifierType text-center" method="POST" action="">
-                <label for="modifierType">Modifier commentaire</label><br>
-                <textarea class="input" id="modifierType" type="text" name="modifierType" rows="5" cols="33"></textarea><br>
-                <input class="input"  type="submit" name="modifier" value="Modifier"><br>
-            </form>
-        </div-->
+
 		
         <script>
-        function FonctionBavardage() {
+        function FonctionCompteur() {
             var NbElement = <?php echo $NbPlace; ?> * 2;
             var compteur = document.getElementsByClassName("masquer");
             for (i=0; i<NbElement ; i++) {  
-            if (compteur[i].style.display === "none") {
-                compteur[i].style.display = "inline-block";
-              } else {
-                compteur[i].style.display = "none";
-              }
+				if (compteur[i].style.display === "none") {
+					compteur[i].style.display = "inline-block";
+				} 
+				else {
+					compteur[i].style.display = "none";
+				}
             }
         }
 		
         function FonctionAjouter() {
             var ajouter = document.getElementsByClassName("ajouterPopup");
             if (ajouter[0].style.display === "none") {
-                ajouter[0].style.display = "block";
-            } else {
+				ajouter[0].style.display = "block";
+            } 
+			else {
                 ajouter[0].style.display = "none";
             }
         }
-        /*function FonctionModifier() {
-            var ajouter = document.getElementsByClassName("modifierPopup");
-            if (ajouter[0].style.display === "none") {
-                ajouter[0].style.display = "block";
-            } else {
-                ajouter[0].style.display = "none";
-            }
-        }*/
         </script>
         
         <script src="js/script.js"></script>
