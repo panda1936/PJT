@@ -40,7 +40,10 @@
 
 						<div class="placement_case">
 							<span class="police_formulaire">Nombres de rangs </span>
-							<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
+							
+								<input type="number" min="0" max="10"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
+							
+							
 						</div>
 
 						<div class="placement_case">
@@ -52,12 +55,35 @@
 						<div class="placement_case">
 							<label for="placement">
 								Placement des élèves :  
-		                        <select id="placement" name="placement">
+		                        <select id="placement" name="placement" class="alig_1">
 		                            <option value="Alphabetique">Alphabetique</option>
 		                            <option value="Aléatoire">Aléatoire</option>
 		                        </select>
 		                    </label>
 		                </div>
+
+		                <div class="placement_case">
+							<label for="placement">
+								Modification des attributs :  
+		                        <select id="placement" name="placement" class="alig">
+				                        <option value="Alphabetique">Bavardages</option>
+				                        <option value="Aléatoire">Tableau</option>
+		                        </select>
+		                    </label>
+		                </div>
+
+		                <div class="classe_bouton_supp_att">
+							<div class="degrade"></div>
+							<button class="taille_bouton_att">
+								Supprimer l'attribut
+							</button>
+						</div>
+
+
+		                
+
+
+
 	                </div>
 
 	                 
@@ -72,7 +98,7 @@
 						<div class="classe_bouton_supp">
 							<div class="degrade"></div>
 							<button class="taille_bouton">
-								Supprimer
+								Supprimer la classe
 							</button>
 						</div>
 
@@ -80,7 +106,7 @@
 						<div class="classe_bouton_retour">
 							<div class="degrade"></div>
 							<a class="taille_bouton_retour" href="Principale1.php" type="button" value="Bouton">
-								Retour
+								Retour 
 							</a>
 						</div>	
 
