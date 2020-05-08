@@ -17,8 +17,11 @@ function classe ()
 
 function modification ()
 {
+	session_start();
 	// recuperer le nom de la classe 
 	$nameClasse = "toto" ;
+	$taille = infoClasse($nameClasse, $_SESSION['profs']['id']);
+	$attribut = nomColonne($nameClasse);
 	require ('Affichage/page_modif.html');
 }
 
@@ -42,26 +45,33 @@ function validemodif ()
 			{
 				triAlpha($nom_classe, $colonne, $rang);
 			}
+			echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe modifiée" ) .'", "Information !");</script>';
+			#header('Refresh: 0; URL=Index2.php?action=modification ');
 		}
 		else
 		{
-				
-		
+
 			header("location:".  $_SERVER['HTTP_REFERER']);
 		}
 	
 }
 
-function SupprimerClasse ()
+function Supprimer_Attribut ()
 {
-	print ($_POST['Supprimer']);
-}
-
-
-function validation()
-{
+	$nameTab = $_POST['suppr_attribut'] ;
+	$nameColumn = ($_POST['attribut']) ;
+	remColumn($nameTab, $nameColumn);
+	echo '<script type="text/javascript">alert("'. utf8_encode (  "Attribut supprimé" ) .'", "Information !");</script>';
+	#header('Refresh: 0; URL=Index2.php?action=modification ');
 	
 }
+
+function SupprimerClasse ()
+{
+	echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
+	#header('Refresh: 0; URL=Index2.php?action=modification ');
+}
+
 
 
 
@@ -190,6 +200,7 @@ function AjoutClasse ()
 			$nb_place = $_POST['rang'] * $_POST['colonne'] ;
 			if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 			{
+				/*
 				newClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne, (int)count(file($_FILES["test"]["tmp_name"])));
 				ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
@@ -202,10 +213,13 @@ function AjoutClasse ()
 				{
 					triAlpha($nom_classe, $colonne, $rang);
 				}
+				*/
 					
 				unlink ($_FILES["test"]["tmp_name"]);
 				unset($_SESSION['connexion']);
-				header("location: Index2.php?action=modification" );
+				echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe créer" ) .'", "Information !");</script>';
+				header('Refresh: 0; URL=Index2.php?action=modification ');
+				
 			}
 			else
 			{
@@ -229,12 +243,6 @@ function AjoutClasse ()
 		$_SESSION['connexion']['erreur'] = $erreur;
 		header("location:".  $_SERVER['HTTP_REFERER']);
 	}
-}
-function verification ()
-{
-
-	
-
 }
 
 

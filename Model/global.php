@@ -270,7 +270,36 @@ function modifClasse($nameClasse, $idProf, $x, $y){
     $bdd->exec($modif);
 }
 	
+function modifValeur($nameClasse, $nomColonne, $idEleve, $point){
+	$bdd = connect();
+    $modif = "UPDATE $nameClasse SET $nomColonne = $point WHERE idEleve = $idEleve";
+    $bdd->exec($modif);
+}
+
+function modCommentaire($nameClasse, $idEleve, $message){
+	$bdd = connect();
+
+    $prepare = 'UPDATE ' . $nameClasse . ' SET commentaire = :message WHERE idEleve = :idEleve';
+    $result = $bdd->prepare($prepare);
+    $result->execute(array('idEleve' => $idEleve, 'message' => $message));
+}
+
+function nomColonne($nomClasse){
+	$bdd = connect();
 	
+    $prepare = "SHOW COLUMNS FROM $nomClasse";
+	$result = $bdd->prepare($prepare);
+	$result->execute();
+	$rowAll = $result->fetchAll();
+
+	$champs = array();
+
+	foreach ($rowAll as $row) {
+		$champs[] = $row["Field"];
+	}
+	array_splice($champs, 0, 6);
+	return $champs;
+}
 
 /*
 if(!empty($_POST['addColumn'])){

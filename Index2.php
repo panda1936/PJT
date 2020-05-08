@@ -29,23 +29,23 @@ if (isset($_GET['action']))
 			{
 				AjoutClasse () ;
 			}
-			
-			verification ();
+			if (isset($_POST['suppr_classe']))
+			{
+				SupprimerClasse ();
+			}
+			else if (isset($_POST['suppr_attribut']))
+			{
+				Supprimer_Attribut () ;
+				
+			}
+			else if (isset($_POST['valide_modif']))
+			{
+				validemodif ();
+			}
 		}
 		elseif ($_GET['action'] == 'modification')
 		{
 			modification ();
-		}
-		elseif ($_GET['action'] == 'validermodif')
-		{
-			if ($_POST['Supprimer'])
-			{
-				SupprimerClasse ();
-			}
-			else
-			{
-				validemodif ();
-			}
 		}
 		elseif ($_GET['action'] == 'classe')
 		{
@@ -54,6 +54,7 @@ if (isset($_GET['action']))
 		elseif ($_GET['action'] == 'deconnexion')
 		{
 			session_destroy();
+			header("Location: Index2.php");
 		}
 
 	

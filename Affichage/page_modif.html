@@ -10,8 +10,6 @@
 
 <?php
 	
-	session_start();
-	$taille = infoClasse($nameClasse, $_SESSION['profs']['id']);
 	
 	
  ?>
@@ -20,7 +18,13 @@
 
 		<div class="formulaire">
 			<div class="boite_formulaire">
-				<form action="Index2.php?action=validermodif" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+				<div class="classe_bouton_deco">
+						<div class="degrade"></div>
+						<button class="taille_bouton" onclick="location.href='index2.php?action=deconnexion'">
+							Deconnexion
+						</button>
+				</div>
+				<form action="Index2.php?action=verification" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
 					<div class = "form">
 						<span class="titre">
 							Modification de votre classe
@@ -28,13 +32,13 @@
 
 						<div >
 							<span class="police_formulaire" id="static">
-								<div class="centrer">Nom de la classe : <?php echo ($nameClasse); ?> </div>
+								<div class="centrer"  >Nom de la classe : <?php echo ($nameClasse); ?> </div>
 							</span>
 						</div>
 
 						<div >
 							<span class="police_formulaire" id="static">
-								<div class="centrer">Nombre d'eleves : <?php echo ($taille[0]); ?> </div>
+								<div class="centrer">Nombre d'eleves : <?php echo ($taille[2]); ?> </div>
 							</span>
 						</div>
 
@@ -65,16 +69,22 @@
 		                <div class="placement_case">
 							<label for="placement">
 								Modification des attributs :  
-		                        <select id="placement" name="placement" class="alig">
-				                        <option value="Alphabetique">Bavardages</option>
-				                        <option value="Aléatoire">Tableau</option>
+		                        <select id="placement" name="attribut" class="alig">
+										<?php 
+											foreach ($attribut as &$value) {
+										?>
+}
+											<option value="<?php echo ($value);?>"><?php echo ($value);?></option>)
+										<?php
+											}
+										?>
 		                        </select>
 		                    </label>
 		                </div>
 
 		                <div class="classe_bouton_supp_att">
 							<div class="degrade"></div>
-							<button class="taille_bouton_att">
+							<button class="taille_bouton_att" name = "suppr_attribut" value = "<?php echo ($nameClasse); ?>" >
 								Supprimer l'attribut
 							</button>
 						</div>
@@ -90,14 +100,14 @@
 	                  
 						<div class="classe_bouton">
 							<div class="degrade"></div>
-							<button class="taille_bouton">
+							<button class="taille_bouton" name = "valide_modif">
 								Valider
 							</button>
 						</div>	
 
 						<div class="classe_bouton_supp">
 							<div class="degrade"></div>
-							<button class="taille_bouton">
+							<button class="taille_bouton" name = "suppr_classe" value= "<?php echo ($nameClasse); ?>">
 								Supprimer la classe
 							</button>
 						</div>
