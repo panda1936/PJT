@@ -144,12 +144,12 @@ function createCommentaire($nameTab, $x, $y, $tab) {
 	
     echo '<div class="text-center, commentaire">';
     echo '<form method="POST" action="">';
-    echo '<textarea name="modifier" rows="5" cols="33">';
+    echo '<textarea class="textarea" name="modifier">';
     echo $commentaire;
     echo '</textarea><br>';
     echo '<input class="btn btn-secondary bg-dark" type="submit" name="';
     echo 'modifier'.$x.'_'.$y;
-    echo '" value="Modifier">
+    echo '" value="Modifier"><a class="btn btn-secondary bg-dark" href="">Fermer</a>
     </form></div><br>';
 }
 
@@ -175,7 +175,7 @@ if(!empty($_POST['addColumn'])){
     <body>
         <h1 class="text-center">STUDY SCHOOL</h1>
         
-        <header>
+        <header onclick="box1()">
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -188,6 +188,7 @@ if(!empty($_POST['addColumn'])){
 			<?php
 			
 			/*$tab = allClasse($idProf);*/
+			
 			
 			$tab = allClasse(3);
 			foreach($tab as $row){
@@ -212,12 +213,12 @@ if(!empty($_POST['addColumn'])){
         <?php
         createTableau($nameTab, $nameColumn);
         ?>
-        
+        <div onclick="box1()">
         <br><br><br>
         <table id="main">
             <tr class="col text_center">
                 <td class="box" style="background: inherit"></td>
-                <td class="box" style="background: inherit" onclick="box(this);">
+                <td class="box" style="background: inherit">
                     <div class="box-content" style="background: orange">
                     </div>
                     <div class="box-icon"></div>
@@ -226,8 +227,9 @@ if(!empty($_POST['addColumn'])){
                 <td class="box" style="background: inherit"></td>
             </tr>   
         </table>
+		</div>
         
-        <div class="text-center my-5">
+        <div class="text-center bouton_bas py-5">
             <div class="btn-group" role="group" aria-label="Basic example">
 				<?php
 				//$tab = nomColonne('classe');
@@ -243,7 +245,7 @@ if(!empty($_POST['addColumn'])){
         </div>
 		
         <div class="ajouterPopup">
-            <form class ="masquer ajouterType text-center" method="POST" action="">
+            <form class ="ajouterType text-center" method="POST" action="">
                 <label for="ajouterType">Nouveau type</label><br>
                 <input class="input" id="ajouterType" type="text" name="nameColumn"><br>
                 <input class="input"  type="submit" name="addColumn" value="Ajouter"><br>

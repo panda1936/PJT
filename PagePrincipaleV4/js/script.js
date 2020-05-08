@@ -15,3 +15,7 @@ function box(element) {
       //element.className='box';
   }
 }
+
+function box1() {
+    document.getElementById('main').getElementsByClassName('box target')[0].className='box';
+}
