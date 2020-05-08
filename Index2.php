@@ -17,6 +17,18 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'verification')
 		{
+			if(isset($_POST['formconnexion']))
+			{
+				Connexion ();
+			}
+			else if (isset($_POST['forminscription']))
+			{
+				Inscription (); 
+			}
+			else if (isset($_POST['AjoutClasse'])) 
+			{
+				AjoutClasse () ;
+			}
 			
 			verification ();
 		}
@@ -26,7 +38,14 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'validermodif')
 		{
-			validemodif (); 
+			if ($_POST['Supprimer'])
+			{
+				SupprimerClasse ();
+			}
+			else
+			{
+				validemodif ();
+			}
 		}
 		elseif ($_GET['action'] == 'classe')
 		{
