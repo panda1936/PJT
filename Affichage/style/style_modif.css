@@ -67,6 +67,8 @@ button:hover {
   position: relative;
   border-radius: 30px;
 
+
+
 }
 
 
@@ -91,16 +93,30 @@ button:hover {
 
 }
 
+.alig{
+  
+  position: relative;
+  left:50px;
+}
+
+.alig_1{
+  
+  position: relative;
+  left:80px;
+}
+
 
 
 .placement_case { 
   display: block;
   position:relative;
   top:20px;
+
 }
 
 #placement{
   margin-top: 20px;
+
 
 }
 
@@ -112,6 +128,8 @@ button:hover {
   display: block;
   margin-left: 170px;
   text-align: justify;
+
+  
 }
 
 
@@ -209,6 +227,25 @@ textarea.case_a_remplir {
   width: 150px;
 }
 
+.classe_bouton_supp_att
+{
+  display: block;
+  position: relative;
+  top : -4px;
+  left : 400px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+}
+
+.align
+{
+  display: block;
+  position: relative;
+  top: 10px;
+}
+
 
 .fofo{
   
@@ -220,7 +257,7 @@ textarea.case_a_remplir {
 {
   display: block;
   position: relative;
-  top : -490px;
+  top : -570px;
   left : -100px;
   z-index: 1;
   border-radius: 50px;
@@ -277,6 +314,23 @@ textarea.case_a_remplir {
   color: #fff;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.taille_bouton_att{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 15px;
+  height: 30px;
+
+
+  font-family: Raleway-Bold;
+  font-size: 14px;
+  color: #fff;
+  line-height: 1.2;
+  
+
 }
 
 
