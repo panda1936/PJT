@@ -114,6 +114,10 @@ button:hover {
 
 }
 
+
+
+
+
 #placement{
   margin-top: 20px;
 
@@ -130,6 +134,19 @@ button:hover {
   text-align: justify;
 
   
+}
+
+.classe_bouton_deco{
+  
+  display: block;
+  position: relative;
+  top : -35px;
+  left : 500px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+
 }
 
 
@@ -257,7 +274,7 @@ textarea.case_a_remplir {
 {
   display: block;
   position: relative;
-  top : -570px;
+  top : -630px;
   left : -100px;
   z-index: 1;
   border-radius: 50px;
@@ -268,7 +285,7 @@ textarea.case_a_remplir {
 
 .form{
   position: relative;
-  top : 35px;
+  top : 5px;
 }
 
 
@@ -280,6 +297,9 @@ textarea.case_a_remplir {
 .classe_bouton:hover .degrade {
   left: 0;
 }
+
+
+
 
 .degrade {
   position: absolute;
