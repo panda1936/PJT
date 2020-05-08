@@ -164,6 +164,7 @@ function Inscription ()
 		header("location: Index2.php?co=inscription" );
 	}
 }
+
 function AjoutClasse ()
 {
 	session_start();
