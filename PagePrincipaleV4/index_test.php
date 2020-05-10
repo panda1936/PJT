@@ -74,8 +74,10 @@ function createTableau($nameTab, $nameColumn)
 						if ($idEleve != null){
 							for($i = 0; $i < sizeof($tab); $i++){
 								foreach ($info as $row2) {
+                                    echo'<div class="affiche_categorie">';
 									echo $tab[$i].': '.$row2[$tab[$i]].'</br>';
-								}
+								    echo'</div>';
+                                }
 							}
 							echo '</br>';
 							createCommentaire($nameTab, $x, $y, $info);
@@ -190,12 +192,24 @@ if(!empty($_POST['addColumn'])){
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="css/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="css/favicon-16x16.png">
+        <link rel="manifest" href="css/site.webmanifest">
+        <link rel="mask-icon" href="css/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="css/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Studyboards">
+        <meta name="application-name" content="Studyboards">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="css/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
     </head>
         
     <body>
-        <h1 class="text-center">STUDY SCHOOL</h1>
         
         <header onclick="box1()">
+             <img class="Logo" src="css/TitleLogo_WhiteBG.svg"/>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -235,19 +249,7 @@ if(!empty($_POST['addColumn'])){
         ?>
 		<script> FonctionCompteur('bavardage') </script>;
         <div onclick="box1()">
-        <br><br><br>
-        <table id="main">
-            <tr class="col text_center">
-                <td class="box" style="background: inherit"></td>
-                <td class="box" style="background: inherit">
-                    <div class="box-content" style="background: orange">
-                    </div>
-                    <div class="box-icon"></div>
-                    <div class="box-title">Bureau</div>
-                </td>
-                <td class="box" style="background: inherit"></td>
-            </tr>   
-        </table>
+            <img class="Bureau" src="css/Bureau.png"/>
 		</div>
         
         <div class="text-center bouton_bas py-5">

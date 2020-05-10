@@ -1,6 +1,9 @@
 body {
-	background:rgb(240,240,240);
-	margin:0;
+	
+    background: url("background1.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 /* Le conteneur principale */
@@ -37,7 +40,7 @@ body {
 
 /* La partie verte contenue dans les .box (initalement ce sont les ronds) */
 .box-content {
-	background:rgb(242, 143, 21);
+	background:#44C9CF;
 	width:45px;
 	height:45px;
 	border-radius:100px;
@@ -165,4 +168,25 @@ body {
 .textarea{
 	width: 80%;
 	height: 75px;
+    margin-top: 37%;
+}
+
+.Bureau{
+    width: 13%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1%;
+    display: block;
+}
+
+.Logo{
+    width: 250px;   
+    margin-left: 3%;
+    display: block;
+    position: absolute;
+}
+
+.affiche_categorie{
+    text-align: left;
+    margin-left: 11%;
 }
