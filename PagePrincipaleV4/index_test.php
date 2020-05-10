@@ -12,31 +12,30 @@ else
 /*initialisation nbr colonne et ligne */
 $NbCol = 0;
 $NbLig = 0;
+$idProf =3;
 
 
 $NbPlace = 0;
-$nameTab = "classe";
 $nameColumn = "bavardage";
+
 if(!empty($_GET['type'])) {
     $nameColumn = $_GET['type'];
 }
-initialisation(3, $nameTab);
 
-function initialisation($idProf, $Classe){
+initialisation($idProf, $nameClasse);
+
+function initialisation($idProf, $nameClasse){
 	global $NbCol;
 	global $NbLig;
-	global $NbPlace;
 	
 	$bdd = connect();
-	
-	$tab = infoClasse($Classe, $idProf);
+	$tab = infoClasse($nameClasse, $idProf);
 	$NbLig = $tab[0];	
 	$NbCol = $tab[1];
-	$NbPlace = $NbLig * $NbCol;
 }
 
 
-function createTableau($nameTab, $nameColumn) 
+function createTableau($nameClasse, $nameColumn) 
 {
     $pdo = connect(); 
 	global $NbCol;
@@ -52,7 +51,7 @@ function createTableau($nameTab, $nameColumn)
         echo'<tr class="col">';
         while ($x < $NbCol) {
 			$idEleve = null;
-			$info = infoStud($x, $y, $nameTab);
+			$info = infoStud($x, $y, $nameClasse);
 			
 			foreach ($info as $row) {
 				$idEleve = $row[2];
@@ -74,13 +73,11 @@ function createTableau($nameTab, $nameColumn)
 						if ($idEleve != null){
 							for($i = 0; $i < sizeof($tab); $i++){
 								foreach ($info as $row2) {
-                                    echo'<div class="affiche_categorie">';
 									echo $tab[$i].': '.$row2[$tab[$i]].'</br>';
-								    echo'</div>';
-                                }
+								}
 							}
 							echo '</br>';
-							createCommentaire($nameTab, $x, $y, $info);
+							createCommentaire($nameClasse, $x, $y, $info);
 						}
 						?>
 					</div>
@@ -97,9 +94,9 @@ function createTableau($nameTab, $nameColumn)
 				echo '<span>'.$prenom.'</span></br>';
 				echo'<div style="font-size:10px;">';
 				
-				$tab = nomColonne($nameTab);
+				$tab = nomColonne($nameClasse);
 				for ($i = 0; $i < sizeof($tab); $i++){
-					createCompteur($nameTab, $tab[$i], $x, $y, $info);
+					createCompteur($nameClasse, $tab[$i], $x, $y, $info);
 				}
 				echo'</div>';
 				echo '</div>';
@@ -115,7 +112,7 @@ function createTableau($nameTab, $nameColumn)
 }
 
 
-function createCompteur($nameTab, $nameColumn, $x, $y, $info) {
+function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
 	echo '<div class="box-compt">';
 	foreach ($info as $row) {
 		echo '<span class="masquer_'.$nameColumn.' masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
@@ -125,7 +122,7 @@ function createCompteur($nameTab, $nameColumn, $x, $y, $info) {
     
     $nameplus = 'plus'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$nameplus])) {
-        modifValeur($nameTab, $nameColumn, $idEleve, $point+1);
+        modifValeur($nameClasse, $nameColumn, $idEleve, $point+1);
         echo '<script language="Javascript">
             document.location.href="index.php?type=' . $nameColumn . '"
         </script>';
@@ -133,7 +130,7 @@ function createCompteur($nameTab, $nameColumn, $x, $y, $info) {
 
     $namemoins = 'moins'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$namemoins])) {
-        modifValeur($nameTab, $nameColumn, $idEleve, $point-1);
+        modifValeur($nameClasse, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
             document.location.href="index.php?type=' . $nameColumn . '"
         </script>';
@@ -149,7 +146,7 @@ function createCompteur($nameTab, $nameColumn, $x, $y, $info) {
 	echo '</div>';
 }
 
-function createCommentaire($nameTab, $x, $y, $tab){
+function createCommentaire($nameClasse, $x, $y, $tab){
 	foreach ($tab as $row){
 		$idEleve = $row["idEleve"];
         $commentaire = $row['commentaire'];
@@ -158,7 +155,7 @@ function createCommentaire($nameTab, $x, $y, $tab){
     $nameplus = 'modifier'.$x.'_'.$y;
     if (isset($_POST[$nameplus])){
 		$message = $_POST["modifier"];
-		modCommentaire($nameTab, $idEleve, $message);
+		modCommentaire($nameClasse, $idEleve, $message);
 		echo '<script language="Javascript">
             document.location.href="index.php"
         </script>';
@@ -176,9 +173,9 @@ function createCommentaire($nameTab, $x, $y, $tab){
 }
 
 if(!empty($_POST['addColumn'])){
-	$nameTab = 'classe';
+	$nameClasse = 'classe';
     $func = 'addColumn';
-    $func($nameTab, $_POST['nameColumn']);
+    $func($nameClasse, $_POST['nameColumn']);
 }
 
 ?>
@@ -192,24 +189,11 @@ if(!empty($_POST['addColumn'])){
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
-        
-        <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="css/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="css/favicon-16x16.png">
-        <link rel="manifest" href="css/site.webmanifest">
-        <link rel="mask-icon" href="css/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="css/favicon.ico">
-        <meta name="apple-mobile-web-app-title" content="Studyboards">
-        <meta name="application-name" content="Studyboards">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="msapplication-config" content="css/browserconfig.xml">
-        <meta name="theme-color" content="#ffffff">
     </head>
-        
     <body>
+        <h1 class="text-center">STUDY SCHOOL</h1>
         
         <header onclick="box1()">
-             <img class="Logo" src="css/TitleLogo_WhiteBG.svg"/>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -221,14 +205,13 @@ if(!empty($_POST['addColumn'])){
 			
 			<?php
 			
-			/*$tab = allClasse($idProf);*/
 			
-			
-			$tab = allClasse(3);
+			$tab = allClasse($idProf);
+
 			foreach($tab as $row){
 			?>
 				<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
+                    <a class = "nav-link dropdown-toggle" href="index.php?classe='. $row[0] .'" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Gestion</a>
                     </div>
@@ -245,11 +228,23 @@ if(!empty($_POST['addColumn'])){
         </header>
         
         <?php
-        createTableau($nameTab, $nameColumn);
+        createTableau($nameClasse, $nameColumn);
         ?>
-		<script> FonctionCompteur('bavardage') </script>;
+		
         <div onclick="box1()">
-            <img class="Bureau" src="css/Bureau.png"/>
+        <br><br><br>
+        <table id="main">
+            <tr class="col text_center">
+                <td class="box" style="background: inherit"></td>
+                <td class="box" style="background: inherit">
+                    <div class="box-content" style="background: orange">
+                    </div>
+                    <div class="box-icon"></div>
+                    <div class="box-title">Bureau</div>
+                </td>
+                <td class="box" style="background: inherit"></td>
+            </tr>   
+        </table>
 		</div>
         
         <div class="text-center bouton_bas py-5">
@@ -281,15 +276,16 @@ if(!empty($_POST['addColumn'])){
         <script>
         function FonctionCompteur(nom) {
 			
-            var NbElement = <?php echo $NbPlace; ?> * 6;
-			var nomClasse = "masquer_"+ nom;
             var compteur = document.getElementsByClassName("masquer");
-            for (i=0; i< NbElement ; i++) {
+			var taillemax = compteur.length;
+            for (i=0; i< taillemax ; i++) {
 				compteur[i].style.display = "none";
             }
-			var NbElement = <?php echo $NbPlace; ?> * 8;
+			
+			var nomClasse = "masquer_"+ nom;
 			var compteur1 = document.getElementsByClassName(nomClasse);
-			for (i=0; i< NbElement ; i++) {
+			var taillemin = compteur1.length;
+			for (i=0; i< taillemin ; i++) {
 				compteur1[i].style.display = "inline-block";
             }
         }

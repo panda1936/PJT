@@ -244,7 +244,7 @@ function newClasse($nameTab, $idProf, $x, $y, $nbrEleve){
 function infoClasse($nameClasse, $idProf)
 {
 	$bdd = connect();
-	$query = "SELECT nbrLigne, nbrColonne FROM profclasse WHERE IdProf = $idProf AND nomClasse = '".$nameClasse."'";
+	$query = "SELECT nbrLigne, nbrColonne, nbrEleve FROM profclasse WHERE IdProf = $idProf AND nomClasse = '".$nameClasse."'";
 	$bdd_select = $bdd->prepare($query);
 	$bdd_select->execute();
 	$rowAll = $bdd_select->fetchAll();
