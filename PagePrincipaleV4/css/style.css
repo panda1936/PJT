@@ -168,7 +168,7 @@ body {
 .textarea{
 	width: 80%;
 	height: 75px;
-    margin-top: 37%;
+    margin-top: 25%;
 }
 
 .Bureau{
@@ -189,4 +189,14 @@ body {
 .affiche_categorie{
     text-align: left;
     margin-left: 11%;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.bouton_compteur{
+    font-size: 10px;
+}
+
+.nom_compteur{
+    font-size: 16px;
 }
