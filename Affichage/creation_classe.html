@@ -1,8 +1,5 @@
 
 
-
-
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,19 +21,37 @@
 
 	<body>
 
+
+		
+
 		<div class="formulaire">
 			<div class="boite_formulaire">
+				<div class="classe_bouton_deco">
+						<div class="degrade"></div>
+						<button class="taille_bouton">
+							Deconnexion
+						</button>
+								
+					</div>
 				<form action="Index2.php?action=verification" method="post" enctype="multipart/form-data"  > <!-- On envoie les reponses du formulaire dans PageValidation.html-->
 					<span class="titre">
 						Création de votre classe
 					</span>
+
+					
+
+
+
+
+					<div class="form">
+
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nom de la classe </span>
 						<input class="case_a_remplir" type="text" name="nom_classe" placeholder=" Ex : 5A" value = "<?php if (isset ($_SESSION['connexion']['nom_classe'])){echo ($_SESSION['connexion']['nom_classe']);} ?>" required>
 					</div>
 
-					
+						
 
 					<div class="placement_case">
 						<span class="police_formulaire">Nombres de rangs </span>
@@ -62,17 +77,29 @@
                     <br><br><label id="avatar" for="avatar">Choisir un fichier d'élèves:
 						<input type='file' id="avatar" name="test" accept=".csv" value= "table" required>
 					</label>
-					
+					</div>	
 						<div class="classe_bouton">
 							<div class="degrade"></div>
-							<button class="taille_bouton" name = "AjoutClasse" value = "a" >
+							<button class="taille_bouton">
 								Valider
 							</button>
 						
-						</div>				
+						</div>
+
+
 					
 				</form>
+
+
+
+
+
+
 			</div>
+
+
+
+
 			<?php
 			if (isset($_SESSION['connexion']['erreur']))
 			{
@@ -91,6 +118,7 @@
 		?>
 
 		</div>
+
 		
 	</body>
 </html>

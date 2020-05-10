@@ -88,6 +88,11 @@ button:hover {
   text-transform: uppercase;
   text-align: left;
   padding-bottom: 32px;
+ 
+  position: relative;
+  top:-40px;
+
+
 
 }
 
@@ -179,11 +184,51 @@ textarea.case_a_remplir {
   display: block;
   position: relative;
   top : 10px;
-  left : 400px;
+  left : 500px;
   z-index: 1;
   border-radius: 2px;
   overflow: hidden;
   width: 150px;
+}
+
+
+.classe_bouton_deco{
+  
+  display: block;
+  position: relative;
+  top : -30px;
+  left : 500px;
+  z-index: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 150px;
+
+}
+
+
+
+.taille_bouton_deco{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 15px;
+  height: 62px;
+
+
+  font-family: Raleway-Bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase; 
+
+
+}
+
+.form{
+  
+  position: relative;
+  top:-30px;
 }
 
 
@@ -222,6 +267,10 @@ textarea.case_a_remplir {
 
 
 .classe_bouton_supp:hover .degrade {
+  left: 0;
+}
+
+.classe_bouton_deco:hover .degrade {
   left: 0;
 }
 
@@ -282,6 +331,8 @@ textarea.case_a_remplir {
   line-height: 1.2;
   text-transform: uppercase;
 }
+
+
 
 
 
