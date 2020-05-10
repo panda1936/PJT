@@ -36,10 +36,14 @@ function initialisation($idProf, $Classe){
 }
 
 
-function createTableau($nameTab, $nameColumn) {
+function createTableau($nameTab, $nameColumn) 
+{
     $pdo = connect(); 
 	global $NbCol;
 	global $NbLig;
+	global $nameClasse;
+	
+	$tab = nomColonne($nameClasse);
 	
 	echo '<table id="main">';
     $y = $NbLig - 1;
@@ -48,9 +52,9 @@ function createTableau($nameTab, $nameColumn) {
         echo'<tr class="col">';
         while ($x < $NbCol) {
 			$idEleve = null;
-			$tab = infoStud($x, $y, $nameTab);
+			$info = infoStud($x, $y, $nameTab);
 			
-			foreach ($tab as $row) {
+			foreach ($info as $row) {
 				$idEleve = $row[2];
 				$commentaire = $row[5];
 				$nom = $row[0];
@@ -66,8 +70,15 @@ function createTableau($nameTab, $nameColumn) {
 			<?php } ?>
 				<div class="box-content">
 					<div class="box-text pt-4">
-						<?php if ($idEleve != null){
-							createCommentaire($nameTab, $x, $y, $tab);
+						<?php 
+						if ($idEleve != null){
+							for($i = 0; $i < sizeof($tab); $i++){
+								foreach ($info as $row2) {
+									echo $tab[$i].': '.$row2[$tab[$i]].'</br>';
+								}
+							}
+							echo '</br>';
+							createCommentaire($nameTab, $x, $y, $info);
 						}
 						?>
 					</div>
@@ -75,13 +86,19 @@ function createTableau($nameTab, $nameColumn) {
 				<?php if ($idEleve != null){
 					?><div class="box-icon"></div><?php
 				}
-				?><div class="box-title">
-			
+				?>
+				
+			<div class="box-title">
 			<?php
 			if ($idEleve != null){
-				echo '<span>' . $nom . ' ' . $prenom . '</span><br>';
+				echo '<span>'.$nom.'</span></br>';
+				echo '<span>'.$prenom.'</span></br>';
 				echo'<div style="font-size:10px;">';
-				createCompteur($nameTab, $nameColumn, $x, $y, $tab);
+				
+				$tab = nomColonne($nameTab);
+				for ($i = 0; $i < sizeof($tab); $i++){
+					createCompteur($nameTab, $tab[$i], $x, $y, $info);
+				}
 				echo'</div>';
 				echo '</div>';
 			}
@@ -95,14 +112,16 @@ function createTableau($nameTab, $nameColumn) {
     echo '</table>';
 }
 
-function createCompteur($nameTab, $nameColumn, $x, $y, $tab) {
-	foreach ($tab as $row) {
-		echo '<span class="masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
+
+function createCompteur($nameTab, $nameColumn, $x, $y, $info) {
+	echo '<div class="box-compt">';
+	foreach ($info as $row) {
+		echo '<span class="masquer_'.$nameColumn.' masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
 		$idEleve = $row["idEleve"];
 		$point = $row[$nameColumn];
 	}
     
-    $nameplus = 'plus' . $x . '_' . $y;
+    $nameplus = 'plus'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$nameplus])) {
         modifValeur($nameTab, $nameColumn, $idEleve, $point+1);
         echo '<script language="Javascript">
@@ -110,7 +129,7 @@ function createCompteur($nameTab, $nameColumn, $x, $y, $tab) {
         </script>';
     }
 
-    $namemoins = 'moins' . $x . '_' . $y;
+    $namemoins = 'moins'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$namemoins])) {
         modifValeur($nameTab, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
@@ -119,22 +138,23 @@ function createCompteur($nameTab, $nameColumn, $x, $y, $tab) {
     }
 
 	?>
-    <form class ="masquer" method="POST" action="">
-        <input type="submit" name= <?php echo 'moins'.$x.'_'.$y; ?> value = "-">
-        <input type="submit" name= <?php echo 'plus'.$x.'_'.$y;?> value = "+">
+	
+    <form class="masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="">
+        <input type="submit" name= <?php echo $namemoins; ?> value = "-">
+        <input type="submit" name= <?php echo $nameplus; ?> value = "+">
     </form><br>
-	</br>
 	<?php
+	echo '</div>';
 }
 
-function createCommentaire($nameTab, $x, $y, $tab) {
-	foreach ($tab as $row) {
+function createCommentaire($nameTab, $x, $y, $tab){
+	foreach ($tab as $row){
 		$idEleve = $row["idEleve"];
         $commentaire = $row['commentaire'];
 	}
 
     $nameplus = 'modifier'.$x.'_'.$y;
-    if (isset($_POST[$nameplus])) {
+    if (isset($_POST[$nameplus])){
 		$message = $_POST["modifier"];
 		modCommentaire($nameTab, $idEleve, $message);
 		echo '<script language="Javascript">
@@ -213,6 +233,7 @@ if(!empty($_POST['addColumn'])){
         <?php
         createTableau($nameTab, $nameColumn);
         ?>
+		<script> FonctionCompteur('bavardage') </script>;
         <div onclick="box1()">
         <br><br><br>
         <table id="main">
@@ -234,9 +255,11 @@ if(!empty($_POST['addColumn'])){
 				<?php
 				//$tab = nomColonne('classe');
 				$tab = nomColonne($nameClasse);
-				for ($i = 0; $i < sizeof($tab); $i++){
+				$taille = sizeof($tab);
+				for ($i = 0; $i < $taille; $i++){
+					$nom = $tab[$i];
 				?>
-					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur()"><?php echo $tab[$i]; ?></button>
+					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur('<?php echo $nom ?>')"> <?php echo $nom; ?> </button>
 				<?php
 				}
 				?>
@@ -254,16 +277,18 @@ if(!empty($_POST['addColumn'])){
 
 		
         <script>
-        function FonctionCompteur() {
-            var NbElement = <?php echo $NbPlace; ?> * 2;
+        function FonctionCompteur(nom) {
+			
+            var NbElement = <?php echo $NbPlace; ?> * 6;
+			var nomClasse = "masquer_"+ nom;
             var compteur = document.getElementsByClassName("masquer");
-            for (i=0; i<NbElement ; i++) {  
-				if (compteur[i].style.display === "none") {
-					compteur[i].style.display = "inline-block";
-				} 
-				else {
-					compteur[i].style.display = "none";
-				}
+            for (i=0; i< NbElement ; i++) {
+				compteur[i].style.display = "none";
+            }
+			var NbElement = <?php echo $NbPlace; ?> * 8;
+			var compteur1 = document.getElementsByClassName(nomClasse);
+			for (i=0; i< NbElement ; i++) {
+				compteur1[i].style.display = "inline-block";
             }
         }
 		

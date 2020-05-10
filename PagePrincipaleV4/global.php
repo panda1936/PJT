@@ -261,7 +261,6 @@ function infoStud ($x, $y, $nomClasse){
 	$result->execute();
 
 	$NbreData = $result->fetchAll();
-	
 	return $NbreData;
 }
 
@@ -310,6 +309,18 @@ function nomColonne($nomClasse){
 	}
 	array_splice($champs, 0, 6);
 	return $champs;
+}
+
+function recupCompt($nomClasse, $nomColonne, $idEleve){
+	$bdd = connect();
+	$query = "SELECT $nomColonne FROM $nomClasse WHERE IdEleve = $idEleve";
+	$bdd_select = $bdd->prepare($query);
+	$bdd_select->execute();
+	$rowAll = $bdd_select->fetchAll();
+
+	foreach ($rowAll as $row) {
+		return $row;
+	}
 }
 
 /*
