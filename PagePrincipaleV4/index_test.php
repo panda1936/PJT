@@ -19,6 +19,9 @@ $NbPlace = 0;
 if(!empty($_GET['type'])) {
     $nameColumn = $_GET['type'];
 }
+else{
+	$nameColumn = "bavardage";
+}
 
 initialisation($idProf, $nameClasse);
 
@@ -116,11 +119,7 @@ function createTableau($nameClasse, $nameColumn)
 function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
 	echo '<div class="box-compt";">';
 	foreach ($info as $row) {
-<<<<<<< HEAD
 		$nbrInColonne = $row[$nameColumn];
-=======
-		echo '<span class="nom_compteur masquer_'.$nameColumn.' masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
->>>>>>> b72f2b98d4bbe81a2f367c50ec82b365bed26392
 		$idEleve = $row["idEleve"];
 		$point = $row[$nameColumn];
 	}
@@ -143,12 +142,9 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
 
 	?>
 	
-<<<<<<< HEAD
+	
     <form class="masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="" style="display:none;">
 		<div> <?php echo $nameColumn . ' : ' . $nbrInColonne ?> </div>
-=======
-    <form class="bouton_compteur masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="">
->>>>>>> b72f2b98d4bbe81a2f367c50ec82b365bed26392
         <input type="submit" name= <?php echo $namemoins; ?> value = "-">
         <input type="submit" name= <?php echo $nameplus; ?> value = "+">
     </form><br>
@@ -215,12 +211,9 @@ if(!empty($_POST['addColumn'])){
     <body>
         
         
-<<<<<<< HEAD
-        <header <?php /*onclick="box1()"*/?>>
-=======
+
         <header onclick="box1()">
             <img class="Logo" src="css/TitleLogo_WhiteBG.svg"/>
->>>>>>> b72f2b98d4bbe81a2f367c50ec82b365bed26392
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
