@@ -79,7 +79,8 @@ body {
 
 /* Le titre des .box (ici: Nom prénom ") */
 .box-title {
-	width:125%;
+    padding-left: 40px;
+	width:100%;
 	margin:15px 0 0 0;
 	position:absolute;
 	font-size:18px;
@@ -168,7 +169,7 @@ body {
 .textarea{
 	width: 80%;
 	height: 75px;
-    margin-top: 25%;
+    margin-bottom: auto;
 }
 
 .Bureau{
@@ -195,13 +196,13 @@ body {
 
 .bouton_compteur{
     font-size: 10px;
+    text-align: center;
 }
 
 .nom_compteur{
     font-size: 16px;
+    text-align: center;
 }
-
-/*Barre de navigation*/
 
 .navbar-nav li:hover > ul.dropdown-menu {
     display: block;
@@ -220,3 +221,23 @@ body {
     text-decoration: underline;
     transform: rotate(-90deg);
 } 
+
+
+@media only screen and (max-width: 1150px) {
+   
+    .box-title {
+       padding-left: 50px;
+    }
+/*
+    .box-icon {
+	   display: none;
+    }
+    
+    .box-content {
+	   width:0px;
+    }
+*/
+    .nom_compteur{
+        font-size: 10px;
+    }
+}   
