@@ -9,14 +9,12 @@ else
 {
 	$nameClasse = 'classe';
 }
+
 /*initialisation nbr colonne et ligne */
 $NbCol = 0;
 $NbLig = 0;
 $idProf =3;
-
-
 $NbPlace = 0;
-$nameColumn = "bavardage";
 
 if(!empty($_GET['type'])) {
     $nameColumn = $_GET['type'];
@@ -27,8 +25,8 @@ initialisation($idProf, $nameClasse);
 function initialisation($idProf, $nameClasse){
 	global $NbCol;
 	global $NbLig;
-	
 	$bdd = connect();
+	
 	$tab = infoClasse($nameClasse, $idProf);
 	$NbLig = $tab[0];	
 	$NbCol = $tab[1];
@@ -37,7 +35,7 @@ function initialisation($idProf, $nameClasse){
 
 function createTableau($nameClasse, $nameColumn) 
 {
-    $pdo = connect(); 
+    $pdo = connect();
 	global $NbCol;
 	global $NbLig;
 	global $nameClasse;
@@ -113,9 +111,9 @@ function createTableau($nameClasse, $nameColumn)
 
 
 function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
-	echo '<div class="box-compt">';
+	echo '<div class="box-compt";">';
 	foreach ($info as $row) {
-		echo '<span class="masquer_'.$nameColumn.' masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
+		$nbrInColonne = $row[$nameColumn];
 		$idEleve = $row["idEleve"];
 		$point = $row[$nameColumn];
 	}
@@ -123,8 +121,8 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     $nameplus = 'plus'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$nameplus])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point+1);
-        echo '<script language="Javascript">
-            document.location.href="index.php?type=' . $nameColumn . '"
+        echo '<script language="Javascript"">
+            document.location.href="index_test.php?type=' . $nameColumn . '"
         </script>';
     }
 
@@ -132,13 +130,14 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     if (isset($_POST[$namemoins])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
-            document.location.href="index.php?type=' . $nameColumn . '"
+            document.location.href="index_test.php?type=' . $nameColumn . '"
         </script>';
     }
 
 	?>
 	
-    <form class="masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="">
+    <form class="masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="" style="display:none;">
+		<div> <?php echo $nameColumn . ' : ' . $nbrInColonne ?> </div>
         <input type="submit" name= <?php echo $namemoins; ?> value = "-">
         <input type="submit" name= <?php echo $nameplus; ?> value = "+">
     </form><br>
@@ -157,7 +156,7 @@ function createCommentaire($nameClasse, $x, $y, $tab){
 		$message = $_POST["modifier"];
 		modCommentaire($nameClasse, $idEleve, $message);
 		echo '<script language="Javascript">
-            document.location.href="index.php"
+            document.location.href="index_test.php"
         </script>';
     }
 	
@@ -193,7 +192,7 @@ if(!empty($_POST['addColumn'])){
     <body>
         <h1 class="text-center">STUDY SCHOOL</h1>
         
-        <header onclick="box1()">
+        <header <?php /*onclick="box1()"*/?>>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -211,7 +210,7 @@ if(!empty($_POST['addColumn'])){
 			foreach($tab as $row){
 			?>
 				<li class="nav-item dropdown">
-                    <a class = "nav-link dropdown-toggle" href="index.php?classe='. $row[0] .'" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
+                    <a class = "nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Gestion</a>
                     </div>
