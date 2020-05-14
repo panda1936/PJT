@@ -232,15 +232,15 @@ if(!empty($_POST['addColumn'])){
 			?>         
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="https://www.google.fr/" > <?php echo $row[0] ?> </a>
+                    <a class="nav-link dropdown-toggle" href="index_test.php?classe=<?php echo $row[0]?>"> <?php echo $row[0] ?> </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Gestion</a></li>
+                        <li><a class="dropdown-item" href="#place page gestion classe">Gestion</a></li>
                         </ul>
                 </li>
 
 			<?php } ?>
 				<li class="nav-item">
-					<a class="nav-link" href="">+</a>
+					<a class="nav-link" href="#place pour ajouter classe">+</a>
                 </li>
             </ul>
             </div>
