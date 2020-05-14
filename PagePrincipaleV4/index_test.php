@@ -75,7 +75,7 @@ function createTableau($nameClasse, $nameColumn)
 							for($i = 0; $i < sizeof($tab); $i++){
 								foreach ($info as $row2) {
 									 /*nom des catégories dans le box*/
-                                    echo'<div class="affiche_categorie">';
+                                    echo'<div class="affiche_categorie ">';
 									echo $tab[$i].': '.$row2[$tab[$i]].'</br>';
 								    echo'</div>';
 								}
@@ -143,10 +143,10 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
 	?>
 	
 	
-    <form class="masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="" style="display:none;">
+    <form class="nom_compteur masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="" style="display:none;">
 		<div> <?php echo $nameColumn . ' : ' . $nbrInColonne ?> </div>
-        <input type="submit" name= <?php echo $namemoins; ?> value = "-">
-        <input type="submit" name= <?php echo $nameplus; ?> value = "+">
+        <input class="bouton_compteur" type="submit" name= <?php echo $namemoins; ?> value = "-">
+        <input class="bouton_compteur" type="submit" name= <?php echo $nameplus; ?> value = "+">
     </form><br>
 	<?php
 	echo '</div>';
@@ -222,20 +222,22 @@ if(!empty($_POST['addColumn'])){
 				</button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-			
+			               
 			<?php
 			
 			
 			$tab = allClasse($idProf);
 
 			foreach($tab as $row){
-			?>
-				<li class="nav-item dropdown">
-                    <a class = "nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Gestion</a>
-                    </div>
+			?>         
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="https://www.google.fr/" > <?php echo $row[0] ?> </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Gestion</a></li>
+                        </ul>
                 </li>
+
 			<?php } ?>
 				<li class="nav-item">
 					<a class="nav-link" href="">+</a>
