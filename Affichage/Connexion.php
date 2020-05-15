@@ -2,15 +2,27 @@
 <html lang="fr">
     <head>
 		<meta charset="UTF-8">
-        <title>Hosptimal</title>
+        <title>Studyboards</title>
         <link rel="icon" href="icone.png" type="x-icon">
         <link rel="stylesheet" href="Affichage/style/accueil.css">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="Affichage/style/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="Affichage/style/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="Affichage/style/favicon-16x16.png">
+        <link rel="manifest" href="Affichage/style/site.webmanifest">
+        <link rel="mask-icon" href="Affichage/style/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="Affichage/style/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Studyboards">
+        <meta name="application-name" content="Studyboards">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="Affichage//browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
     </head>
   <?php 
 	session_start();
   ?>
     <body>
-        <h1 class="titre">HOSPTIMAL</h1>
+        <img class="Logo" src="Affichage/style/TitleLogo_WhiteBG.svg"/>
         
         <!-- formulaire -->
         <div class="formulaire">
