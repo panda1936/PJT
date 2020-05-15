@@ -5,13 +5,8 @@ global $NbCol;
 global $NbLig;
 $NbLig = $tab[0];	
 $NbCol = $tab[1];
-if(!empty($_GET['type'])) {
-    $nameColumn = $_GET['type'];
-}
-else{
-	$nameColumn = "bavardage";
-}
-function createTableau($nameClasse, $nameColumn) 
+
+function createTableau($nameClasse) 
 {
 	global $NbCol;
 	global $NbLig;
@@ -101,7 +96,7 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     if (isset($_POST[$nameplus])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point+1);
         echo '<script language="Javascript"">
-            document.location.href="index2.php?action=classe&type=' . $nameColumn . '"
+            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 
@@ -109,7 +104,7 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     if (isset($_POST[$namemoins])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
-            document.location.href="index2.php?action=classe&type=' . $nameColumn . '"
+            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 
@@ -136,7 +131,7 @@ function createCommentaire($nameClasse, $x, $y, $tab){
 		$message = $_POST["modifier"];
 		modCommentaire($nameClasse, $idEleve, $message);
 		echo '<script language="Javascript">
-            document.location.href="index2.php?action=classe"
+            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 	
@@ -185,6 +180,7 @@ if(!empty($_POST['addColumn'])){
 
         <header onclick="box1()">
             <img class="Logo" src="Affichage/style/TitleLogo_WhiteBG.svg"/>
+			<button class="Deconnexion" onclick="location.href='index2.php?action=deconnexion'">Déconnexion</button>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -223,7 +219,7 @@ if(!empty($_POST['addColumn'])){
         </header>
         
         <?php
-        createTableau($nameClasse, $nameColumn);
+        createTableau($nameClasse);
         ?>
 		
         <div onclick="box1()">
@@ -263,6 +259,7 @@ if(!empty($_POST['addColumn'])){
         function FonctionCompteur(nom) {
 			
             var compteur = document.getElementsByClassName("masquer");
+			
 			var taillemax = compteur.length;
             for (i=0; i< taillemax ; i++) {
 				compteur[i].style.display = "none";
@@ -289,4 +286,5 @@ if(!empty($_POST['addColumn'])){
         
         <script src="Affichage/script.js"></script>
     </body>
+
 </html>
