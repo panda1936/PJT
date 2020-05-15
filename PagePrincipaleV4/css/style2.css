@@ -1,0 +1,237 @@
+body {
+	
+    background: url("background1.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+/* Le conteneur principale */
+#main {
+	width:100%;
+	margin:0 auto;
+}
+
+/* Affichage des colonnes */
+.col {
+	vertical-align:top;
+}
+
+/*On applique des transitions sur les .box */
+.box, .box * {
+	-webkit-transition:0.3s linear;
+	-ms-transition:0.3s linear;
+	transition:0.3s linear;
+}
+
+/*Une .box correspond à une case */
+.box {
+	background:rgb(240,240,240);
+	width:300px;
+	height:130px;
+	font-family:Arial;
+    position: relative;
+}
+
+/*  Ceci permet de mettre les .box en damiers */
+#main .col:nth-child(2n+1) .box:nth-child(2n+1) {background:rgb(233,233,233);}
+#main .col:nth-child(2n+2) .box:nth-child(2n+2) {background:rgb(233,233,233);}
+
+
+/* La partie verte contenue dans les .box (initalement ce sont les ronds) */
+.box-content {
+	background:#44C9CF;
+	width:45px;
+	height:45px;
+	border-radius:100px;
+	overflow:hidden;
+	position: absolute;
+    top: 60px;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+/* Le texte contenu dans les box-content (initialement il est invisible) */
+.box-text {
+    margin: 100px auto;
+	opacity:0;
+	position:relative;
+	font-size:13px;
+	color:rgb(30,30,30);
+	text-align: center;
+	line-height:20px;
+	-webkit-transition:margin 0.3s linear, opacity 0.1s linear;
+	-ms-transition:margin 0.3s linear, opacity 0.1s linear;
+	transition:margin 0.3s linear, opacity 0.1s linear;
+}
+
+
+/* L'icône dans les .box-content */
+.box-icon {
+	background:url(eleve.png) no-repeat center center / contain;
+	width:50px;
+	height:50px;
+	position:absolute;
+    top: 60px;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+/* Le titre des .box (ici: Nom prénom ") */
+.box-title {
+    padding-left: 40px;
+	width:100%;
+	margin:15px 0 0 0;
+	position:absolute;
+	font-size:18px;
+	color:rgb(30,30,30);
+	text-align:center;
+	letter-spacing:2px;
+}
+
+/* Boite contenant le nom et les boutons du compteur */
+.box-compt {
+	position:absolute;
+    top: 55px;
+    left: 35%;
+}
+
+/* Lorsqu'une .box a été cliquée (js la fait passer en class="box target") */
+.box.target {
+	height:400px;
+}
+
+/* Le .box-content qui prend tout l'espace Lorsqu'une .box a été cliquée */
+.box.target .box-content {
+	width:100%;
+	height:100%;
+	border-radius:0;
+    top: 50%;
+	left: 50%;
+}
+
+/* Le texte qui apparaît Lorsqu'une .box a été cliquée */
+.box.target .box-text {
+	opacity:1;
+	-webkit-transition:opacity 0.2s 0.4s linear;
+	-ms-transition:opacity 0.2s 0.4s linear;
+	transition:opacity 0.2s 0.4s linear;
+}
+
+
+/*L'icône qui s'agrandit et devient plus opaque Lorsqu'une .box a été cliquée */
+.box.target .box-icon {
+	width:60px;
+	height:60px;
+	opacity:0.9;
+}
+
+/*Bouton pour ajouter une catégorie avec une fenêtre popup*/
+.ajouterPopup, .modifierPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    margin: 100px 25%;
+    width: 50%;
+    height: 50vh;
+    background: #3f3f3f;
+    border-radius: 10px;
+    color: white;
+    font-weight: 700;
+}
+.ajouterType {
+    margin: 100px 0px;
+}
+.modifierType {
+    margin: 50px 0px;
+}
+.input {
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    margin: 10px auto;
+    color: white;
+    font-weight: 700;
+    background: #3f3f3f;
+    box-shadow:  5px 5px 10px #363636, -5px -5px 10px #484848;
+}
+.input:hover {
+    background: #414141;
+    box-shadow:  5px 5px 10px #484848, -5px -5px 10px #363636;
+}
+
+.bouton_bas {
+	position: fixed;
+	bottom : -35px;
+	left : 15px;
+}
+
+.textarea{
+	width: 80%;
+	height: 75px;
+    margin-bottom: auto;
+}
+
+.Bureau{
+    width: 13%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 1%;
+    display: block;
+}
+
+.Logo{
+    width: 250px;   
+    margin-left: 3%;
+    display: block;
+    position: absolute;
+}
+
+.affiche_categorie{
+    text-align: left;
+    margin-left: 11%;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.bouton_compteur{
+    font-size: 10px;
+    text-align: center;
+}
+
+.nom_compteur{
+    font-size: 16px;
+    padding-left: 40px;
+	text-align:center;
+}
+
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+.dropdown-submenu {
+    position:relative;
+}
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top:-6px;
+}
+
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+} 
+
+
+@media only screen and (max-width: 1150px) {
+   
+    .box-title {
+       padding-left: 50px;
+    }
+
+    .nom_compteur{
+        font-size: 10px;
+        padding-left: 15px;
+    }
+}   

@@ -10,8 +10,32 @@ function creation()
 function classe ()
 {
 
-	require ('Affichage/index.php');
+	session_start();
+	$idProf =$_SESSION['profs']['id'];
 	
+	if(isset($_GET["classe"]))
+	{
+		
+		$nameClasse = $_GET["classe"];
+
+	}
+	
+	else
+	{
+		$all = allClasse($idProf);
+		$nameClasse = $all[0][0];
+	}
+	$tab = infoClasse($nameClasse, $idProf);
+	
+	require ('Affichage/PagePrincipale.php');
+	
+}
+
+function Login ()
+{
+
+	require ('Affichage/Connexion.php');
+
 }
 
 
@@ -19,7 +43,7 @@ function modification ()
 {
 	session_start();
 	// recuperer le nom de la classe 
-	$nameClasse = "toto" ;
+	$nameClasse = $_GET['classe'] ;
 	$taille = infoClasse($nameClasse, $_SESSION['profs']['id']);
 	$attribut = nomColonne($nameClasse);
 	require ('Affichage/page_modif.html');
@@ -29,12 +53,13 @@ function validemodif ()
 {
 
 		session_start ();
-		$nom_classe = 'toto';
+		$nom_classe = $_POST['valide_modif'] ;
 		$rang = $_POST['rang'];
 		$colonne = $_POST['colonne'];
 		$nb_place = $_POST['rang'] * $_POST['colonne'] ;
 		if ($nb_place )
 		{
+
 			modifClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne)	;
 			if ($_POST['placement'] == "Aléatoire")
 			{
@@ -46,7 +71,7 @@ function validemodif ()
 				triAlpha($nom_classe, $colonne, $rang);
 			}
 			echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe modifiée" ) .'", "Information !");</script>';
-			#header('Refresh: 0; URL=Index2.php?action=modification ');
+			header('Refresh: 0; URL=Index2.php?action=classe&classe=toto');
 		}
 		else
 		{
@@ -62,14 +87,17 @@ function Supprimer_Attribut ()
 	$nameColumn = ($_POST['attribut']) ;
 	remColumn($nameTab, $nameColumn);
 	echo '<script type="text/javascript">alert("'. utf8_encode (  "Attribut supprimé" ) .'", "Information !");</script>';
-	#header('Refresh: 0; URL=Index2.php?action=modification ');
+	header('Refresh: 0; URL=Index2.php?action=classe&classe=toto');
 	
 }
 
 function SupprimerClasse ()
 {
+	session_start(); 
+	$nameTab = $_POST['suppr_classe'] ;
+	deleteClasse($nameTab, $_SESSION['profs']['id']);
 	echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
-	#header('Refresh: 0; URL=Index2.php?action=modification ');
+	header('Refresh: 0; URL=Index2.php?action=classe');
 }
 
 
@@ -90,13 +118,14 @@ function Connexion ()
 	
 			$_SESSION['profs']['id'] = $id;
 			$_SESSION['profs']['pseudo'] =recupPseudo ($id) ;
-			if (recupPseudo ($id))
+			$all = allClasse($id);
+			if (count($all)>0)
 			{
-				header("Location: Index2.php?action=creation");
+				header("Location: Index2.php?action=classe");
 			}
 			else
 			{
-				echo ("test");
+				header("Location: Index2.php?action=creation");
 			}
 		}
 		else 
@@ -200,7 +229,7 @@ function AjoutClasse ()
 			$nb_place = $_POST['rang'] * $_POST['colonne'] ;
 			if ($nb_place >= count(file($_FILES["test"]["tmp_name"])) )
 			{
-				/*
+				
 				newClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne, (int)count(file($_FILES["test"]["tmp_name"])));
 				ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
@@ -213,12 +242,12 @@ function AjoutClasse ()
 				{
 					triAlpha($nom_classe, $colonne, $rang);
 				}
-				*/
+				
 					
 				unlink ($_FILES["test"]["tmp_name"]);
 				unset($_SESSION['connexion']);
 				echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe créer" ) .'", "Information !");</script>';
-				header('Refresh: 0; URL=Index2.php?action=modification ');
+				header('Refresh: 0; URL=Index2.php?action=classe ');
 				
 			}
 			else

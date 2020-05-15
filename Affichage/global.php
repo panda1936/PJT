@@ -13,7 +13,6 @@ function connect(){
 function addColumn($nameTab, $nameColumn){
 	$bdd = connect();
     $add_column = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
-	echo ("a");
     $bdd->exec($add_column);
 }
 
@@ -240,8 +239,6 @@ function newClasse($nameTab, $idProf, $x, $y, $nbrEleve){
 		echo 'ERREUR : ', print_r($bdd->errorInfo());
 	else
 		relation($idProf, $nameTab, $x, $y, $nbrEleve);
-		addColumn($nameTab, 'Bavardage');
-		addColumn($nameTab, 'Participation');
 }
 
 function infoClasse($nameClasse, $idProf)
@@ -262,19 +259,19 @@ function infoStud ($x, $y, $nomClasse){
 	$prepare = "SELECT * FROM $nomClasse WHERE x = $x AND y = $y";
 	$result = $pdo->prepare($prepare);
 	$result->execute();
+
 	$NbreData = $result->fetchAll();
 	return $NbreData;
 }
 
 function deleteClasse($nameClasse, $idProf){
 	$bdd = connect();
-	$query2 = "DELETE FROM profclasse WHERE idProf = $idProf AND nomClasse = '".$nameClasse."'";
-	$bdd->exec($query2);
 	$query = "DROP TABLE $nameClasse";
 	$bdd->exec($query);
 	
-
-	
+	$bdd = connect();
+	$query2 = "DELETE FROM profclasse WHERE idProf = $idProf AND nameClasse = $nameClasse";
+	$bdd->exec($query2);
 }
 
 function modifClasse($nameClasse, $idProf, $x, $y){
@@ -326,4 +323,121 @@ function recupCompt($nomClasse, $nomColonne, $idEleve){
 	}
 }
 
+/*
+if(!empty($_POST['addColumn'])){
+	$nameTab = 'classe';
+    $func = 'addColumn';
+    $func($nameTab, $_POST['nameColumn']);
+}
+
+if(!empty($_POST['remColumn'])){
+	$nameTab = 'classe2';
+    $func = 'remColumn';
+    $func($nameTab, $_POST['nameColumn']);
+}
+
+if(!empty($_POST['addStudent'])){
+	$nameTab = 'classe3';
+    $func = 'addStudent';
+    $func($nameTab, $_POST['firstNameStud'], $_POST['secondNameStud']);
+}
+
+if(!empty($_POST['submit'])){
+    $func = 'ajouterClasse';
+    $func('classe1');
+}
+
+if(!empty($_POST['newClasse'])){
+    $func = 'newClasse';
+    $func($_POST['nameTable'], $_POST['idProf']);
+}
+
+if(!empty($_POST['retrieve'])){
+    $func = 'allClasse';
+    $func($_POST['idProf']);
+}
+
+if(!empty($_POST['triAlea'])){
+    $func = 'triAlea';
+    $func($_POST['nameTable'], '2', '3');
+}
+
+if(!empty($_POST['triAlpha'])){
+    $func = 'triAlpha';
+    $func($_POST['nameTable'], '2', '3');
+}
+
+if(!empty($_POST['remAccent'])){
+    $func = 'fctRetirerAccents';
+	$test = $func($_POST['accents']);
+	echo $test;
+}
+
+if(!empty($_POST['addProf'])){
+    $func = 'addProf';
+    $func($_POST['pseudo'], $_POST['mdp'], $_POST['mail']);
+}
+
 ?>
+
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Colonne a ajouter : <input type="text" name="nameColumn" placeholder="saisir...">
+ 	<input type="submit" name="addColumn">
+</form>
+
+
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Colonne a supprimer : <input type="text" name="nameColumn" placeholder="saisir...">
+ 	<input type="submit" name="remColumn">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Ajouter eleve : 
+	NOM <input type="text" name="firstNameStud" placeholder="saisir...">
+	PRENOM <input type="text" name="secondNameStud" placeholder="saisir...">
+ 	<input type="submit" name="addStudent">
+</form>
+
+<form action="newfile" enctype = "multipart/form-data" method="post">
+	<input name = "userfile" type = "file" value = "table" />
+	<input name = "submit" type = "submit" />
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Nouvelle classe : <input type="text" name="nameTable" placeholder="saisir...">
+	ID prof : <input type="text" name="idProf" placeholder="saisir...">
+ 	<input type="submit" name="newClasse">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Id prof : <input type="text" name="idProf" placeholder="saisir...">
+ 	<input type="submit" name="retrieve">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Tri eleve aleatoire: <input type="text" name="nameTable" placeholder="saisir...">
+ 	<input type="submit" name="triAlea">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Tri eleve alphabétique: <input type="text" name="nameTable" placeholder="saisir...">
+ 	<input type="submit" name="triAlpha">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Ajouter prof : 
+	Pseudo <input type="text" name="pseudo" placeholder="saisir...">
+	mdp <input type="text" name="mdp" placeholder="saisir...">
+	mail <input type="text" name="mail" placeholder="saisir...">
+ 	<input type="submit" name="addProf">
+</form>
+
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Texte avec accents : <input type="text" name="accents" placeholder="saisir...">
+ 	<input type="submit" name="remAccent">
+</form>
+
+*/
+

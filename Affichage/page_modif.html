@@ -18,7 +18,6 @@
 
 		<div class="formulaire">
 			<div class="boite_formulaire">
-<<<<<<< HEAD
 				<div class="classe_bouton_deco">
 						<div class="degrade"></div>
 						<button class="taille_bouton" onclick="location.href='index2.php?action=deconnexion'">
@@ -26,17 +25,7 @@
 						</button>
 				</div>
 				<form action="Index2.php?action=verification" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
-=======
 
-				<div class="classe_bouton_deco">
-					<div class="degrade"></div>
-					<button class="taille_bouton">
-						Deconnexion
-					</button>				
-				</div>
-
-				<form action="Index2.php?action=validermodif" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
->>>>>>> 58f9cbe26787ffae39a84783f781ca62a357fcf5
 					<div class = "form">
 						<span class="titre">
 							Modification de votre classe
@@ -102,9 +91,7 @@
 						</div>
 
 
-		                
-
-
+		               
 
 	                </div>
 
@@ -112,7 +99,7 @@
 	                  
 						<div class="classe_bouton">
 							<div class="degrade"></div>
-							<button class="taille_bouton" name = "valide_modif">
+							<button class="taille_bouton" name = "valide_modif" value= "<?php echo ($nameClasse); ?>">
 								Valider
 							</button>
 						</div>	

@@ -49,7 +49,7 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'classe')
 		{
-		
+			classe (); 
 		}
 		elseif ($_GET['action'] == 'deconnexion')
 		{
@@ -67,7 +67,7 @@ else
 	{
 		session_destroy();
 	}
-	classe ();
+	Login (); 
 	
 
 	
