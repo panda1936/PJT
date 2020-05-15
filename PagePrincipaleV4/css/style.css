@@ -201,7 +201,8 @@ body {
 
 .nom_compteur{
     font-size: 16px;
-    text-align: center;
+    padding-left: 40px;
+	text-align:center;
 }
 
 .navbar-nav li:hover > ul.dropdown-menu {
@@ -228,16 +229,9 @@ body {
     .box-title {
        padding-left: 50px;
     }
-/*
-    .box-icon {
-	   display: none;
-    }
-    
-    .box-content {
-	   width:0px;
-    }
-*/
+
     .nom_compteur{
         font-size: 10px;
+        padding-left: 15px;
     }
 }   

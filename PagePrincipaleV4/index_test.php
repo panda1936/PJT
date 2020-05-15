@@ -282,7 +282,9 @@ if(!empty($_POST['addColumn'])){
             <form class ="ajouterType text-center" method="POST" action="">
                 <label for="ajouterType">Nouveau type</label><br>
                 <input class="input" id="ajouterType" type="text" name="nameColumn"><br>
-                <input class="input"  type="submit" name="addColumn" value="Ajouter"><br>
+                <input class="input"  type="submit" name="addColumn" value="Ajouter">
+                <button type="button" class="input" onclick="FonctionAjouter()">Fermer</button>
+                <br>
             </form>
         </div>
 
