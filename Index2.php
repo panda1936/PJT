@@ -4,6 +4,7 @@ require('Controller.php');
 
 if (isset($_GET['action'])) 
 {
+	session_start();
 	
 		if ($_GET['action'] == 'creation')
 		{
@@ -49,10 +50,15 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'classe')
 		{
+			if(isset($_SESSION['profs']['id']))
+			{
 			classe (); 
+			}
+			else die("aucune SESSION");
 		}
 		elseif ($_GET['action'] == 'deconnexion')
 		{
+			session_unset();
 			session_destroy();
 			header("Location: Index2.php");
 		}

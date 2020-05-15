@@ -6,7 +6,9 @@
         <link rel="icon" href="icone.png" type="x-icon">
         <link rel="stylesheet" href="Affichage/style/accueil.css">
     </head>
-    
+  <?php 
+	session_start();
+  ?>
     <body>
         <h1 class="titre">HOSPTIMAL</h1>
         
@@ -16,11 +18,6 @@
             
             
             <!-- se connecter -->
-            <?php
-			
-            session_start();
-			
-            ?>
             <div id="connecter">
                 <form method="POST" action="Index2.php?action=verification">
                     <label for="email" class="label">EMAIL</label><br>

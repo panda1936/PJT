@@ -10,7 +10,6 @@ function creation()
 function classe ()
 {
 
-	session_start();
 	$idProf =$_SESSION['profs']['id'];
 	
 	if(isset($_GET["classe"]))
@@ -41,7 +40,6 @@ function Login ()
 
 function modification ()
 {
-	session_start();
 	// recuperer le nom de la classe 
 	$nameClasse = $_GET['classe'] ;
 	$taille = infoClasse($nameClasse, $_SESSION['profs']['id']);
@@ -71,7 +69,7 @@ function validemodif ()
 				triAlpha($nom_classe, $colonne, $rang);
 			}
 			echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe modifiée" ) .'", "Information !");</script>';
-			header('Refresh: 0; URL=Index2.php?action=classe&classe=toto');
+			header("Refresh: 0; URL=Index2.php?action=classe&classe=$nom_classe");
 		}
 		else
 		{
@@ -87,13 +85,12 @@ function Supprimer_Attribut ()
 	$nameColumn = ($_POST['attribut']) ;
 	remColumn($nameTab, $nameColumn);
 	echo '<script type="text/javascript">alert("'. utf8_encode (  "Attribut supprimé" ) .'", "Information !");</script>';
-	header('Refresh: 0; URL=Index2.php?action=classe&classe=toto');
+	header("Refresh: 0; URL=Index2.php?action=classe&classe=$nameTab");
 	
 }
 
 function SupprimerClasse ()
 {
-	session_start(); 
 	$nameTab = $_POST['suppr_classe'] ;
 	deleteClasse($nameTab, $_SESSION['profs']['id']);
 	echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
@@ -105,7 +102,6 @@ function SupprimerClasse ()
 
 function Connexion ()
 {
-	session_start();
 	$mailconnect = htmlspecialchars($_POST['mailconnect']);
 	$mdpconnect = sha1($_POST['mdpconnect']);
 	
@@ -146,7 +142,6 @@ function Connexion ()
 
 function Inscription () 
 {
-	session_start();
 	
 	$pseudo = htmlspecialchars($_POST['pseudo']);
 	$mail = htmlspecialchars($_POST['mail']);
@@ -206,7 +201,6 @@ function Inscription ()
 
 function AjoutClasse ()
 {
-	session_start();
 	
 	$nom_classe = htmlspecialchars($_POST['nom_classe']);
 	$rang = htmlspecialchars($_POST['rang']);
