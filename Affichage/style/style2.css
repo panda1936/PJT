@@ -235,3 +235,13 @@ body {
         padding-left: 15px;
     }
 }   
+
+.Deconnexion{
+    position:relative;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    color: white;   
+    background: #3f3f3f;
+    float: right;
+}

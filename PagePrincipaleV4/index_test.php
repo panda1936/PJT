@@ -189,8 +189,7 @@ if(!empty($_POST['addColumn'])){
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Studybo</title>
-        <link rel="icon" href="icone.png" type="image/x-icon">
+        <title>Studyboards</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -214,6 +213,7 @@ if(!empty($_POST['addColumn'])){
 
         <header onclick="box1()">
             <img class="Logo" src="css/TitleLogo_WhiteBG.svg"/>
+            <button class="Deconnexion">Déconnexion</button>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
