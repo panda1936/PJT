@@ -240,7 +240,9 @@ if(!empty($_POST['addColumn'])){
 
 			<?php } ?>
 				<li class="nav-item">
-					<a class="nav-link" href="#place pour ajouter classe">+</a>
+					<?php if(sizeof($tab) <= 5){ ?> 
+						<a class="nav-link" href="#place pour ajouter classe">+</a>
+					<?php } ?>
                 </li>
             </ul>
             </div>
@@ -269,8 +271,10 @@ if(!empty($_POST['addColumn'])){
 					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur('<?php echo $nom ?>')"> <?php echo $nom; ?> </button>
 				<?php
 				}
-				?>
-                <button type="button" class="btn btn-secondary bg-dark" onclick="FonctionAjouter()">Ajouter</button>
+				
+				if ($taille <= 5) { ?>
+					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionAjouter()">Ajouter</button>
+				<?php } ?>
             </div>
         </div>
 		
