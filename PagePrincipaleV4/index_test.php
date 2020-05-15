@@ -9,37 +9,41 @@ else
 {
 	$nameClasse = 'classe';
 }
+
 /*initialisation nbr colonne et ligne */
 $NbCol = 0;
 $NbLig = 0;
-
-
+$idProf =3;
 $NbPlace = 0;
-$nameTab = "classe";
-$nameColumn = "bavardage";
+
 if(!empty($_GET['type'])) {
     $nameColumn = $_GET['type'];
 }
-initialisation(3, $nameTab);
+else{
+	$nameColumn = "bavardage";
+}
 
-function initialisation($idProf, $Classe){
+initialisation($idProf, $nameClasse);
+
+function initialisation($idProf, $nameClasse){
 	global $NbCol;
 	global $NbLig;
-	global $NbPlace;
-	
 	$bdd = connect();
 	
-	$tab = infoClasse($Classe, $idProf);
+	$tab = infoClasse($nameClasse, $idProf);
 	$NbLig = $tab[0];	
 	$NbCol = $tab[1];
-	$NbPlace = $NbLig * $NbCol;
 }
 
 
-function createTableau($nameTab, $nameColumn) {
-    $pdo = connect(); 
+function createTableau($nameClasse, $nameColumn) 
+{
+    $pdo = connect();
 	global $NbCol;
 	global $NbLig;
+	global $nameClasse;
+	
+	$tab = nomColonne($nameClasse);
 	
 	echo '<table id="main">';
     $y = $NbLig - 1;
@@ -48,9 +52,9 @@ function createTableau($nameTab, $nameColumn) {
         echo'<tr class="col">';
         while ($x < $NbCol) {
 			$idEleve = null;
-			$tab = infoStud($x, $y, $nameTab);
+			$info = infoStud($x, $y, $nameClasse);
 			
-			foreach ($tab as $row) {
+			foreach ($info as $row) {
 				$idEleve = $row[2];
 				$commentaire = $row[5];
 				$nom = $row[0];
@@ -66,8 +70,18 @@ function createTableau($nameTab, $nameColumn) {
 			<?php } ?>
 				<div class="box-content">
 					<div class="box-text pt-4">
-						<?php if ($idEleve != null){
-							createCommentaire($nameTab, $x, $y, $tab);
+						<?php 
+						if ($idEleve != null){
+							for($i = 0; $i < sizeof($tab); $i++){
+								foreach ($info as $row2) {
+									 /*nom des catégories dans le box*/
+                                    echo'<div class="affiche_categorie ">';
+									echo $tab[$i].': '.$row2[$tab[$i]].'</br>';
+								    echo'</div>';
+								}
+							}
+							echo '</br>';
+							createCommentaire($nameClasse, $x, $y, $info);
 						}
 						?>
 					</div>
@@ -75,13 +89,19 @@ function createTableau($nameTab, $nameColumn) {
 				<?php if ($idEleve != null){
 					?><div class="box-icon"></div><?php
 				}
-				?><div class="box-title">
-			
+				?>
+				
+			<div class="box-title">
 			<?php
 			if ($idEleve != null){
-				echo '<span>' . $nom . ' ' . $prenom . '</span><br>';
+				echo '<span>'.$nom.'</span></br>';
+				echo '<span>'.$prenom.'</span></br>';
 				echo'<div style="font-size:10px;">';
-				createCompteur($nameTab, $nameColumn, $x, $y, $tab);
+				
+				$tab = nomColonne($nameClasse);
+				for ($i = 0; $i < sizeof($tab); $i++){
+					createCompteur($nameClasse, $tab[$i], $x, $y, $info);
+				}
 				echo'</div>';
 				echo '</div>';
 			}
@@ -95,50 +115,55 @@ function createTableau($nameTab, $nameColumn) {
     echo '</table>';
 }
 
-function createCompteur($nameTab, $nameColumn, $x, $y, $tab) {
-	foreach ($tab as $row) {
-		echo '<span class="masquer">'.$nameColumn.': ' . $row[$nameColumn] . '</span><br>';
+
+function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
+	echo '<div class="box-compt";">';
+	foreach ($info as $row) {
+		$nbrInColonne = $row[$nameColumn];
 		$idEleve = $row["idEleve"];
 		$point = $row[$nameColumn];
 	}
     
-    $nameplus = 'plus' . $x . '_' . $y;
+    $nameplus = 'plus'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$nameplus])) {
-        modifValeur($nameTab, $nameColumn, $idEleve, $point+1);
-        echo '<script language="Javascript">
-            document.location.href="index.php?type=' . $nameColumn . '"
+        modifValeur($nameClasse, $nameColumn, $idEleve, $point+1);
+        echo '<script language="Javascript"">
+            document.location.href="index_test.php?type=' . $nameColumn . '"
         </script>';
     }
 
-    $namemoins = 'moins' . $x . '_' . $y;
+    $namemoins = 'moins'.$x.'_'.$y.'_'.$nameColumn;
     if (isset($_POST[$namemoins])) {
-        modifValeur($nameTab, $nameColumn, $idEleve, $point-1);
+        modifValeur($nameClasse, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
-            document.location.href="index.php?type=' . $nameColumn . '"
+            document.location.href="index_test.php?type=' . $nameColumn . '"
         </script>';
     }
 
 	?>
-    <form class ="masquer" method="POST" action="">
-        <input type="submit" name= <?php echo 'moins'.$x.'_'.$y; ?> value = "-">
-        <input type="submit" name= <?php echo 'plus'.$x.'_'.$y;?> value = "+">
+	
+	
+    <form class="nom_compteur masquer masquer_<?php echo ($nameColumn); ?>" method="POST" action="" style="display:none;">
+		<div> <?php echo $nameColumn . ' : ' . $nbrInColonne ?> </div>
+        <input class="bouton_compteur" type="submit" name= <?php echo $namemoins; ?> value = "-">
+        <input class="bouton_compteur" type="submit" name= <?php echo $nameplus; ?> value = "+">
     </form><br>
-	</br>
 	<?php
+	echo '</div>';
 }
 
-function createCommentaire($nameTab, $x, $y, $tab) {
-	foreach ($tab as $row) {
+function createCommentaire($nameClasse, $x, $y, $tab){
+	foreach ($tab as $row){
 		$idEleve = $row["idEleve"];
         $commentaire = $row['commentaire'];
 	}
 
     $nameplus = 'modifier'.$x.'_'.$y;
-    if (isset($_POST[$nameplus])) {
+    if (isset($_POST[$nameplus])){
 		$message = $_POST["modifier"];
-		modCommentaire($nameTab, $idEleve, $message);
+		modCommentaire($nameClasse, $idEleve, $message);
 		echo '<script language="Javascript">
-            document.location.href="index.php"
+            document.location.href="index_test.php"
         </script>';
     }
 	
@@ -154,9 +179,9 @@ function createCommentaire($nameTab, $x, $y, $tab) {
 }
 
 if(!empty($_POST['addColumn'])){
-	$nameTab = 'classe';
+	$nameClasse = 'classe';
     $func = 'addColumn';
-    $func($nameTab, $_POST['nameColumn']);
+    $func($nameClasse, $_POST['nameColumn']);
 }
 
 ?>
@@ -164,18 +189,31 @@ if(!empty($_POST['addColumn'])){
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Study School</title>
+        <title>Studybo</title>
         <link rel="icon" href="icone.png" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/style.css">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="css/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="css/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="css/favicon-16x16.png">
+        <link rel="manifest" href="css/site.webmanifest">
+        <link rel="mask-icon" href="css/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="css/favicon.ico">
+        <meta name="apple-mobile-web-app-title" content="Studyboards">
+        <meta name="application-name" content="Studyboards">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="css/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
     </head>
-        
     <body>
-        <h1 class="text-center">STUDY SCHOOL</h1>
         
+        
+
         <header onclick="box1()">
+            <img class="Logo" src="css/TitleLogo_WhiteBG.svg"/>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -184,24 +222,25 @@ if(!empty($_POST['addColumn'])){
 				</button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-			
+			               
 			<?php
 			
-			/*$tab = allClasse($idProf);*/
 			
-			
-			$tab = allClasse(3);
+			$tab = allClasse($idProf);
+
 			foreach($tab as $row){
-			?>
-				<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $row[0] ?> </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Gestion</a>
-                    </div>
+			?>         
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="index_test.php?classe=<?php echo $row[0]?>"> <?php echo $row[0] ?> </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#place page gestion classe">Gestion</a></li>
+                        </ul>
                 </li>
+
 			<?php } ?>
 				<li class="nav-item">
-					<a class="nav-link" href="">+</a>
+					<a class="nav-link" href="#place pour ajouter classe">+</a>
                 </li>
             </ul>
             </div>
@@ -211,22 +250,11 @@ if(!empty($_POST['addColumn'])){
         </header>
         
         <?php
-        createTableau($nameTab, $nameColumn);
+        createTableau($nameClasse, $nameColumn);
         ?>
+		
         <div onclick="box1()">
-        <br><br><br>
-        <table id="main">
-            <tr class="col text_center">
-                <td class="box" style="background: inherit"></td>
-                <td class="box" style="background: inherit">
-                    <div class="box-content" style="background: orange">
-                    </div>
-                    <div class="box-icon"></div>
-                    <div class="box-title">Bureau</div>
-                </td>
-                <td class="box" style="background: inherit"></td>
-            </tr>   
-        </table>
+            <img class="Bureau" src="css/Bureau.png"/>
 		</div>
         
         <div class="text-center bouton_bas py-5">
@@ -234,9 +262,11 @@ if(!empty($_POST['addColumn'])){
 				<?php
 				//$tab = nomColonne('classe');
 				$tab = nomColonne($nameClasse);
-				for ($i = 0; $i < sizeof($tab); $i++){
+				$taille = sizeof($tab);
+				for ($i = 0; $i < $taille; $i++){
+					$nom = $tab[$i];
 				?>
-					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur()"><?php echo $tab[$i]; ?></button>
+					<button type="button" class="btn btn-secondary bg-dark" onclick="FonctionCompteur('<?php echo $nom ?>')"> <?php echo $nom; ?> </button>
 				<?php
 				}
 				?>
@@ -254,16 +284,19 @@ if(!empty($_POST['addColumn'])){
 
 		
         <script>
-        function FonctionCompteur() {
-            var NbElement = <?php echo $NbPlace; ?> * 2;
+        function FonctionCompteur(nom) {
+			
             var compteur = document.getElementsByClassName("masquer");
-            for (i=0; i<NbElement ; i++) {  
-				if (compteur[i].style.display === "none") {
-					compteur[i].style.display = "inline-block";
-				} 
-				else {
-					compteur[i].style.display = "none";
-				}
+			var taillemax = compteur.length;
+            for (i=0; i< taillemax ; i++) {
+				compteur[i].style.display = "none";
+            }
+			
+			var nomClasse = "masquer_"+ nom;
+			var compteur1 = document.getElementsByClassName(nomClasse);
+			var taillemin = compteur1.length;
+			for (i=0; i< taillemin ; i++) {
+				compteur1[i].style.display = "inline-block";
             }
         }
 		
