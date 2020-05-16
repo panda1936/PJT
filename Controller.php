@@ -4,6 +4,8 @@ require ('Model/global.php');
 
 function creation()
 {
+	$idProf =$_SESSION['profs']['id'];
+	$all =  allClasse($idProf);
 	require ('Affichage/creation_classe.html');
 }
 

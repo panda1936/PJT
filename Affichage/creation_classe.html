@@ -75,13 +75,19 @@
 						<input type='file' id="avatar" name="test" accept=".csv" value= "table" required>
 					</label>
 
-					<div class="classe_bouton_retour">
-							<div class="degrade"></div>
-							<a class="taille_bouton_retour" href="index2.php?action=classe" type="button" value="Bouton">
-								Retour 
-							</a>
-						</div>
-
+					<?php 
+					if (count ($all)>0)
+					{
+					?>
+						<div class="classe_bouton_retour">
+								<div class="degrade"></div>
+								<a class="taille_bouton_retour" href="index2.php?action=classe" type="button" value="Bouton">
+									Retour 
+								</a>
+							</div>
+					<?php
+					}
+					?>
 
 					</div>	
 						<div class="classe_bouton">
