@@ -35,7 +35,7 @@ button:hover {
 
 
 /*//////////////////////////////////////////////////////////////////*/
-/*Vrai CSS*/
+
 
 .formulaire {
   width: 100%;  
@@ -71,12 +71,6 @@ button:hover {
 
 
 
-/*.ligne { /*Mettre en ligne et pas en colonne
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}*/
 
 .titre {
   display: block;
@@ -97,14 +91,6 @@ button:hover {
 }
 
 
-
-/*.placement_case { /* Permet de mettre les champs 2 par 2, c'est plus joli, enfaite non
-  width: 100%;
-  position: relative;
-  background-color: transparent;
-  margin-bottom: 35px;
-  width: calc((100% - 30px) / 2);
-}*/
 
 #placement{
   margin-top: 20px;
@@ -237,7 +223,7 @@ textarea.case_a_remplir {
 
 
 
-.taille_bouton_deco{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
+.taille_bouton_deco{ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -345,7 +331,7 @@ textarea.case_a_remplir {
 
 
 
-.taille_bouton{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
+.taille_bouton{ 
   
   display: flex;
   justify-content: center;

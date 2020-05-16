@@ -35,7 +35,7 @@ button:hover {
 
 
 /*//////////////////////////////////////////////////////////////////*/
-/*Vrai CSS*/
+
 
 .formulaire {
   width: 100%;  
@@ -72,13 +72,6 @@ button:hover {
 }
 
 
-
-/*.ligne { /*Mettre en ligne et pas en colonne
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}*/
 
 .titre {
   display: block;
@@ -355,7 +348,7 @@ textarea.case_a_remplir {
 
 
 
-.taille_bouton{ /* Je le met la car sinon ca marche pas et je sais pas pourquoi*/
+.taille_bouton{ 
   
   display: flex;
   justify-content: center;
