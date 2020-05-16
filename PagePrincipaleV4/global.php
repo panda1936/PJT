@@ -78,7 +78,7 @@ function triAlea($nomClasse, $nbColonne, $nbLigne){
 	if ($NbreData != 0) {
 		foreach ( $rowAll as $row ) {
 				$id = $row['idEleve'];
-				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
+				$modif = "UPDATE '".$nomClasse."' SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
 				if($x < $nbColonne){
@@ -107,7 +107,7 @@ function triAlpha($nomClasse, $nbColonne, $nbLigne){
 	if ($NbreData != 0) {
 		foreach ( $rowAll as $row ) {
 				$id = $row['idEleve'];
-				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
+				$modif = "UPDATE '".$nomClasse."' SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
 				if($x < $nbColonne){

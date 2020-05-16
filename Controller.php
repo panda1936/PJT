@@ -50,7 +50,6 @@ function modification ()
 function validemodif ()
 {
 
-		session_start ();
 		$nom_classe = $_POST['valide_modif'] ;
 		$rang = $_POST['rang'];
 		$colonne = $_POST['colonne'];
@@ -59,7 +58,7 @@ function validemodif ()
 		{
 
 			modifClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne)	;
-			if ($_POST['placement'] == "Aléatoire")
+			if ($_POST['placement'] == "Aleatoire")
 			{
 				triAlea($nom_classe, $colonne, $rang);
 					
@@ -227,20 +226,22 @@ function AjoutClasse ()
 				newClasse($nom_classe, $_SESSION['profs']['id'], (int)$rang, (int)$colonne, (int)count(file($_FILES["test"]["tmp_name"])));
 				ajouterClasse ($nom_classe, $_FILES["test"]["tmp_name"]);
 					
-				if ($_POST['placement'] == "Aléatoire")
+				if ($_POST['placement'] == "Aleatoire")
 				{
+					
 					triAlea($nom_classe, $colonne, $rang);
 	
 				}
 				else
 				{
+			
 					triAlpha($nom_classe, $colonne, $rang);
 				}
 				
 					
 				unlink ($_FILES["test"]["tmp_name"]);
 				unset($_SESSION['connexion']);
-				echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe créer" ) .'", "Information !");</script>';
+				echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe créée" ) .'", "Information !");</script>';
 				header('Refresh: 0; URL=Index2.php?action=classe ');
 				
 			}
