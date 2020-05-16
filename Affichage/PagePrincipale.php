@@ -140,10 +140,12 @@ function createCommentaire($nameClasse, $x, $y, $tab){
     echo '<textarea class="textarea" name="modifier">';
     echo $commentaire;
     echo '</textarea><br>';
-    echo '<input class="btn btn-secondary bg-dark" type="submit" name="';
+    echo '<input class=" bouton_commentaire btn btn-secondary bg-dark" type="submit" name="';
     echo 'modifier'.$x.'_'.$y;
-    echo '" value="Modifier"><a class="btn btn-secondary bg-dark" href="">Fermer</a>
+    echo '" value="Modifier"><a class="btn btn-secondary bg-dark" href="JavaScript: location.reload(true);">Fermer</a>
     </form></div><br>';
+    
+    
 }
 
 if(!empty($_POST['addColumn'])){
@@ -156,7 +158,7 @@ if(!empty($_POST['addColumn'])){
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Studybo</title>
+        <title>Studyboards</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -216,6 +218,9 @@ if(!empty($_POST['addColumn'])){
             </nav>
             </div>
             </div>
+            
+            <h1 class="Classe_actuelle">Classe : <?php echo $nameClasse ?> </h1>
+            
         </header>
         
         <?php

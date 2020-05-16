@@ -1,3 +1,11 @@
+.Classe_actuelle{
+    font-size: 20px;
+    font-family: Arial;
+    text-align: center;
+    margin-left: -115px;
+    
+}
+
 body {
 	
     background: url("background1.jpg") no-repeat center center fixed; 
@@ -191,17 +199,17 @@ body {
     text-align: left;
     margin-left: 11%;
     font-style: normal;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 .bouton_compteur{
-    font-size: 10px;
+    font-size: 7px;
     text-align: center;
 }
 
 .nom_compteur{
-    font-size: 16px;
-    padding-left: 40px;
+    font-size: 13px;
+    padding-left: 7px;
 	text-align:center;
 }
 
@@ -226,13 +234,62 @@ body {
 
 @media only screen and (max-width: 1150px) {
    
-    .box-title {
-       padding-left: 50px;
-    }
 
     .nom_compteur{
-        font-size: 10px;
-        padding-left: 15px;
+        margin-left: -23px;
+        font-size: 7px;
+        padding-left: 3px;
+    }
+    
+    .box-title {
+        padding-left: 40px;
+        width:100%;
+        margin:15px 0 0 0;
+        position:absolute;
+        font-size:10px;
+        color:rgb(30,30,30);
+        text-align:center;
+        letter-spacing:2px;
+    }
+    
+    .Logo{
+        width: 150px;   
+        margin-left: 3%;
+        display: block;
+        position: absolute;
+    }
+    
+    .box-icon {
+	background:url(eleve.png) no-repeat center center / contain;
+	width:30px;
+	height:50px;
+	position:absolute;
+    top: 30px;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    }
+    
+    .box-content {
+        background:#44C9CF;
+        width:30px;
+        height:30px;
+        border-radius:100px;
+        overflow:hidden;
+        position: absolute;
+        top: 30px;
+        left: 20%;
+        transform: translate(-50%, -50%);
+    }
+    
+    /*L'icône qui s'agrandit et devient plus opaque Lorsqu'une .box a été cliquée */
+.box.target .box-icon {
+        width:30px;
+        height:60px;
+        opacity:0.9;
+    }
+    
+    .bouton_commentaire{
+        padding: 0;   
     }
 }   
 
