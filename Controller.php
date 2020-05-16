@@ -91,9 +91,19 @@ function Supprimer_Attribut ()
 function SupprimerClasse ()
 {
 	$nameTab = $_POST['suppr_classe'] ;
-	deleteClasse($nameTab, $_SESSION['profs']['id']);
-	echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
-	header('Refresh: 0; URL=Index2.php?action=classe');
+	if (count ( allClasse($_SESSION['profs']['id']))>1)
+	{
+		deleteClasse($nameTab, $_SESSION['profs']['id']);
+		echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
+		header('Refresh: 0; URL=Index2.php?action=classe');
+	}
+	else 
+	{
+		echo '<script type="text/javascript">alert("'. utf8_encode (  "Vous devez garder au moins 1 classe " ) .'", "Information !");</script>';
+		header('Refresh: 0; URL=Index2.php?action=classe');
+	}
+	
+	
 }
 
 

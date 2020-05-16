@@ -13,7 +13,6 @@ function connect(){
 function addColumn($nameTab, $nameColumn){
 	$bdd = connect();
     $add_column = "ALTER TABLE $nameTab ADD $nameColumn INT DEFAULT 0";
-	echo ("a");
     $bdd->exec($add_column);
 }
 
