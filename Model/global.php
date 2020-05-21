@@ -81,7 +81,7 @@ function triAlea($nomClasse, $nbColonne, $nbLigne){
 				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
-				if($x < $nbColonne){
+				if($x < $nbColonne-1){
 					$x++;
 				} else {
 					$x = 0;
@@ -110,7 +110,7 @@ function triAlpha($nomClasse, $nbColonne, $nbLigne){
 				$modif = "UPDATE $nomClasse SET x = $x, y = $y WHERE IdEleve = $id";
 				$bdd->exec($modif);
 
-				if($x < $nbColonne){
+				if($x < $nbColonne-1){
 					$x++;
 				} else {
 					$x = 0;
@@ -284,7 +284,7 @@ function modifClasse($nameClasse, $idProf, $x, $y){
 
 function modifValeur($nameClasse, $nomColonne, $idEleve, $point){
 	$bdd = connect();
-	if ($point <= 0)) {
+	if ($point >= 0) {
 	    $modif = "UPDATE $nameClasse SET $nomColonne = $point WHERE idEleve = $idEleve";
 		$bdd->exec($modif);
 	}
