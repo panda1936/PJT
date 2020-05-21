@@ -1,0 +1,3 @@
+- Créer un base de données de nom "global"
+- Importer le fichier sql
+- Pour la création de classe, utiliser au moins une lettre dans le nom (Ne pas mettre d'espace)
