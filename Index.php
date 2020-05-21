@@ -8,12 +8,11 @@ if (isset($_GET['action']))
 	
 		if ($_GET['action'] == 'creation')
 		{
-			creation ();
-		}
-		elseif ($_GET['action'] == 'validation')
-		{
-			
-			Validation ();
+			if(isset($_SESSION['profs']['id']))
+			{
+				creation ();
+			}
+			else die("aucune SESSION");
 		
 		}
 		elseif ($_GET['action'] == 'verification')
@@ -46,7 +45,12 @@ if (isset($_GET['action']))
 		}
 		elseif ($_GET['action'] == 'modification')
 		{
-			modification ();
+			if(isset($_SESSION['profs']['id']))
+			{
+				modification ();
+			}
+			else die("aucune SESSION");
+			
 		}
 		elseif ($_GET['action'] == 'classe')
 		{
@@ -60,7 +64,7 @@ if (isset($_GET['action']))
 		{
 			session_unset();
 			session_destroy();
-			header("Location: Index2.php");
+			header("Location: Index.php");
 		}
 
 	
@@ -69,10 +73,6 @@ else
 {
 	
 	
-	if (((isset($_SESSION['inscription']['erreur']) || isset($_SESSION['profs']['erreur']))) )
-	{
-		session_destroy();
-	}
 	Login (); 
 	
 

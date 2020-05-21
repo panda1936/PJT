@@ -96,7 +96,7 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     if (isset($_POST[$nameplus])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point+1);
         echo '<script language="Javascript"">
-            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
+            document.location.href="Index.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 
@@ -104,7 +104,7 @@ function createCompteur($nameClasse, $nameColumn, $x, $y, $info) {
     if (isset($_POST[$namemoins])) {
         modifValeur($nameClasse, $nameColumn, $idEleve, $point-1);
         echo '<script language="Javascript"> 
-            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
+            document.location.href="Index.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 
@@ -131,7 +131,7 @@ function createCommentaire($nameClasse, $x, $y, $tab){
 		$message = $_POST["modifier"];
 		modCommentaire($nameClasse, $idEleve, $message);
 		echo '<script language="Javascript">
-            document.location.href="index2.php?action=classe&classe='.$nameClasse.'"
+            document.location.href="Index.php?action=classe&classe='.$nameClasse.'"
         </script>';
     }
 	
@@ -182,7 +182,7 @@ if(!empty($_POST['addColumn'])){
 
         <header onclick="box1()">
             <img class="Logo" src="Affichage/style/TitleLogo_WhiteBG.svg"/>
-			<button class="Deconnexion" onclick="location.href='index2.php?action=deconnexion'">Déconnexion</button>
+			<button class="Deconnexion" onclick="location.href='Index.php?action=deconnexion'">Déconnexion</button>
 			<div class="text-center my-5">
             <div class="btn-group">
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark rounded-pill">
@@ -201,16 +201,16 @@ if(!empty($_POST['addColumn'])){
 			?>         
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="index2.php?action=classe&classe=<?php echo $row[0]?>"> <?php echo $row[0] ?> </a>
+                    <a class="nav-link dropdown-toggle" href="Index.php?action=classe&classe=<?php echo $row[0]?>"> <?php echo $row[0] ?> </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="index2.php?action=modification&classe=<?php echo $row[0]?>">Gestion</a></li>
+                        <li><a class="dropdown-item" href="Index.php?action=modification&classe=<?php echo $row[0]?>">Gestion</a></li>
                         </ul>
                 </li>
 
 			<?php } ?>
 				<li class="nav-item">
 					<?php if(sizeof($tab) <= 5){ ?> 
-						<a class="nav-link" href="index2.php?action=creation">+</a>
+						<a class="nav-link" href="Index.php?action=creation">+</a>
 					<?php } ?>
                 </li>
             </ul>

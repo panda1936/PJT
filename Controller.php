@@ -70,7 +70,7 @@ function validemodif ()
 				triAlpha($nom_classe, $colonne, $rang);
 			}
 			echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe modifiée" ) .'", "Information !");</script>';
-			header("Refresh: 0; URL=Index2.php?action=classe&classe=$nom_classe");
+			header("Refresh: 0; URL=Index.php?action=classe&classe=$nom_classe");
 		}
 		else
 		{
@@ -86,7 +86,7 @@ function Supprimer_Attribut ()
 	$nameColumn = ($_POST['attribut']) ;
 	remColumn($nameTab, $nameColumn);
 	echo '<script type="text/javascript">alert("'. utf8_encode (  "Attribut supprimé" ) .'", "Information !");</script>';
-	header("Refresh: 0; URL=Index2.php?action=classe&classe=$nameTab");
+	header("Refresh: 0; URL=Index.php?action=classe&classe=$nameTab");
 	
 }
 
@@ -97,12 +97,12 @@ function SupprimerClasse ()
 	{
 		deleteClasse($nameTab, $_SESSION['profs']['id']);
 		echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe supprimée" ) .'", "Information !");</script>';
-		header('Refresh: 0; URL=Index2.php?action=classe');
+		header('Refresh: 0; URL=Index.php?action=classe');
 	}
 	else 
 	{
 		echo '<script type="text/javascript">alert("'. utf8_encode (  "Vous devez garder au moins 1 classe " ) .'", "Information !");</script>';
-		header('Refresh: 0; URL=Index2.php?action=classe');
+		header('Refresh: 0; URL=Index.php?action=classe');
 	}
 	
 	
@@ -128,11 +128,11 @@ function Connexion ()
 			$all = allClasse($id);
 			if (count($all)>0)
 			{
-				header("Location: Index2.php?action=classe");
+				header("Location: Index.php?action=classe");
 			}
 			else
 			{
-				header("Location: Index2.php?action=creation");
+				header("Location: Index.php?action=creation");
 			}
 		}
 		else 
@@ -140,14 +140,14 @@ function Connexion ()
 	
 			$erreur = "Adresse mail ou mot de passe incorrect  !";
 			$_SESSION['profs']['erreur'] = $erreur;
-			header("location: Index2.php?co=connexion" );
+			header("location: Index.php?co=connexion" );
 		}
 	} 
 	else 
 	{
 		$erreur = "Veuillez compléter tous les champs ! !";
 		$_SESSION['profs']['erreur'] = $erreur;
-		header("location: Index2.php?co=connexion" );
+		header("location: Index.php?co=connexion" );
 	}
 }
 
@@ -175,38 +175,38 @@ function Inscription ()
 							addProf($pseudo, $mdp, $mail);
 							unset($_SESSION['inscription']);
 							$_SESSION['profs']['erreur'] = "Inscription reussie ";
-							header("location: Index2.php?co=connexion" );
+							header("location: Index.php?co=connexion" );
 	
 						} else {
 							$erreur = "Vos mots de passe ne correspondent pas !";
 							$_SESSION['inscription']['erreur']=$erreur;
-							header("location: Index2.php?co=inscription" );
+							header("location: Index.php?co=inscription" );
 						}
 					} else {
 						$erreur = "Cette adresse mail est déjà utilisee !";
 						$_SESSION['inscription']['erreur']=$erreur;
-						header("location: Index2.php?co=inscription" );
+						header("location: Index.php?co=inscription" );
 					}
 				} else {
 					$erreur = "Cette adresse mail n'est pas valide !";
 					$_SESSION['inscription']['erreur']=$erreur;
-					header("location: Index2.php?co=inscription" );
+					header("location: Index.php?co=inscription" );
 				}
 			} else {
 				$erreur = "Ces adresses mail ne correspondent pas !";
 				$_SESSION['inscription']['erreur']=$erreur;
-				header("location: Index2.php?co=inscription" );
+				header("location: Index.php?co=inscription" );
 			}
 		} else {
 			$erreur = "Votre pseudo ne doit pas dépasser 255 charactères !";
 			$_SESSION['inscription']['erreur']=$erreur;
-			header("location: Index2.php?co=inscription" );
+			header("location: Index.php?co=inscription" );
 		}
 	} else {
 			
 		$erreur = "Veuillez completer tous les champs !";
 		$_SESSION['inscription']['erreur']=$erreur;
-		header("location: Index2.php?co=inscription" );
+		header("location: Index.php?co=inscription" );
 	}
 }
 
@@ -254,7 +254,7 @@ function AjoutClasse ()
 				unlink ($_FILES["test"]["tmp_name"]);
 				unset($_SESSION['connexion']);
 				echo '<script type="text/javascript">alert("'. utf8_encode (  "Classe créée" ) .'", "Information !");</script>';
-				header('Refresh: 0; URL=Index2.php?action=classe ');
+				header('Refresh: 0; URL=Index.php?action=classe ');
 				
 			}
 			else

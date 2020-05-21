@@ -31,7 +31,7 @@
             
             <!-- se connecter -->
             <div id="connecter">
-                <form method="POST" action="Index2.php?action=verification">
+                <form method="POST" action="Index.php?action=verification">
                     <label for="email" class="label">EMAIL</label><br>
                     <input id="email" type="email" name="mailconnect" class="input" placeholder="Votre email"><br><br>
 
@@ -54,7 +54,7 @@
             <!-- s'inscrire -->
 
             <div id="inscrire">
-                <form method="POST" action="Index2.php?action=verification">
+                <form method="POST" action="Index.php?action=verification">
                     <label for="utilisateur" class="label">NOM UTILISATEUR</label><br>
                     <input id="utilisateur" type="texte" placeholder="Votre nom d'utilisateur" name="pseudo" class="input" value="<?php if(isset($_SESSION['inscription']['pseudo'])) { echo $_SESSION['inscription']['pseudo']; } ?>"><br><br>
 
