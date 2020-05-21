@@ -142,7 +142,7 @@ function createCommentaire($nameClasse, $x, $y, $tab){
     echo '</textarea><br>';
     echo '<input class=" bouton_commentaire btn btn-secondary bg-dark" type="submit" name="';
     echo 'modifier'.$x.'_'.$y;
-    echo '" value="Modifier"><a class="btn btn-secondary bg-dark" href="JavaScript: location.reload(true);">Fermer</a>
+    echo '" value="Modifier"><a class=" bouton_commentaire btn btn-secondary bg-dark" href="JavaScript: location.reload(true);">Fermer</a>
     </form></div><br>';
     
     
