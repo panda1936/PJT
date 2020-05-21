@@ -284,8 +284,10 @@ function modifClasse($nameClasse, $idProf, $x, $y){
 
 function modifValeur($nameClasse, $nomColonne, $idEleve, $point){
 	$bdd = connect();
-    $modif = "UPDATE $nameClasse SET $nomColonne = $point WHERE idEleve = $idEleve";
-    $bdd->exec($modif);
+	if ($point <= 0)) {
+	    $modif = "UPDATE $nameClasse SET $nomColonne = $point WHERE idEleve = $idEleve";
+		$bdd->exec($modif);
+	}
 }
 
 function modCommentaire($nameClasse, $idEleve, $message){
