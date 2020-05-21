@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Modification de la classe</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<link rel="stylesheet" href="Affichage/style/style_modif.css" media="screen" type="text/css" />
+	</head>
+
+<?php
+	
+	
+	
+ ?>
+
+	<body>
+
+		<div class="formulaire">
+			<div class="boite_formulaire">
+				<div class="classe_bouton_deco">
+						<div class="degrade"></div>
+						<button class="taille_bouton" onclick="location.href='Index.php?action=deconnexion'">
+							Deconnexion
+						</button>
+				</div>
+				<form action="Index.php?action=verification" method="post" class="fofo"> <!-- On envoie les reponses du formulaire dans PageValidation.html-->
+
+					<div class = "form">
+						<span class="titre">
+							Modification de votre classe
+						</span>
+
+						<div >
+							<span class="police_formulaire" id="static">
+								<div class="centrer"  >Nom de la classe : <?php echo ($nameClasse); ?> </div>
+							</span>
+						</div>
+
+						<div >
+							<span class="police_formulaire" id="static">
+								<div class="centrer">Nombre d'eleves : <?php echo ($taille[2]); ?> </div>
+							</span>
+						</div>
+
+						<div class="placement_case">
+							<span class="police_formulaire">Nombres de rangs </span>
+							
+								<input type="number" min="0" max="7"class="case_a_remplir" type="text" name="rang" placeholder="Ex : 4", value = "<?php echo ($taille[0]); ?>" required>
+							
+							
+						</div>
+
+						<div class="placement_case">
+							<span class="police_formulaire">Nombres de colonnes </span>
+							<input type="number" min="0" max="7"class="case_a_remplir" type="text" name="colonne" placeholder="Ex : 7", value = "<?php echo ($taille [1]); ?>"  required>
+						</div>
+
+
+						<div class="placement_case">
+							<label for="placement">
+								Placement des élèves :  
+		                        <select id="placement" name="placement" class="alig_1">
+		                            <option value="Alphabetique">Alphabetique</option>
+		                            <option value="Aleatoire">Aléatoire</option>
+		                        </select>
+		                    </label>
+		                </div>
+
+		                <div class="placement_case">
+							<label for="placement">
+								Modification des attributs :  
+		                        <select id="placement" name="attribut" class="alig">
+										<?php 
+											foreach ($attribut as &$value) {
+										?>
+}
+											<option value="<?php echo ($value);?>"><?php echo ($value);?></option>)
+										<?php
+											}
+										?>
+		                        </select>
+		                    </label>
+		                </div>
+
+		                <div class="classe_bouton_supp_att">
+							<div class="degrade"></div>
+							<button class="taille_bouton_att" name = "suppr_attribut" value = "<?php echo ($nameClasse); ?>" >
+								Supprimer l'attribut
+							</button>
+						</div>
+
+
+		               
+
+	                </div>
+
+	                 
+	                  
+						<div class="classe_bouton">
+							<div class="degrade"></div>
+							<button class="taille_bouton" name = "valide_modif" value= "<?php echo ($nameClasse); ?>">
+								Valider
+							</button>
+						</div>	
+
+						<div class="classe_bouton_supp">
+							<div class="degrade"></div>
+							<button class="taille_bouton" name = "suppr_classe" value= "<?php echo ($nameClasse); ?>">
+								Supprimer la classe
+							</button>
+						</div>
+
+
+						<div class="classe_bouton_retour">
+							<div class="degrade"></div>
+							<a class="taille_bouton_retour" href="Index.php?action=classe&classe=<?php echo($nameClasse);?> " type="button" value="Bouton">
+								Retour 
+							</a>
+						</div>	
+
+					
+				</form>
+			</div>
+
+
+		</div>
+	</body>
+</html>
